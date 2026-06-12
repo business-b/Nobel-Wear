@@ -1673,7 +1673,7 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
   <div class="admin-topbar">
     <div class="admin-brand"><i class="fas fa-crown"></i> NOBEL WEAR — Admin</div>
     <div style="display:flex;align-items:center;gap:18px;">
-      <span style="color:rgba(198,167,94,.7);font-size:14px;"><i class="fas fa-user-circle"></i> sudais</span>
+      <span style="color:rgba(198,167,94,.7);font-size:14px;"><i class="fas fa-user-circle"></i> abdullah</span>
       <button class="admin-logout" onclick="adminLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
     </div>
   </div>
@@ -1859,7 +1859,7 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
 // ═══════════════════════════════════════════════
 // DATA
 // ═══════════════════════════════════════════════
-let adminPassword = 'veloria01';
+let adminPassword = 'nobel01';
 let products = JSON.parse(localStorage.getItem('nw_products') || 'null');
 if (!products) {
   products = [
@@ -2279,7 +2279,7 @@ function openAdminLogin(){openModal('adminLoginModal');document.getElementById('
 function adminLogin(){
   const u=document.getElementById('admin-u').value.trim();
   const p=document.getElementById('admin-p').value;
-  if(u==='sudais'&&p===adminPassword){
+  if(u==='abdullah'&&p===adminPassword){
     closeModal('adminLoginModal');
     document.getElementById('admin-panel').style.display='block';
     document.body.style.overflow='hidden';
