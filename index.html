@@ -181,8 +181,11 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--forest);o
 .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;}
 .detail-gallery{position:relative;}
 .detail-main-img{width:100%;height:500px;object-fit:cover;object-position:top center;border-radius:var(--r-lg);background:var(--gold-pale);display:flex;align-items:center;justify-content:center;font-size:130px;overflow:hidden;}
-.detail-thumbs{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
-.detail-thumb{width:72px;height:72px;border-radius:10px;object-fit:cover;cursor:pointer;border:2px solid transparent;transition:all .25s;background:var(--gold-pale);display:flex;align-items:center;justify-content:center;font-size:28px;}
+.detail-thumbs{display:flex;gap:10px;margin-top:14px;overflow-x:auto;padding-bottom:8px;scrollbar-width:thin;}
+.detail-thumbs::-webkit-scrollbar{height:6px;}
+.detail-thumbs::-webkit-scrollbar-track{background:rgba(198,167,94,.1);border-radius:3px;}
+.detail-thumbs::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px;}
+.detail-thumb{width:72px;height:72px;border-radius:10px;object-fit:cover;cursor:pointer;border:2px solid transparent;transition:all .25s;background:var(--gold-pale);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;}
 .detail-thumb:hover,.detail-thumb.active{border-color:var(--gold);}
 .detail-info{display:flex;flex-direction:column;gap:18px;}
 .detail-category{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:600;}
@@ -267,24 +270,11 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
 .star-input{display:flex;gap:8px;font-size:28px;color:#ddd;cursor:pointer;margin-bottom:4px;}
 .star-input .star{transition:color .15s;}
 .star-input .star:hover,.star-input .star.on{color:var(--gold);}
-/* ── ORDER PRICE SUMMARY ── */
-.order-price-summary{
-  background:linear-gradient(135deg,var(--forest),var(--forest-m));
-  border-radius:12px;padding:16px 18px;margin-bottom:18px;
-  border:1px solid rgba(198,167,94,.25);
-}
-.order-price-row{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:5px 0;font-size:14px;color:rgba(255,255,255,.75);
-}
-.order-price-row.total{
-  border-top:1px solid rgba(198,167,94,.3);
-  margin-top:8px;padding-top:10px;
-  font-size:17px;font-weight:700;color:var(--gold);
-}
+.order-price-summary{background:linear-gradient(135deg,var(--forest),var(--forest-m));border-radius:12px;padding:16px 18px;margin-bottom:18px;border:1px solid rgba(198,167,94,.25);}
+.order-price-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;font-size:14px;color:rgba(255,255,255,.75);}
+.order-price-row.total{border-top:1px solid rgba(198,167,94,.3);margin-top:8px;padding-top:10px;font-size:17px;font-weight:700;color:var(--gold);}
 .order-price-row .label{display:flex;align-items:center;gap:6px;}
 .order-price-row .label i{color:var(--gold);font-size:12px;}
-/* ── ADMIN ── */
 .admin-login-icon{width:64px;height:64px;background:linear-gradient(135deg,var(--forest),var(--gold));border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:28px;color:#fff;}
 .admin-login-err{color:#e74c3c;font-size:12px;display:none;margin-bottom:8px;}
 #admin-panel{display:none;position:fixed;inset:0;background:#f4f5f7;z-index:10000;overflow-y:auto;}
@@ -338,7 +328,7 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
 .img-upload-area:hover{background:rgba(198,167,94,.08);}
 .img-upload-area i{font-size:36px;color:var(--gold);display:block;margin-bottom:10px;}
 .img-upload-area p{color:var(--gray);font-size:13px;}
-.img-previews{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px;}
+.img-previews{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:14px;}
 .img-prev-item{position:relative;border-radius:8px;overflow:hidden;aspect-ratio:1;background:var(--gold-pale);display:flex;align-items:center;justify-content:center;font-size:30px;}
 .img-prev-item img{width:100%;height:100%;object-fit:cover;}
 .img-prev-remove{position:absolute;top:4px;right:4px;width:22px;height:22px;background:rgba(231,76,60,.9);border:none;border-radius:50%;color:#fff;cursor:pointer;font-size:10px;display:flex;align-items:center;justify-content:center;}
@@ -349,7 +339,6 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
 .settings-title{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--forest);margin-bottom:18px;font-weight:600;}
 .whatsapp-float{position:fixed;bottom:28px;right:28px;width:56px;height:56px;border-radius:50%;background:#25d366;color:#fff;font-size:26px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(37,211,102,.4);text-decoration:none;transition:all .3s;z-index:999;}
 .whatsapp-float:hover{transform:scale(1.1);}
-/* Order detail in admin */
 .od-section{background:#f9fafb;border-radius:12px;padding:16px;margin-bottom:14px;}
 .od-section-title{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:6px;}
 .od-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
@@ -381,12 +370,14 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
   .admin-sidebar{display:none;}
   .form-row,.admin-grid-2,.od-grid{grid-template-columns:1fr;}
   .footer-grid{grid-template-columns:1fr 1fr;}
+  .img-previews{grid-template-columns:repeat(4,1fr);}
 }
 @media(max-width:580px){
   .hero-title{font-size:38px;}
   .hero-subtitle{font-size:20px;}
   .section-title{font-size:34px;}
   .footer-grid{grid-template-columns:1fr;}
+  .img-previews{grid-template-columns:repeat(3,1fr);}
 }
 </style>
 </head>
@@ -723,7 +714,7 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
 
 <a href="https://wa.me/923163475925" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
-<!-- ══════════ ORDER MODAL ══════════ -->
+<!-- ORDER MODAL -->
 <div class="modal-overlay" id="orderModal">
   <div class="modal" style="max-width:620px;">
     <div class="modal-head">
@@ -733,8 +724,6 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
     <div class="modal-body" id="orderModalBody">
       <div id="order-form-wrap">
         <div id="order-product-preview" style="display:flex;gap:14px;align-items:center;background:var(--cream);padding:14px;border-radius:10px;margin-bottom:16px;"></div>
-
-        <!-- STITCH OPTION (shown for clothing) -->
         <div id="stitch-group" style="display:none;margin-bottom:16px;">
           <label class="form-label"><i class="fas fa-cut"></i> Stitching Option</label>
           <div class="stitch-tabs">
@@ -762,8 +751,6 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
             </div>
           </div>
         </div>
-
-        <!-- PRICE SUMMARY (always visible above Order Now) -->
         <div class="order-price-summary" id="order-price-summary">
           <div class="order-price-row" id="opr-product">
             <span class="label"><i class="fas fa-tag"></i> Product Price</span>
@@ -782,7 +769,6 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
             <span id="opr-total-val">PKR 0</span>
           </div>
         </div>
-
         <form onsubmit="submitOrder(event)">
           <div class="form-row">
             <div class="form-group">
@@ -837,7 +823,7 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
   </div>
 </div>
 
-<!-- ══════════ REVIEW MODAL ══════════ -->
+<!-- REVIEW MODAL -->
 <div class="modal-overlay" id="reviewModal">
   <div class="modal" style="max-width:480px;">
     <div class="modal-head">
@@ -871,7 +857,7 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
   </div>
 </div>
 
-<!-- ══════════ ORDER DETAIL MODAL (Admin) ══════════ -->
+<!-- ORDER DETAIL MODAL (ADMIN) -->
 <div class="modal-overlay" id="orderDetailModal">
   <div class="modal" style="max-width:680px;">
     <div class="modal-head">
@@ -882,7 +868,7 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
   </div>
 </div>
 
-<!-- ══════════ ADMIN LOGIN ══════════ -->
+<!-- ADMIN LOGIN -->
 <div class="modal-overlay" id="adminLoginModal">
   <div class="modal" style="max-width:400px;">
     <div class="modal-head">
@@ -908,7 +894,7 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
   </div>
 </div>
 
-<!-- ══════════ ADMIN PANEL ══════════ -->
+<!-- ADMIN PANEL -->
 <div id="admin-panel">
   <div class="admin-topbar">
     <div class="admin-brand"><i class="fas fa-crown"></i> NOBEL WEAR — Admin</div>
@@ -1009,7 +995,7 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
                 <textarea class="admin-textarea" id="p-desc" rows="3" placeholder="Describe the product..."></textarea>
               </div>
               <div class="admin-form-group" style="grid-column:1/-1">
-                <label class="admin-label">Product Images * (Up to 6)</label>
+                <label class="admin-label">Product Images * (Up to 10)</label>
                 <div class="img-upload-area" onclick="document.getElementById('p-images').click()">
                   <i class="fas fa-cloud-upload-alt"></i>
                   <p>Click to upload from device (any format accepted)</p>
@@ -1094,14 +1080,7 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
 </div>
 
 <script>
-// ════════════════════════════════════════
-// CONSTANTS
-// ════════════════════════════════════════
 const STITCH_PRICE = 1500;
-
-// ════════════════════════════════════════
-// DATA
-// ════════════════════════════════════════
 let adminPassword = 'nobel01';
 let products = JSON.parse(localStorage.getItem('nw_products') || 'null');
 if (!products) {
@@ -1117,9 +1096,8 @@ if (!products) {
   ];
   saveProducts();
 }
-
-let orders   = JSON.parse(localStorage.getItem('nw_orders')   || '[]');
-let reviews  = JSON.parse(localStorage.getItem('nw_reviews')  || '[]');
+let orders = JSON.parse(localStorage.getItem('nw_orders') || '[]');
+let reviews = JSON.parse(localStorage.getItem('nw_reviews') || '[]');
 let cart = [], wishlist = [];
 let currentProduct = null, currentDetailId = null;
 let pendingImages = [], editProductId = null;
@@ -1135,14 +1113,8 @@ function saveOrders()  { localStorage.setItem('nw_orders',   JSON.stringify(orde
 function saveReviews() { localStorage.setItem('nw_reviews',  JSON.stringify(reviews));  }
 function saveOC()      { localStorage.setItem('nw_oc', orderCounter); }
 
-// ════════════════════════════════════════
-// LOADER
-// ════════════════════════════════════════
 setTimeout(() => { document.getElementById('loader').classList.add('hidden'); }, 2600);
 
-// ════════════════════════════════════════
-// PARTICLES & SHAPES
-// ════════════════════════════════════════
 const particlesCont = document.getElementById('heroParticles');
 for (let i = 0; i < 35; i++) {
   const p = document.createElement('div');
@@ -1159,16 +1131,10 @@ const shapesCont = document.getElementById('heroShapes');
   shapesCont.appendChild(sh);
 });
 
-// ════════════════════════════════════════
-// NAVBAR
-// ════════════════════════════════════════
 window.addEventListener('scroll', () => {
   document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 80);
 });
 
-// ════════════════════════════════════════
-// PANELS
-// ════════════════════════════════════════
 function openCartPanel()  { closePanels(); document.getElementById('cartPanel').classList.add('open'); document.getElementById('panelOverlay').classList.add('show'); renderCart(); }
 function openWishPanel()  { closePanels(); document.getElementById('wishPanel').classList.add('open'); document.getElementById('panelOverlay').classList.add('show'); renderWish(); }
 function openMenuPanel()  { closePanels(); document.getElementById('menuPanel').classList.add('open'); document.getElementById('panelOverlay').classList.add('show'); }
@@ -1179,9 +1145,6 @@ function closePanels() {
   document.getElementById('panelOverlay').classList.remove('show');
 }
 
-// ════════════════════════════════════════
-// CART
-// ════════════════════════════════════════
 function addToCart(product) {
   const ex = cart.find(c => c.id === product.id);
   if (ex) { ex.qty++; } else { cart.push({...product, qty:1}); }
@@ -1203,9 +1166,6 @@ function renderCart() {
   </div>`).join('');
 }
 
-// ════════════════════════════════════════
-// WISHLIST
-// ════════════════════════════════════════
 function toggleWish(id) {
   const idx = wishlist.findIndex(x => x.id === id);
   const p = products.find(x => x.id === id);
@@ -1233,9 +1193,6 @@ function removeFromWish(id) {
   wb.style.display = wishlist.length > 0 ? 'flex' : 'none';
 }
 
-// ════════════════════════════════════════
-// PRODUCT CARD
-// ════════════════════════════════════════
 function starsHTML(r) {
   let s = '';
   for (let i=1; i<=5; i++) {
@@ -1272,9 +1229,6 @@ function buildCard(p) {
 }
 function catLabel(c) { return {clothing:'Clothing',shoes:'Footwear',watches:'Watches',accessories:'Accessories'}[c]||c; }
 
-// ════════════════════════════════════════
-// CATEGORY PAGES
-// ════════════════════════════════════════
 function openMenPage()   { document.getElementById('men-page').classList.add('open');   document.body.style.overflow='hidden'; renderMenGrid(); }
 function openWomenPage() { document.getElementById('women-page').classList.add('open'); document.body.style.overflow='hidden'; renderWomenGrid(); }
 function closeCatPage(id){ document.getElementById(id).classList.remove('open'); document.body.style.overflow=''; }
@@ -1316,9 +1270,6 @@ function filterWomen(fabric,el) {
   renderWomenGrid();
 }
 
-// ════════════════════════════════════════
-// HOME PRODUCTS
-// ════════════════════════════════════════
 function renderHomeProducts() {
   document.getElementById('homeProductsTrack').innerHTML = products.map(buildCard).join('');
 }
@@ -1326,9 +1277,6 @@ function scrollTrack(dir) {
   document.getElementById('homeProductsTrack').scrollBy({left: dir*280, behavior:'smooth'});
 }
 
-// ════════════════════════════════════════
-// PRODUCT DETAIL
-// ════════════════════════════════════════
 function openDetail(id) {
   const p = products.find(x => x.id===id); if(!p) return;
   currentDetailId = id;
@@ -1374,9 +1322,6 @@ function closeDetail() { document.getElementById('product-detail').classList.rem
 function openOrderFromDetail()  { if(currentDetailId) openOrderModal(currentDetailId); }
 function openReviewFromDetail() { if(currentDetailId) openReviewModal(currentDetailId); }
 
-// ════════════════════════════════════════
-// PRICE SUMMARY
-// ════════════════════════════════════════
 function updatePriceSummary() {
   if (!currentProduct) return;
   const qty    = parseInt(document.getElementById('o-qty').value) || 1;
@@ -1387,28 +1332,21 @@ function updatePriceSummary() {
   const total      = (unitPrice + stitchFee) * qty;
 
   document.getElementById('opr-product-val').textContent = `PKR ${unitPrice.toLocaleString()}`;
-  // stitch row
   const stitchRow = document.getElementById('opr-stitch-row');
   stitchRow.style.display = stitched ? 'flex' : 'none';
   document.getElementById('opr-stitch-val').textContent = `PKR ${STITCH_PRICE.toLocaleString()}`;
-  // qty row
   const qtyRow = document.getElementById('opr-qty-row');
   qtyRow.style.display = qty > 1 ? 'flex' : 'none';
   document.getElementById('opr-qty-val').textContent = `× ${qty}`;
-  // total
   document.getElementById('opr-total-val').textContent = `PKR ${total.toLocaleString()}`;
 }
 
-// ════════════════════════════════════════
-// ORDER MODAL
-// ════════════════════════════════════════
 function openOrderModal(id) {
   const p = products.find(x => x.id===id); if(!p) return;
   if (p.qty<=0) { showToast('Sorry, this product is sold out!'); return; }
   currentProduct  = p;
   currentStitch   = 'Stitched';
 
-  // Product preview
   document.getElementById('order-product-preview').innerHTML = `
     <div style="width:72px;height:72px;background:var(--gold-pale);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:36px;flex-shrink:0;">${p.emoji||'📦'}</div>
     <div>
@@ -1416,20 +1354,17 @@ function openOrderModal(id) {
       <div style="color:var(--gray);font-size:13px;">${catLabel(p.category)}${p.fabric?' · '+p.fabric:''}</div>
     </div>`;
 
-  // Show/hide stitch section
   const sg = document.getElementById('stitch-group');
   if (p.category === 'clothing') {
     sg.style.display = 'block';
-    // Reset stitch tabs
     document.querySelectorAll('.stitch-tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.stitch-tab')[1].classList.add('active'); // Stitched default
+    document.querySelectorAll('.stitch-tab')[1].classList.add('active');
     document.getElementById('measurement-box').classList.add('show');
   } else {
     sg.style.display = 'none';
     currentStitch = 'N/A';
   }
 
-  // Reset form
   document.getElementById('order-form-wrap').style.display = 'block';
   document.getElementById('order-success').style.display   = 'none';
   ['o-name','o-phone','o-address','o-city','o-notes'].forEach(id => document.getElementById(id).value='');
@@ -1437,7 +1372,6 @@ function openOrderModal(id) {
   document.getElementById('o-payment').value = '';
   document.getElementById('m-photo-preview').style.display='none';
 
-  // Init price summary
   updatePriceSummary();
   openModal('orderModal');
 }
@@ -1479,7 +1413,6 @@ function submitOrder(e) {
   const stitchFee  = stitched ? STITCH_PRICE : 0;
   const total      = (unitPrice + stitchFee) * qty;
 
-  // Measurement photo (base64 if uploaded)
   let measurementPhoto = null;
   const mPhotoEl = document.getElementById('m-photo-preview');
   if (mPhotoEl.style.display !== 'none' && mPhotoEl.src) {
@@ -1514,7 +1447,6 @@ function submitOrder(e) {
 
   orders.unshift(order); saveOrders();
 
-  // Reduce stock
   const idx = products.findIndex(x => x.id===currentProduct.id);
   if (idx !== -1) { products[idx].qty = Math.max(0, products[idx].qty - qty); saveProducts(); }
   renderHomeProducts();
@@ -1524,9 +1456,6 @@ function submitOrder(e) {
   showToast('Order placed successfully! ✅');
 }
 
-// ════════════════════════════════════════
-// REVIEW MODAL
-// ════════════════════════════════════════
 let currentReviewProductId = null;
 function openReviewModal(id) { currentReviewProductId=id; starCount=0; setStar(0); document.getElementById('r-name').value=''; document.getElementById('r-text').value=''; openModal('reviewModal'); }
 function setStar(n) {
@@ -1568,9 +1497,6 @@ function renderCustomerReviews() {
   </div>`).join('');
 }
 
-// ════════════════════════════════════════
-// LIVE SEARCH
-// ════════════════════════════════════════
 function liveSearch(q) {
   if (!q.trim()) { renderHomeProducts(); return; }
   const f = products.filter(p => p.title.toLowerCase().includes(q.toLowerCase())||p.fabric.toLowerCase().includes(q.toLowerCase())||p.category.toLowerCase().includes(q.toLowerCase()));
@@ -1579,18 +1505,12 @@ function liveSearch(q) {
   document.getElementById('products-home').scrollIntoView({behavior:'smooth'});
 }
 
-// ════════════════════════════════════════
-// MODAL HELPERS
-// ════════════════════════════════════════
 function openModal(id)  { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 document.querySelectorAll('.modal-overlay').forEach(o => {
   o.addEventListener('click', e => { if(e.target===o) o.classList.remove('open'); });
 });
 
-// ════════════════════════════════════════
-// TOAST
-// ════════════════════════════════════════
 function showToast(msg) {
   const t = document.createElement('div');
   t.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--forest);color:var(--gold);padding:12px 24px;border-radius:50px;font-size:14px;font-weight:500;z-index:99999;box-shadow:0 8px 24px rgba(0,0,0,.3);';
@@ -1598,9 +1518,6 @@ function showToast(msg) {
   setTimeout(() => { t.style.opacity='0'; t.style.transition='opacity .3s'; setTimeout(()=>t.remove(),300); }, 2800);
 }
 
-// ════════════════════════════════════════
-// ADMIN LOGIN
-// ════════════════════════════════════════
 function openAdminLogin() { openModal('adminLoginModal'); document.getElementById('admin-u').value=''; document.getElementById('admin-p').value=''; document.getElementById('admin-err').style.display='none'; }
 function adminLogin() {
   const u = document.getElementById('admin-u').value.trim();
@@ -1617,9 +1534,6 @@ function adminLogin() {
 }
 function adminLogout() { document.getElementById('admin-panel').style.display='none'; document.body.style.overflow=''; }
 
-// ════════════════════════════════════════
-// ADMIN TABS
-// ════════════════════════════════════════
 function showAdminTab(tab) {
   document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.admin-nav').forEach(n => n.classList.remove('active'));
@@ -1637,9 +1551,6 @@ function refreshAdmin() {
   reviews = JSON.parse(localStorage.getItem('nw_reviews') || '[]');
 }
 
-// ════════════════════════════════════════
-// DASHBOARD
-// ════════════════════════════════════════
 function renderDashboard() {
   refreshAdmin();
   document.getElementById('s-orders').textContent   = orders.length;
@@ -1658,9 +1569,6 @@ function renderDashboard() {
   </tr>`).join('') || '<tr><td colspan="7" style="text-align:center;padding:30px;color:#9ca3af;">No orders yet</td></tr>';
 }
 
-// ════════════════════════════════════════
-// ALL ORDERS TABLE
-// ════════════════════════════════════════
 function renderAllOrders(list) {
   list = list || orders;
   const tb = document.getElementById('all-orders-tb');
@@ -1683,9 +1591,6 @@ function renderAllOrders(list) {
   </tr>`).join('') || '<tr><td colspan="11" style="text-align:center;padding:30px;color:#9ca3af;">No orders yet</td></tr>';
 }
 
-// ════════════════════════════════════════
-// VIEW ORDER — full details modal
-// ════════════════════════════════════════
 function viewOrder(id) {
   const o = orders.find(x => x.id===id); if(!o) return;
 
@@ -1714,7 +1619,6 @@ function viewOrder(id) {
     </div>` : '';
 
   document.getElementById('orderDetailBody').innerHTML = `
-    <!-- Header -->
     <div style="background:linear-gradient(135deg,var(--forest),var(--forest-m));border-radius:12px;padding:18px 20px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
       <div>
         <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);font-weight:600;">Order #${o.id}</div>
@@ -1726,7 +1630,6 @@ function viewOrder(id) {
       </div>
     </div>
 
-    <!-- Customer Details -->
     <div class="od-section">
       <div class="od-section-title"><i class="fas fa-user"></i> Customer Details</div>
       <div class="od-grid">
@@ -1738,7 +1641,6 @@ function viewOrder(id) {
       </div>
     </div>
 
-    <!-- Order Details -->
     <div class="od-section">
       <div class="od-section-title"><i class="fas fa-box-open"></i> Order Details</div>
       <div class="od-grid">
@@ -1749,7 +1651,6 @@ function viewOrder(id) {
       </div>
     </div>
 
-    <!-- Price Breakdown -->
     <div class="od-section">
       <div class="od-section-title"><i class="fas fa-receipt"></i> Price Breakdown</div>
       <div style="background:#fff;border-radius:10px;padding:14px 16px;">
@@ -1763,7 +1664,6 @@ function viewOrder(id) {
     ${measurementsHTML}
     ${notesHTML}
 
-    <!-- Actions -->
     <div style="display:flex;gap:10px;margin-top:4px;flex-wrap:wrap;">
       <button class="admin-save-btn" onclick="changeOrderStatus(${o.id});closeModal('orderDetailModal')"><i class="fas fa-sync"></i> Change Status</button>
       <button class="admin-cancel-btn" onclick="closeModal('orderDetailModal')"><i class="fas fa-times"></i> Close</button>
@@ -1790,9 +1690,6 @@ function searchOrders(q) {
   renderAllOrders(f);
 }
 
-// ════════════════════════════════════════
-// ADMIN PRODUCTS
-// ════════════════════════════════════════
 function renderAdminProducts() {
   const tb = document.getElementById('products-tb');
   if (!products.length) { tb.innerHTML='<tr><td colspan="7" style="text-align:center;padding:30px;color:#9ca3af;">No products yet</td></tr>'; return; }
@@ -1830,7 +1727,7 @@ function editProduct(id) {
 }
 function handleProductImages(event) {
   const files = Array.from(event.target.files);
-  const rem   = 6 - pendingImages.length;
+  const rem   = 10 - pendingImages.length;
   files.slice(0,rem).forEach(file => {
     const r = new FileReader();
     r.onload = e => { pendingImages.push(e.target.result); renderImgPreviews(); };
@@ -1871,9 +1768,6 @@ function resetProductForm() {
 }
 function cancelAddProduct() { resetProductForm(); showAdminTab('products'); }
 
-// ════════════════════════════════════════
-// ADMIN REVIEWS
-// ════════════════════════════════════════
 function renderAdminReviews() {
   const tb = document.getElementById('reviews-admin-tb');
   if (!reviews.length) { tb.innerHTML='<tr><td colspan="7" style="text-align:center;padding:30px;color:#9ca3af;">No reviews yet</td></tr>'; return; }
@@ -1893,9 +1787,6 @@ function deleteReview(id) {
 }
 function openAddAdminReview() { starCount=0; setStar(0); document.getElementById('r-name').value=''; document.getElementById('r-text').value=''; currentReviewProductId=null; openModal('reviewModal'); }
 
-// ════════════════════════════════════════
-// SETTINGS
-// ════════════════════════════════════════
 function loadSettings() {
   const s = adminSettings;
   document.getElementById('set-insta').value     = s.insta||'';
@@ -1926,17 +1817,11 @@ function changeAdminPass() {
   showToast('Password changed ✅');
 }
 
-// ════════════════════════════════════════
-// REVEAL ANIMATION
-// ════════════════════════════════════════
 const revObs = new IntersectionObserver(entries => {
   entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('on'); });
 }, {threshold:.12});
 document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => revObs.observe(el));
 
-// ════════════════════════════════════════
-// APPLY SAVED SETTINGS
-// ════════════════════════════════════════
 function applySettings() {
   const s = adminSettings;
   if(s.insta&&s.insta!=='#')       document.getElementById('footer-insta').href    = s.insta;
@@ -1948,18 +1833,9 @@ function applySettings() {
   }
 }
 
-// ════════════════════════════════════════
-// INIT
-// ════════════════════════════════════════
 renderHomeProducts();
 renderCustomerReviews();
 applySettings();
 </script>
 </body>
 </html>
-HTMLEOF
-echo "Done - file size: $(wc -c < /mnt/user-data/outputs/nobel_wear_updated.html) bytes"
-Output
-
-Command argument is 133_532 bytes, exceeding the 100_000-byte per-argument limit. For large content, pipe via stdin or use a file-write API instead of embedding the content inline in the command. Argument preview: 'cat > /mnt/user-data/outputs/nobel_wear_updated.html << \'HTMLEOF\'\n<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
-Done
