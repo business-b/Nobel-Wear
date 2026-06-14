@@ -128,7 +128,7 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--forest);o
 .section-title{font-family:'Cormorant Garamond',serif;font-size:50px;font-weight:700;color:var(--forest);letter-spacing:-1px;}
 .section-title em{font-style:italic;color:var(--gold);}
 
-/* ═══ HERO COLLECTIONS (NEW — replaces old gender section) ═══ */
+/* HERO COLLECTIONS */
 .hero-collections{background:var(--cream);padding:90px 40px;}
 .hero-collections .section-header{text-align:center;margin-bottom:56px;}
 .collection-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:1100px;margin:0 auto;}
@@ -175,7 +175,7 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--forest);o
 .cat-filter-btn:hover,.cat-filter-btn.active{background:rgba(198,167,94,.1);color:#fff;border-left-color:var(--gold);}
 .cat-main{padding:36px 40px;}
 
-/* PRODUCTS GRID — BIGGER & CLEANER */
+/* PRODUCTS GRID */
 .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:28px;}
 .product-card{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 4px 24px rgba(15,26,20,.07);transition:all .4s;cursor:pointer;position:relative;}
 .product-card:hover{transform:translateY(-10px);box-shadow:0 20px 56px rgba(15,26,20,.14);}
@@ -252,16 +252,25 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--forest);o
 .lb-thumb{width:64px;height:64px;border-radius:8px;object-fit:cover;cursor:pointer;border:2px solid transparent;flex-shrink:0;opacity:.55;transition:all .2s;}
 .lb-thumb.active,.lb-thumb:hover{border-color:var(--gold);opacity:1;}
 
-/* HOME PRODUCTS SECTION */
+/* ═══ HOME PRODUCTS SECTION — FIXED CAROUSEL ═══ */
 .home-products-section{padding:90px 40px;background:#fff;}
-.products-scroll-wrap{position:relative;overflow:hidden;}
-.products-scroll-track{display:flex;gap:24px;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;padding-bottom:8px;}
-.products-scroll-track::-webkit-scrollbar{display:none;}
-.scroll-arrow{position:absolute;top:45%;transform:translateY(-50%);width:50px;height:50px;border-radius:50%;background:var(--forest);color:var(--gold);border:none;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,.2);transition:all .25s;z-index:5;}
+.products-scroll-wrap{position:relative;overflow:hidden;max-width:1300px;margin:0 auto;}
+/* The track: no overflow scroll — we control position via JS */
+.products-scroll-track{
+  display:flex;
+  gap:28px;
+  transition:transform .45s cubic-bezier(.25,.8,.25,1);
+  will-change:transform;
+}
+/* Each card in the carousel: fixed width based on viewport */
+.products-scroll-track .product-card{
+  flex:0 0 calc(25% - 21px); /* 4 cards visible, accounting for gaps */
+  min-width:260px;
+}
+.scroll-arrow{position:absolute;top:45%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;background:var(--forest);color:var(--gold);border:none;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,.25);transition:all .25s;z-index:5;}
 .scroll-arrow:hover{background:var(--gold);color:var(--forest);transform:translateY(-50%) scale(1.08);}
-.scroll-arrow.left{left:-22px;}
-.scroll-arrow.right{right:-22px;}
-.products-scroll-track .product-card{flex:0 0 290px;}
+.scroll-arrow.left{left:-26px;}
+.scroll-arrow.right{right:-26px;}
 
 /* TRUST SECTION */
 .trust-section{background:var(--cream);padding:70px 40px;border-top:1px solid var(--light);}
@@ -346,6 +355,9 @@ footer{background:var(--forest-m);color:#fff;padding:70px 40px 30px;border-top:1
 .order-price-row .label{display:flex;align-items:center;gap:6px;}
 .order-price-row .label i{color:var(--gold);font-size:12px;}
 
+/* BEST SELLER BADGE on product cards */
+.best-seller-ribbon{position:absolute;top:0;left:0;background:linear-gradient(135deg,var(--gold),var(--gold-l));color:var(--forest);font-size:9px;font-weight:800;letter-spacing:1.5px;padding:5px 12px;border-bottom-right-radius:12px;z-index:3;text-transform:uppercase;}
+
 /* ADMIN */
 .admin-login-icon{width:64px;height:64px;background:linear-gradient(135deg,var(--forest),var(--gold));border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:28px;color:#fff;}
 .admin-login-err{color:#e74c3c;font-size:12px;display:none;margin-bottom:8px;}
@@ -422,6 +434,13 @@ footer{background:var(--forest-m);color:#fff;padding:70px 40px 30px;border-top:1
 .od-price-row{display:flex;justify-content:space-between;padding:6px 0;font-size:14px;color:var(--forest);border-bottom:1px solid #f0f0f0;}
 .od-price-row:last-child{border:none;font-weight:700;font-size:16px;color:var(--gold);}
 
+/* Best Seller checkbox styling in admin */
+.best-seller-toggle{display:flex;align-items:center;gap:12px;padding:12px 16px;background:rgba(198,167,94,.06);border:1.5px solid rgba(198,167,94,.2);border-radius:10px;cursor:pointer;transition:all .25s;}
+.best-seller-toggle:hover{background:rgba(198,167,94,.12);border-color:var(--gold);}
+.best-seller-toggle input[type=checkbox]{width:18px;height:18px;accent-color:var(--gold);cursor:pointer;}
+.best-seller-toggle label{font-size:13px;font-weight:600;color:var(--forest);cursor:pointer;display:flex;align-items:center;gap:8px;}
+.best-seller-toggle label i{color:var(--gold);}
+
 /* REVEAL ANIMATIONS */
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
 .reveal.on{opacity:1;transform:translateY(0);}
@@ -431,11 +450,15 @@ footer{background:var(--forest-m);color:#fff;padding:70px 40px 30px;border-top:1
 .reveal-r.on{opacity:1;transform:translateX(0);}
 
 /* RESPONSIVE */
+@media(max-width:1200px){
+  .products-scroll-track .product-card{flex:0 0 calc(33.333% - 19px);}
+}
 @media(max-width:1024px){
   .collection-grid{grid-template-columns:1fr;}
   .collection-card{height:400px;}
   .trust-grid{grid-template-columns:repeat(2,1fr);}
   .quick-cats-grid{grid-template-columns:repeat(2,1fr);}
+  .products-scroll-track .product-card{flex:0 0 calc(50% - 14px);}
 }
 @media(max-width:900px){
   .navbar{padding:0 16px;gap:10px;}
@@ -451,6 +474,9 @@ footer{background:var(--forest-m);color:#fff;padding:70px 40px 30px;border-top:1
   .form-row,.admin-grid-2,.od-grid{grid-template-columns:1fr;}
   .footer-grid{grid-template-columns:1fr 1fr;}
   .img-previews{grid-template-columns:repeat(4,1fr);}
+}
+@media(max-width:640px){
+  .products-scroll-track .product-card{flex:0 0 calc(100% - 0px);}
 }
 @media(max-width:580px){
   .hero-title{font-size:42px;}
@@ -594,7 +620,7 @@ footer{background:var(--forest-m);color:#fff;padding:70px 40px 30px;border-top:1
   </div>
 </div>
 
-<!-- ═══ HERO COLLECTIONS SECTION ═══ -->
+<!-- HERO COLLECTIONS SECTION -->
 <section class="hero-collections" id="collections">
   <div class="section-header reveal" style="text-align:center;">
     <div class="section-label" style="justify-content:center;"><span>Shop By Gender</span></div>
@@ -780,7 +806,7 @@ footer{background:var(--forest-m);color:#fff;padding:70px 40px 30px;border-top:1
     <div class="section-label" style="justify-content:center;"><span>Featured Items</span></div>
     <h2 class="section-title" style="text-align:center;">Our <em>Best Sellers</em></h2>
   </div>
-  <div class="products-scroll-wrap" style="max-width:1400px;margin:0 auto;padding:0 64px;">
+  <div class="products-scroll-wrap">
     <button class="scroll-arrow left" onclick="scrollTrack(-1)"><i class="fas fa-chevron-left"></i></button>
     <div class="products-scroll-track" id="homeProductsTrack"></div>
     <button class="scroll-arrow right" onclick="scrollTrack(1)"><i class="fas fa-chevron-right"></i></button>
@@ -1078,7 +1104,7 @@ footer{background:var(--forest-m);color:#fff;padding:70px 40px 30px;border-top:1
           <h2 style="font-family:'Cormorant Garamond',serif;color:var(--forest);font-size:30px;"><i class="fas fa-box-open" style="color:var(--gold);margin-right:10px;"></i>Products</h2>
           <button class="admin-save-btn" onclick="showAdminTab('add-product')"><i class="fas fa-plus"></i> Add Product</button>
         </div>
-        <div class="admin-card"><div style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Gender</th><th>Actions</th></tr></thead><tbody id="products-tb"></tbody></table></div></div>
+        <div class="admin-card"><div style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Gender</th><th>Best Seller</th><th>Actions</th></tr></thead><tbody id="products-tb"></tbody></table></div></div>
       </div>
       <!-- ADD PRODUCT -->
       <div class="admin-tab" id="tab-add-product">
@@ -1092,6 +1118,14 @@ footer{background:var(--forest-m);color:#fff;padding:70px 40px 30px;border-top:1
               <div class="admin-form-group"><label class="admin-label">Fabric / Type</label><input class="admin-input" id="p-fabric" placeholder="e.g. Lawn, Boski, Cotton"></div>
               <div class="admin-form-group"><label class="admin-label">Price (PKR) *</label><input class="admin-input" type="number" id="p-price" placeholder="e.g. 3500"></div>
               <div class="admin-form-group"><label class="admin-label">Available Quantity *</label><input class="admin-input" type="number" id="p-qty" placeholder="e.g. 50"></div>
+              <!-- BEST SELLER TOGGLE -->
+              <div class="admin-form-group" style="grid-column:1/-1;">
+                <label class="admin-label"><i class="fas fa-fire" style="color:var(--gold);margin-right:6px;"></i>Best Seller</label>
+                <div class="best-seller-toggle">
+                  <input type="checkbox" id="p-bestseller">
+                  <label for="p-bestseller"><i class="fas fa-crown"></i> Mark as Best Seller — product will appear in the "Our Best Sellers" carousel on the homepage</label>
+                </div>
+              </div>
               <div class="admin-form-group" style="grid-column:1/-1"><label class="admin-label">Description *</label><textarea class="admin-textarea" id="p-desc" rows="3" placeholder="Describe the product..."></textarea></div>
               <div class="admin-form-group" style="grid-column:1/-1">
                 <label class="admin-label">Product Images * (Up to 10 — all images show in gallery & lightbox)</label>
@@ -1152,20 +1186,23 @@ footer{background:var(--forest-m);color:#fff;padding:70px 40px 30px;border-top:1
 <script>
 const STITCH_PRICE = 1500;
 let adminPassword = 'nobel01';
+
+// ─── PRODUCTS: load or seed defaults with bestSeller flag ───
 let products = JSON.parse(localStorage.getItem('nw_products') || 'null');
 if (!products) {
   products = [
-    {id:1,title:'Premium Lawn Suit',gender:'women',category:'clothing',fabric:'Lawn',price:3500,qty:30,desc:'Beautiful printed lawn unstitched suit with embroidered dupatta. Perfect for summer.',images:[],emoji:'👗',rating:4.8,ratingCount:24},
-    {id:2,title:'Boski Shalwar Qameez',gender:'men',category:'clothing',fabric:'Boski',price:4200,qty:25,desc:'Premium Boski fabric shalwar qameez. Lightweight and comfortable for all seasons.',images:[],emoji:'👔',rating:4.7,ratingCount:18},
-    {id:3,title:'Khaddar Winter Suit',gender:'women',category:'clothing',fabric:'Khaddar',price:2800,qty:40,desc:'Warm and cozy Khaddar suit perfect for winters. 3-piece unstitched with embroidery.',images:[],emoji:'🧥',rating:4.6,ratingCount:12},
-    {id:4,title:'Cotton Casual Kurta',gender:'men',category:'clothing',fabric:'Cotton',price:1800,qty:60,desc:'Comfortable everyday cotton kurta. Available in multiple colors.',images:[],emoji:'👕',rating:4.5,ratingCount:31},
-    {id:5,title:'Chiffon Party Dress',gender:'women',category:'clothing',fabric:'Chiffon',price:5500,qty:20,desc:'Elegant chiffon party dress with heavy embroidery. Perfect for weddings.',images:[],emoji:'💃',rating:4.9,ratingCount:8},
-    {id:6,title:'Classic Leather Shoes',gender:'men',category:'shoes',fabric:'',price:3200,qty:15,desc:'Handcrafted genuine leather shoes. Comfortable, durable, and stylish.',images:[],emoji:'👞',rating:4.7,ratingCount:22},
-    {id:7,title:'Ladies Heels',gender:'women',category:'shoes',fabric:'',price:2400,qty:18,desc:'Elegant block heels perfect for formal and casual wear.',images:[],emoji:'👠',rating:4.5,ratingCount:14},
-    {id:8,title:'Classic Dress Watch',gender:'men',category:'watches',fabric:'',price:6500,qty:10,desc:'Premium dress watch with genuine leather strap. Water resistant.',images:[],emoji:'⌚',rating:4.8,ratingCount:19},
+    {id:1,title:'Premium Lawn Suit',gender:'women',category:'clothing',fabric:'Lawn',price:3500,qty:30,desc:'Beautiful printed lawn unstitched suit with embroidered dupatta. Perfect for summer.',images:[],emoji:'👗',rating:4.8,ratingCount:24,bestSeller:true},
+    {id:2,title:'Boski Shalwar Qameez',gender:'men',category:'clothing',fabric:'Boski',price:4200,qty:25,desc:'Premium Boski fabric shalwar qameez. Lightweight and comfortable for all seasons.',images:[],emoji:'👔',rating:4.7,ratingCount:18,bestSeller:true},
+    {id:3,title:'Khaddar Winter Suit',gender:'women',category:'clothing',fabric:'Khaddar',price:2800,qty:40,desc:'Warm and cozy Khaddar suit perfect for winters. 3-piece unstitched with embroidery.',images:[],emoji:'🧥',rating:4.6,ratingCount:12,bestSeller:false},
+    {id:4,title:'Cotton Casual Kurta',gender:'men',category:'clothing',fabric:'Cotton',price:1800,qty:60,desc:'Comfortable everyday cotton kurta. Available in multiple colors.',images:[],emoji:'👕',rating:4.5,ratingCount:31,bestSeller:true},
+    {id:5,title:'Chiffon Party Dress',gender:'women',category:'clothing',fabric:'Chiffon',price:5500,qty:20,desc:'Elegant chiffon party dress with heavy embroidery. Perfect for weddings.',images:[],emoji:'💃',rating:4.9,ratingCount:8,bestSeller:true},
+    {id:6,title:'Classic Leather Shoes',gender:'men',category:'shoes',fabric:'',price:3200,qty:15,desc:'Handcrafted genuine leather shoes. Comfortable, durable, and stylish.',images:[],emoji:'👞',rating:4.7,ratingCount:22,bestSeller:true},
+    {id:7,title:'Ladies Heels',gender:'women',category:'shoes',fabric:'',price:2400,qty:18,desc:'Elegant block heels perfect for formal and casual wear.',images:[],emoji:'👠',rating:4.5,ratingCount:14,bestSeller:false},
+    {id:8,title:'Classic Dress Watch',gender:'men',category:'watches',fabric:'',price:6500,qty:10,desc:'Premium dress watch with genuine leather strap. Water resistant.',images:[],emoji:'⌚',rating:4.8,ratingCount:19,bestSeller:true},
   ];
   saveProducts();
 }
+
 let orders   = JSON.parse(localStorage.getItem('nw_orders')  || '[]');
 let reviews  = JSON.parse(localStorage.getItem('nw_reviews') || '[]');
 let cart = [], wishlist = [];
@@ -1179,6 +1216,9 @@ let menCurrentFilter = '', womenCurrentFilter = '';
 let adminSettings = JSON.parse(localStorage.getItem('nw_settings') || '{"insta":"#","tiktok":"#","facebook":"#","whatsapp":"923163475925"}');
 let currentDetailImages = [];
 let lightboxIdx = 0;
+
+// ─── Carousel state ───
+let carouselIdx = 0;
 
 function saveProducts(){ localStorage.setItem('nw_products',JSON.stringify(products)); }
 function saveOrders()  { localStorage.setItem('nw_orders',JSON.stringify(orders)); }
@@ -1265,14 +1305,17 @@ function starsHTML(r){
   }
   return s;
 }
-function buildCard(p){
+
+function buildCard(p, showBestSellerBadge){
   const soldOut=p.qty<=0;
   const inWish=wishlist.some(x=>x.id===p.id);
   const imgHtml = p.images&&p.images[0]
     ? `<img src="${p.images[0]}" style="width:100%;height:100%;object-fit:cover;object-position:top center;" alt="${p.title}">`
     : `<span class="product-img-emoji">${p.emoji||'📦'}</span>`;
+  const bsRibbon = (showBestSellerBadge && p.bestSeller)
+    ? `<div class="best-seller-ribbon"><i class="fas fa-crown"></i> Best Seller</div>` : '';
   return `<div class="product-card" onclick="openDetail(${p.id})">
-    ${soldOut?'<div class="sold-out-ribbon">SOLD OUT</div>':''}
+    ${soldOut?'<div class="sold-out-ribbon">SOLD OUT</div>':bsRibbon}
     <div class="product-img-wrap">
       <div class="product-img">${imgHtml}</div>
       <button class="wishlist-btn-card ${inWish?'active':''}" id="wb-${p.id}" onclick="event.stopPropagation();toggleWish(${p.id})"><i class="fas fa-heart"></i></button>
@@ -1301,13 +1344,13 @@ function renderMenGrid(){
   let f=products.filter(p=>p.gender==='men'||p.gender==='both');
   if(menCurrentTab)f=f.filter(p=>p.category===menCurrentTab);
   if(menCurrentFilter)f=f.filter(p=>p.fabric&&p.fabric.toLowerCase().includes(menCurrentFilter.toLowerCase()));
-  document.getElementById('men-grid').innerHTML=f.length?f.map(buildCard).join(''):'<p style="color:var(--gray);padding:20px;">No products found.</p>';
+  document.getElementById('men-grid').innerHTML=f.length?f.map(p=>buildCard(p,false)).join(''):'<p style="color:var(--gray);padding:20px;">No products found.</p>';
 }
 function renderWomenGrid(){
   let f=products.filter(p=>p.gender==='women'||p.gender==='both');
   if(womenCurrentTab)f=f.filter(p=>p.category===womenCurrentTab);
   if(womenCurrentFilter)f=f.filter(p=>p.fabric&&p.fabric.toLowerCase().includes(womenCurrentFilter.toLowerCase()));
-  document.getElementById('women-grid').innerHTML=f.length?f.map(buildCard).join(''):'<p style="color:var(--gray);padding:20px;">No products found.</p>';
+  document.getElementById('women-grid').innerHTML=f.length?f.map(p=>buildCard(p,false)).join(''):'<p style="color:var(--gray);padding:20px;">No products found.</p>';
 }
 function switchMenTab(tab,el){
   menCurrentTab=tab; menCurrentFilter='';
@@ -1334,8 +1377,59 @@ function filterWomen(fabric,el){
   renderWomenGrid();
 }
 
-function renderHomeProducts(){ document.getElementById('homeProductsTrack').innerHTML=products.map(buildCard).join(''); }
-function scrollTrack(dir){ document.getElementById('homeProductsTrack').scrollBy({left:dir*300,behavior:'smooth'}); }
+// ─── CAROUSEL: only best sellers, one card at a time ───
+function getCardsPerView(){
+  const w = window.innerWidth;
+  if(w <= 640) return 1;
+  if(w <= 1024) return 2;
+  if(w <= 1200) return 3;
+  return 4;
+}
+
+function renderHomeProducts(){
+  const bestSellers = products.filter(p => p.bestSeller);
+  const track = document.getElementById('homeProductsTrack');
+  if(!bestSellers.length){
+    track.innerHTML = '<div style="padding:40px;color:var(--gray);text-align:center;width:100%;">No best sellers yet. Mark products as Best Seller in admin panel.</div>';
+    carouselIdx = 0;
+    return;
+  }
+  track.innerHTML = bestSellers.map(p => buildCard(p, false)).join('');
+  carouselIdx = 0;
+  updateCarouselPosition();
+}
+
+function updateCarouselPosition(){
+  const bestSellers = products.filter(p => p.bestSeller);
+  const track = document.getElementById('homeProductsTrack');
+  const total = bestSellers.length;
+  const perView = getCardsPerView();
+  const maxIdx = Math.max(0, total - perView);
+  carouselIdx = Math.max(0, Math.min(carouselIdx, maxIdx));
+
+  // Get actual card width + gap
+  const cards = track.querySelectorAll('.product-card');
+  if(!cards.length) return;
+  const cardW = cards[0].getBoundingClientRect().width;
+  const gap = 28;
+  const offset = carouselIdx * (cardW + gap);
+  track.style.transform = `translateX(-${offset}px)`;
+
+  // Show/hide arrows
+  document.querySelector('.scroll-arrow.left').style.opacity  = carouselIdx <= 0 ? '0.35' : '1';
+  document.querySelector('.scroll-arrow.right').style.opacity = carouselIdx >= maxIdx ? '0.35' : '1';
+}
+
+function scrollTrack(dir){
+  const bestSellers = products.filter(p => p.bestSeller);
+  const total = bestSellers.length;
+  const perView = getCardsPerView();
+  const maxIdx = Math.max(0, total - perView);
+  carouselIdx = Math.max(0, Math.min(carouselIdx + dir, maxIdx));
+  updateCarouselPosition();
+}
+
+window.addEventListener('resize', ()=>{ updateCarouselPosition(); });
 
 /* ══ PRODUCT DETAIL ══ */
 function openDetail(id){
@@ -1357,7 +1451,6 @@ function openDetail(id){
   } else {
     document.getElementById('detail-main-emoji').textContent=p.emoji||'📦';
   }
-  /* thumbnails */
   const thumbsEl=document.getElementById('detail-thumbs');
   if(currentDetailImages.length){
     thumbsEl.innerHTML=currentDetailImages.map((src,i)=>`
@@ -1391,8 +1484,7 @@ function openReviewFromDetail() { if(currentDetailId) openReviewModal(currentDet
 /* ══ LIGHTBOX ══ */
 function openLightbox(){
   if(!currentDetailImages.length) return;
-  const lb=document.getElementById('lightbox');
-  lb.classList.add('open');
+  document.getElementById('lightbox').classList.add('open');
   document.body.style.overflow='hidden';
   renderLightbox(lightboxIdx);
 }
@@ -1429,11 +1521,9 @@ function updatePriceSummary(){
   const stitchFee=stitched?STITCH_PRICE:0;
   const total=(unitPrice+stitchFee)*qty;
   document.getElementById('opr-product-val').textContent=`PKR ${unitPrice.toLocaleString()}`;
-  const stitchRow=document.getElementById('opr-stitch-row');
-  stitchRow.style.display=stitched?'flex':'none';
+  document.getElementById('opr-stitch-row').style.display=stitched?'flex':'none';
   document.getElementById('opr-stitch-val').textContent=`PKR ${STITCH_PRICE.toLocaleString()}`;
-  const qtyRow=document.getElementById('opr-qty-row');
-  qtyRow.style.display=qty>1?'flex':'none';
+  document.getElementById('opr-qty-row').style.display=qty>1?'flex':'none';
   document.getElementById('opr-qty-val').textContent=`× ${qty}`;
   document.getElementById('opr-total-val').textContent=`PKR ${total.toLocaleString()}`;
 }
@@ -1557,10 +1647,12 @@ function renderCustomerReviews(){
   </div>`).join('');
 }
 function liveSearch(q){
+  const bestSellers = products.filter(p=>p.bestSeller);
   if(!q.trim()){renderHomeProducts();return;}
-  const f=products.filter(p=>p.title.toLowerCase().includes(q.toLowerCase())||p.fabric.toLowerCase().includes(q.toLowerCase())||p.category.toLowerCase().includes(q.toLowerCase()));
+  const f=bestSellers.filter(p=>p.title.toLowerCase().includes(q.toLowerCase())||p.fabric.toLowerCase().includes(q.toLowerCase())||p.category.toLowerCase().includes(q.toLowerCase()));
   const track=document.getElementById('homeProductsTrack');
-  track.innerHTML=f.length?f.map(buildCard).join(''):`<div style="padding:30px;color:var(--gray);">No products found for "${q}"</div>`;
+  track.style.transform='translateX(0)';
+  track.innerHTML=f.length?f.map(p=>buildCard(p,false)).join(''):`<div style="padding:30px;color:var(--gray);">No best sellers found for "${q}"</div>`;
   document.getElementById('products-home').scrollIntoView({behavior:'smooth'});
 }
 
@@ -1572,7 +1664,7 @@ document.querySelectorAll('.modal-overlay').forEach(o=>{
 
 function showToast(msg){
   const t=document.createElement('div');
-  t.style.cssText='position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--forest);color:var(--gold);padding:12px 26px;border-radius:50px;font-size:14px;font-weight:500;z-index:99999;box-shadow:0 8px 24px rgba(0,0,0,.3);border:1px solid rgba(198,167,94,.2);';
+  t.style.cssText='position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--forest);color:var(--gold);padding:12px 26px;border-radius:50px;font-size:14px;font-weight:500;z-index:99999;box-shadow:0 8px 24px rgba(0,0,0,.3);border:1px solid rgba(198,167,94,.2);white-space:nowrap;';
   t.textContent=msg; document.body.appendChild(t);
   setTimeout(()=>{ t.style.opacity='0'; t.style.transition='opacity .3s'; setTimeout(()=>t.remove(),300); },2800);
 }
@@ -1697,7 +1789,7 @@ function searchOrders(q){
 }
 function renderAdminProducts(){
   const tb=document.getElementById('products-tb');
-  if(!products.length){tb.innerHTML='<tr><td colspan="7" style="text-align:center;padding:30px;color:#9ca3af;">No products yet</td></tr>';return;}
+  if(!products.length){tb.innerHTML='<tr><td colspan="8" style="text-align:center;padding:30px;color:#9ca3af;">No products yet</td></tr>';return;}
   tb.innerHTML=products.map(p=>`<tr>
     <td><div style="width:56px;height:56px;background:var(--gold-pale);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:26px;">${p.images&&p.images[0]?`<img src="${p.images[0]}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;" alt="">`:p.emoji||'📦'}</div></td>
     <td><strong>${p.title}</strong></td>
@@ -1705,6 +1797,7 @@ function renderAdminProducts(){
     <td><strong>PKR ${p.price.toLocaleString()}</strong></td>
     <td>${p.qty<=0?'<span style="color:#e74c3c;font-weight:700;">SOLD OUT</span>':`<span style="${p.qty<=5?'color:#f39c12;':'color:#27ae60;'}font-weight:600;">${p.qty}</span>`}</td>
     <td>${p.gender}</td>
+    <td>${p.bestSeller?'<span style="background:#d4edda;color:#155724;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;"><i class="fas fa-crown"></i> YES</span>':'<span style="background:#f3f4f6;color:#9ca3af;padding:3px 10px;border-radius:20px;font-size:11px;">No</span>'}</td>
     <td>
       <button class="action-btn btn-edit" onclick="editProduct(${p.id})"><i class="fas fa-pencil-alt"></i> Edit</button>
       <button class="action-btn btn-del" onclick="deleteProduct(${p.id})"><i class="fas fa-trash"></i></button>
@@ -1723,6 +1816,7 @@ function editProduct(id){
   document.getElementById('p-price').value=p.price;
   document.getElementById('p-qty').value=p.qty;
   document.getElementById('p-desc').value=p.description||p.desc||'';
+  document.getElementById('p-bestseller').checked=p.bestSeller||false;
   pendingImages=p.images?[...p.images]:[];
   renderImgPreviews();
   showAdminTab('add-product');
@@ -1747,15 +1841,16 @@ function saveProduct(){
   const price=parseFloat(document.getElementById('p-price').value);
   const qty=parseInt(document.getElementById('p-qty').value);
   const desc=document.getElementById('p-desc').value.trim();
+  const bestSeller=document.getElementById('p-bestseller').checked;
   if(!title||!price||isNaN(qty)||!desc){showToast('Please fill all required fields');return;}
   if(!pendingImages.length){showToast('Please add at least one image');return;}
   const emojis={clothing:'👔',shoes:'👟',watches:'⌚',accessories:'💎'};
   if(editProductId){
     const idx=products.findIndex(x=>x.id===editProductId);
-    if(idx!==-1){products[idx]={...products[idx],title,gender,category,fabric,price,qty,description:desc,images:[...pendingImages]};}
+    if(idx!==-1){products[idx]={...products[idx],title,gender,category,fabric,price,qty,description:desc,images:[...pendingImages],bestSeller};}
     editProductId=null; showToast('Product updated ✅');
   } else {
-    products.push({id:Date.now(),title,gender,category,fabric,price,qty,description:desc,images:[...pendingImages],emoji:emojis[category]||'📦',rating:5,ratingCount:0});
+    products.push({id:Date.now(),title,gender,category,fabric,price,qty,description:desc,images:[...pendingImages],emoji:emojis[category]||'📦',rating:5,ratingCount:0,bestSeller});
     showToast('Product added ✅');
   }
   saveProducts(); renderHomeProducts(); renderAdminProducts();
@@ -1765,6 +1860,7 @@ function resetProductForm(){
   document.getElementById('p-title').value=''; document.getElementById('p-gender').value='men';
   document.getElementById('p-category').value='clothing'; document.getElementById('p-fabric').value='';
   document.getElementById('p-price').value=''; document.getElementById('p-qty').value=''; document.getElementById('p-desc').value='';
+  document.getElementById('p-bestseller').checked=false;
   pendingImages=[]; renderImgPreviews(); editProductId=null;
   document.getElementById('add-p-heading').innerHTML='<i class="fas fa-plus-circle" style="color:var(--gold);margin-right:10px;"></i>Add Product';
 }
