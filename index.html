@@ -4,23 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NOBEL WEAR — Pakistan's Premium Fashion Destination</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Jost:wght@200;300;400;500;600&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-:root {
-  --gold:      #c6a75e;
-  --gold-l:    #e2c98a;
-  --gold-pale: #f5edda;
-  --forest:    #0f1a14;
-  --forest-m:  #1a2e20;
-  --forest-l:  #243d2c;
-  --cream:     #faf8f3;
-  --white:     #ffffff;
-  --gray:      #6b7280;
-  --light:     #e8e4da;
-  --shadow:    0 20px 60px rgba(15,26,20,.18);
-  --r:         16px;
-  --r-lg:      24px;
+:root{
+  --gold:#c6a75e;--gold-l:#e2c98a;--gold-pale:#f5edda;
+  --forest:#0f1a14;--forest-m:#1a2e20;--forest-l:#243d2c;
+  --cream:#faf8f3;--white:#ffffff;--gray:#6b7280;--light:#e8e4da;
+  --shadow:0 24px 64px rgba(15,26,20,.18);--r:16px;--r-lg:24px;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -28,7 +19,9 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--forest);o
 ::-webkit-scrollbar{width:6px;}
 ::-webkit-scrollbar-track{background:var(--forest);}
 ::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px;}
-#loader{position:fixed;inset:0;background:var(--forest);z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:24px;transition:opacity .6s ease, visibility .6s ease;}
+
+/* LOADER */
+#loader{position:fixed;inset:0;background:var(--forest);z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:24px;transition:opacity .6s ease,visibility .6s ease;}
 #loader.hidden{opacity:0;visibility:hidden;}
 .loader-logo{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:700;color:var(--gold);letter-spacing:6px;animation:logoReveal 1.2s cubic-bezier(.16,1,.3,1) forwards;opacity:0;}
 @keyframes logoReveal{0%{opacity:0;transform:translateY(30px) scale(.9);}100%{opacity:1;transform:translateY(0) scale(1);}}
@@ -44,23 +37,27 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--forest);o
 .loader-bar{width:220px;height:3px;background:rgba(198,167,94,.2);border-radius:2px;overflow:hidden;}
 .loader-bar-fill{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-l));border-radius:2px;animation:loaderFill 2.2s ease forwards;}
 @keyframes loaderFill{0%{width:0}100%{width:100%}}
-.navbar{position:fixed;top:0;width:100%;z-index:1000;padding:0 40px;height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px;background:rgba(15,26,20,.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(198,167,94,.2);transition:all .3s;}
-.navbar.scrolled{height:60px;box-shadow:0 4px 30px rgba(0,0,0,.4);}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;width:100%;z-index:1000;padding:0 48px;height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px;background:rgba(15,26,20,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(198,167,94,.18);transition:all .3s;}
+.navbar.scrolled{height:62px;box-shadow:0 4px 30px rgba(0,0,0,.4);}
 .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;flex-shrink:0;}
-.nav-logo-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--gold),var(--gold-l));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--forest);box-shadow:0 4px 16px rgba(198,167,94,.4);transform-style:preserve-3d;transition:transform .4s;}
+.nav-logo-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--gold),var(--gold-l));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--forest);box-shadow:0 4px 16px rgba(198,167,94,.4);transition:transform .4s;}
 .nav-logo:hover .nav-logo-icon{transform:rotateY(20deg) rotateX(10deg);}
-.nav-logo-text{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--gold);letter-spacing:3px;}
+.nav-logo-text{font-family:'Cormorant Garamond',serif;font-size:23px;font-weight:700;color:var(--gold);letter-spacing:3px;}
 .nav-logo-sub{font-size:9px;letter-spacing:2px;color:rgba(198,167,94,.6);text-transform:uppercase;display:block;margin-top:-3px;}
-.nav-search{flex:1;max-width:480px;position:relative;}
-.nav-search input{width:100%;padding:10px 44px 10px 18px;background:rgba(255,255,255,.07);border:1.5px solid rgba(198,167,94,.3);border-radius:50px;color:#fff;font-family:'Jost',sans-serif;font-size:14px;outline:none;transition:all .3s;}
-.nav-search input::placeholder{color:rgba(255,255,255,.4);}
+.nav-search{flex:1;max-width:500px;position:relative;}
+.nav-search input{width:100%;padding:11px 46px 11px 20px;background:rgba(255,255,255,.07);border:1.5px solid rgba(198,167,94,.28);border-radius:50px;color:#fff;font-family:'Jost',sans-serif;font-size:14px;outline:none;transition:all .3s;}
+.nav-search input::placeholder{color:rgba(255,255,255,.38);}
 .nav-search input:focus{background:rgba(255,255,255,.1);border-color:var(--gold);box-shadow:0 0 0 3px rgba(198,167,94,.12);}
-.nav-search-btn{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--gold);cursor:pointer;font-size:16px;}
-.nav-icons{display:flex;align-items:center;gap:6px;flex-shrink:0;}
-.nav-icon-btn{width:42px;height:42px;background:rgba(198,167,94,.1);border:1.5px solid rgba(198,167,94,.25);border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--gold);font-size:17px;transition:all .25s;position:relative;text-decoration:none;}
+.nav-search-btn{position:absolute;right:16px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--gold);cursor:pointer;font-size:16px;}
+.nav-icons{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.nav-icon-btn{width:42px;height:42px;background:rgba(198,167,94,.1);border:1.5px solid rgba(198,167,94,.22);border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--gold);font-size:17px;transition:all .25s;position:relative;text-decoration:none;}
 .nav-icon-btn:hover{background:var(--gold);color:var(--forest);transform:translateY(-2px);}
 .nav-icon-btn .badge{position:absolute;top:-7px;right:-7px;width:20px;height:20px;border-radius:50%;background:#e74c3c;color:#fff;font-size:10px;font-weight:700;display:none;align-items:center;justify-content:center;border:2px solid var(--forest);}
-.nav-icon-btn.menu-btn{width:auto;padding:0 16px;gap:8px;font-size:13px;font-weight:500;letter-spacing:.5px;border-radius:50px;}
+.nav-icon-btn.menu-btn{width:auto;padding:0 18px;gap:8px;font-size:13px;font-weight:500;letter-spacing:.5px;border-radius:50px;}
+
+/* PANELS */
 .side-panel{position:fixed;top:0;right:-420px;width:400px;height:100vh;background:var(--forest-m);border-left:1px solid rgba(198,167,94,.2);z-index:8000;transition:right .4s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(0,0,0,.4);}
 .side-panel.open{right:0;}
 .side-panel-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:7999;display:none;backdrop-filter:blur(4px);}
@@ -74,7 +71,6 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--forest);o
 .panel-empty i{font-size:48px;margin-bottom:16px;display:block;}
 .panel-empty p{font-size:15px;}
 .panel-item{display:flex;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid rgba(198,167,94,.1);}
-.panel-item img{width:72px;height:72px;object-fit:cover;border-radius:10px;flex-shrink:0;}
 .panel-item-info{flex:1;}
 .panel-item-info h4{font-size:14px;color:#fff;margin-bottom:4px;font-weight:500;}
 .panel-item-info p{font-size:13px;color:var(--gold);}
@@ -87,162 +83,234 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--forest);o
 .menu-nav-item i{width:22px;text-align:center;color:var(--gold);}
 .menu-nav-item:hover{background:rgba(198,167,94,.08);color:#fff;border-left-color:var(--gold);}
 .menu-nav-section{padding:10px 20px 5px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(198,167,94,.4);font-weight:600;margin-top:8px;}
-.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:var(--forest);padding-top:72px;}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:var(--forest);padding-top:74px;}
 .hero-bg-3d{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 30% 60%,rgba(198,167,94,.12) 0%,transparent 60%),radial-gradient(ellipse 60% 70% at 80% 30%,rgba(26,46,32,.8) 0%,transparent 55%);}
 .hero-particles{position:absolute;inset:0;pointer-events:none;}
 .hero-particle{position:absolute;width:2px;height:2px;background:var(--gold);border-radius:50%;opacity:.4;animation:particleDrift linear infinite;}
 @keyframes particleDrift{0%{transform:translateY(100vh) translateX(0);opacity:0;}10%{opacity:.4;}90%{opacity:.4;}100%{transform:translateY(-100px) translateX(40px);opacity:0;}}
-.hero-3d-shapes{position:absolute;inset:0;pointer-events:none;transform-style:preserve-3d;perspective:1000px;}
+.hero-3d-shapes{position:absolute;inset:0;pointer-events:none;}
 .hero-shape{position:absolute;border:1px solid rgba(198,167,94,.15);animation:shapeFloat ease-in-out infinite;}
 @keyframes shapeFloat{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-20px) rotate(180deg);}}
-.hero-content{position:relative;z-index:2;text-align:center;max-width:900px;padding:0 24px;}
+.hero-content{position:relative;z-index:2;text-align:center;max-width:920px;padding:0 24px;}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:24px;opacity:0;animation:fadeUp .8s .3s ease forwards;}
 .hero-eyebrow::before,.hero-eyebrow::after{content:'';height:1px;width:32px;background:var(--gold);opacity:.5;}
-.hero-title{font-family:'Cormorant Garamond',serif;font-size:88px;font-weight:700;color:#fff;line-height:.9;letter-spacing:-2px;margin-bottom:8px;opacity:0;animation:fadeUp .9s .5s ease forwards;}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:96px;font-weight:700;color:#fff;line-height:.88;letter-spacing:-2px;margin-bottom:10px;opacity:0;animation:fadeUp .9s .5s ease forwards;}
 .hero-title .gold{color:var(--gold);}
-.hero-subtitle{font-family:'Cormorant Garamond',serif;font-size:30px;font-style:italic;color:rgba(198,167,94,.75);margin-bottom:24px;opacity:0;animation:fadeUp .9s .7s ease forwards;}
-.hero-desc{font-size:15px;font-weight:300;color:rgba(255,255,255,.6);line-height:1.8;margin-bottom:40px;max-width:560px;margin-left:auto;margin-right:auto;opacity:0;animation:fadeUp .9s .9s ease forwards;}
+.hero-subtitle{font-family:'Cormorant Garamond',serif;font-size:30px;font-style:italic;color:rgba(198,167,94,.75);margin-bottom:26px;opacity:0;animation:fadeUp .9s .7s ease forwards;}
+.hero-desc{font-size:15px;font-weight:300;color:rgba(255,255,255,.6);line-height:1.85;margin-bottom:44px;max-width:560px;margin-left:auto;margin-right:auto;opacity:0;animation:fadeUp .9s .9s ease forwards;}
 .hero-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp .9s 1.1s ease forwards;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
-.btn-gold{display:inline-flex;align-items:center;gap:10px;padding:14px 36px;background:linear-gradient(135deg,var(--gold),var(--gold-l));color:var(--forest);border:none;border-radius:50px;font-family:'Jost',sans-serif;font-size:14px;font-weight:600;letter-spacing:.5px;cursor:pointer;text-decoration:none;box-shadow:0 8px 30px rgba(198,167,94,.4);transition:all .3s;transform-style:preserve-3d;}
+
+/* HERO STATS BAR */
+.hero-stats{position:absolute;bottom:0;left:0;right:0;background:rgba(15,26,20,.85);backdrop-filter:blur(12px);border-top:1px solid rgba(198,167,94,.15);display:flex;justify-content:center;gap:0;opacity:0;animation:fadeUp .9s 1.3s ease forwards;}
+.hero-stat{padding:18px 48px;text-align:center;border-right:1px solid rgba(198,167,94,.12);}
+.hero-stat:last-child{border-right:none;}
+.hero-stat-num{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--gold);}
+.hero-stat-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:2px;}
+
+.btn-gold{display:inline-flex;align-items:center;gap:10px;padding:15px 38px;background:linear-gradient(135deg,var(--gold),var(--gold-l));color:var(--forest);border:none;border-radius:50px;font-family:'Jost',sans-serif;font-size:14px;font-weight:600;letter-spacing:.5px;cursor:pointer;text-decoration:none;box-shadow:0 8px 30px rgba(198,167,94,.4);transition:all .3s;}
 .btn-gold:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 14px 40px rgba(198,167,94,.5);}
-.btn-outline{display:inline-flex;align-items:center;gap:10px;padding:13px 34px;background:transparent;color:var(--gold);border:1.5px solid rgba(198,167,94,.5);border-radius:50px;font-family:'Jost',sans-serif;font-size:14px;font-weight:400;cursor:pointer;text-decoration:none;transition:all .3s;}
+.btn-outline{display:inline-flex;align-items:center;gap:10px;padding:14px 36px;background:transparent;color:var(--gold);border:1.5px solid rgba(198,167,94,.5);border-radius:50px;font-family:'Jost',sans-serif;font-size:14px;font-weight:400;cursor:pointer;text-decoration:none;transition:all .3s;}
 .btn-outline:hover{background:rgba(198,167,94,.1);border-color:var(--gold);}
-.hero-scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(198,167,94,.5);font-size:11px;letter-spacing:2px;animation:bounce 2s ease-in-out infinite;}
-@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(8px);}}
-.hero-scroll i{font-size:20px;}
-.marquee-strip{padding:14px 0;background:linear-gradient(90deg,var(--gold),var(--gold-l),var(--gold));overflow:hidden;}
+
+/* MARQUEE */
+.marquee-strip{padding:15px 0;background:linear-gradient(90deg,var(--gold),var(--gold-l),var(--gold));overflow:hidden;}
 .marquee-track{display:flex;width:max-content;animation:marquee 25s linear infinite;}
 @keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
 .marquee-item{display:flex;align-items:center;gap:14px;padding:0 30px;font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:var(--forest);white-space:nowrap;}
 .marquee-item::after{content:'◆';font-style:normal;font-size:10px;opacity:.5;}
-.gender-section{padding:80px 40px;background:var(--cream);}
-.section-header{text-align:center;margin-bottom:50px;}
+
+/* SECTION STYLES */
 .section-label{display:inline-flex;align-items:center;gap:10px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:14px;}
 .section-label::before,.section-label::after{content:'';height:1px;width:24px;background:var(--gold);}
-.section-title{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--forest);letter-spacing:-1px;}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:50px;font-weight:700;color:var(--forest);letter-spacing:-1px;}
 .section-title em{font-style:italic;color:var(--gold);}
-.gender-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:900px;margin:0 auto;}
-.gender-card{position:relative;overflow:hidden;border-radius:var(--r-lg);cursor:pointer;background:var(--forest);transition:all .4s;transform-style:preserve-3d;}
-.gender-card:hover{transform:translateY(-8px) rotateX(2deg) rotateY(2deg);box-shadow:var(--shadow);}
-.gender-card-img{width:100%;height:400px;object-fit:cover;object-position:center;display:flex;align-items:flex-end;justify-content:center;font-size:180px;background:linear-gradient(160deg,var(--forest-l),var(--forest));transition:transform .4s;text-shadow:0 4px 20px rgba(0,0,0,.3);}
-.gender-card:hover .gender-card-img{transform:scale(1.04);}
-.gender-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,26,20,.95) 0%,rgba(15,26,20,.5) 50%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:32px;}
-.gender-card-title{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:700;color:#fff;margin-bottom:8px;}
-.gender-card-sub{font-size:13px;color:rgba(198,167,94,.8);margin-bottom:20px;letter-spacing:.5px;}
-.gender-explore-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 24px;background:rgba(198,167,94,.15);border:1.5px solid rgba(198,167,94,.5);color:var(--gold);border-radius:50px;font-size:13px;font-weight:500;cursor:pointer;transition:all .3s;letter-spacing:.5px;align-self:flex-start;}
-.gender-card:hover .gender-explore-btn{background:var(--gold);color:var(--forest);}
+
+/* ═══ HERO COLLECTIONS (NEW — replaces old gender section) ═══ */
+.hero-collections{background:var(--cream);padding:90px 40px;}
+.hero-collections .section-header{text-align:center;margin-bottom:56px;}
+.collection-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:1100px;margin:0 auto;}
+.collection-card{position:relative;overflow:hidden;border-radius:var(--r-lg);cursor:pointer;background:var(--forest);transition:all .45s;transform-style:preserve-3d;height:480px;}
+.collection-card:hover{transform:translateY(-10px);box-shadow:0 30px 80px rgba(15,26,20,.25);}
+.collection-card-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:120px;background:linear-gradient(160deg,var(--forest-l) 0%,var(--forest) 100%);transition:transform .5s;}
+.collection-card:hover .collection-card-bg{transform:scale(1.06);}
+.collection-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,26,20,.96) 0%,rgba(15,26,20,.45) 50%,rgba(15,26,20,.1) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:40px;}
+.collection-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(198,167,94,.15);border:1px solid rgba(198,167,94,.4);color:var(--gold);font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:600;padding:6px 14px;border-radius:50px;margin-bottom:14px;width:fit-content;}
+.collection-card-title{font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:700;color:#fff;margin-bottom:8px;line-height:1;}
+.collection-card-sub{font-size:13px;color:rgba(255,255,255,.55);margin-bottom:24px;line-height:1.6;}
+.collection-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
+.collection-tag{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.65);font-size:11px;padding:4px 12px;border-radius:20px;}
+.collection-explore-btn{display:inline-flex;align-items:center;gap:10px;padding:13px 28px;background:var(--gold);color:var(--forest);border:none;border-radius:50px;font-family:'Jost',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .3s;letter-spacing:.5px;width:fit-content;text-transform:uppercase;}
+.collection-explore-btn:hover{background:var(--gold-l);transform:translateX(4px);}
+.collection-explore-btn i{transition:transform .3s;}
+.collection-explore-btn:hover i{transform:translateX(4px);}
+
+/* CATEGORY QUICK LINKS */
+.quick-cats{background:var(--forest);padding:50px 40px;}
+.quick-cats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1100px;margin:0 auto;}
+.quick-cat-card{background:rgba(198,167,94,.06);border:1px solid rgba(198,167,94,.14);border-radius:16px;padding:28px 20px;text-align:center;cursor:pointer;transition:all .3s;}
+.quick-cat-card:hover{background:rgba(198,167,94,.12);border-color:rgba(198,167,94,.4);transform:translateY(-4px);}
+.quick-cat-icon{font-size:40px;margin-bottom:12px;display:block;}
+.quick-cat-name{font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;font-weight:600;margin-bottom:4px;}
+.quick-cat-count{font-size:12px;color:rgba(198,167,94,.6);letter-spacing:.5px;}
+
+/* CAT PAGES */
 .cat-page{display:none;position:fixed;inset:0;background:var(--cream);z-index:4000;overflow-y:auto;animation:slideInRight .4s cubic-bezier(.16,1,.3,1);}
 .cat-page.open{display:block;}
 @keyframes slideInRight{from{transform:translateX(100%);opacity:0;}to{transform:translateX(0);opacity:1;}}
 .cat-header{background:var(--forest);padding:20px 40px;display:flex;align-items:center;gap:20px;position:sticky;top:0;z-index:10;border-bottom:1px solid rgba(198,167,94,.2);}
-.cat-back-btn{display:flex;align-items:center;gap:8px;padding:9px 20px;background:rgba(198,167,94,.12);border:1.5px solid rgba(198,167,94,.3);color:var(--gold);border-radius:50px;cursor:pointer;font-size:13px;font-weight:500;transition:all .25s;letter-spacing:.5px;}
+.cat-back-btn{display:flex;align-items:center;gap:8px;padding:9px 22px;background:rgba(198,167,94,.12);border:1.5px solid rgba(198,167,94,.3);color:var(--gold);border-radius:50px;cursor:pointer;font-size:13px;font-weight:500;transition:all .25s;letter-spacing:.5px;white-space:nowrap;}
 .cat-back-btn:hover{background:var(--gold);color:var(--forest);}
 .cat-header-title{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--gold);font-weight:600;flex:1;}
-.cat-layout{display:grid;grid-template-columns:240px 1fr;min-height:calc(100vh - 70px);}
+.cat-sub-tabs{display:flex;gap:8px;flex-wrap:wrap;}
+.cat-sub-tab{padding:8px 20px;border-radius:50px;border:1.5px solid rgba(198,167,94,.25);background:transparent;color:rgba(255,255,255,.65);font-family:'Jost',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .25s;}
+.cat-sub-tab.active,.cat-sub-tab:hover{background:var(--gold);color:var(--forest);border-color:var(--gold);}
+.cat-layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 70px);}
 .cat-sidebar{background:var(--forest-m);border-right:1px solid rgba(198,167,94,.12);padding:24px 16px;position:sticky;top:70px;height:calc(100vh - 70px);overflow-y:auto;}
 .cat-sidebar-title{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:16px;padding:0 8px;}
-.cat-filter-btn{display:flex;align-items:center;gap:10px;padding:11px 14px;width:100%;background:transparent;border:none;color:rgba(255,255,255,.65);cursor:pointer;border-radius:10px;font-family:'Jost',sans-serif;font-size:14px;transition:all .25px;text-align:left;border-left:3px solid transparent;margin-bottom:4px;}
+.cat-filter-btn{display:flex;align-items:center;gap:10px;padding:11px 14px;width:100%;background:transparent;border:none;color:rgba(255,255,255,.65);cursor:pointer;border-radius:10px;font-family:'Jost',sans-serif;font-size:14px;transition:all .25s;text-align:left;border-left:3px solid transparent;margin-bottom:4px;}
 .cat-filter-btn i{color:var(--gold);width:18px;text-align:center;}
 .cat-filter-btn:hover,.cat-filter-btn.active{background:rgba(198,167,94,.1);color:#fff;border-left-color:var(--gold);}
-.cat-main{padding:32px 40px;}
-.cat-sub-tabs{display:flex;gap:10px;margin-bottom:32px;flex-wrap:wrap;}
-.cat-sub-tab{padding:9px 22px;border-radius:50px;border:1.5px solid var(--light);background:transparent;color:var(--forest);font-family:'Jost',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .25s;}
-.cat-sub-tab.active,.cat-sub-tab:hover{background:var(--forest);color:var(--gold);border-color:var(--forest);}
-.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px;max-width:100%;}
-.product-card{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:0 4px 20px rgba(15,26,20,.08);transition:all .4s;cursor:pointer;transform-style:preserve-3d;position:relative;}
-.product-card:hover{transform:translateY(-8px) rotateX(2deg);box-shadow:0 16px 50px rgba(15,26,20,.15);}
-.product-img-wrap{position:relative;height:240px;overflow:hidden;background:var(--gold-pale);}
-.product-img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .4s;display:flex;align-items:center;justify-content:center;font-size:72px;}
-.product-img-emoji{font-size:72px;display:flex;align-items:center;justify-content:center;width:100%;height:100%;}
-.product-card:hover .product-img{transform:scale(1.06);}
-.wishlist-btn-card{position:absolute;top:12px;right:12px;width:36px;height:36px;background:rgba(255,255,255,.9);border:none;border-radius:50%;cursor:pointer;font-size:16px;color:#ccc;display:flex;align-items:center;justify-content:center;transition:all .25s;z-index:2;}
-.wishlist-btn-card:hover,.wishlist-btn-card.active{color:#e74c3c;transform:scale(1.1);}
-.sold-out-ribbon{position:absolute;top:0;right:0;background:#e74c3c;color:#fff;font-size:10px;font-weight:700;letter-spacing:1px;padding:4px 10px;border-bottom-left-radius:10px;z-index:3;}
-.product-info{padding:14px 16px;}
-.product-cat-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:6px;}
-.product-name{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--forest);margin-bottom:6px;line-height:1.2;}
-.product-price{font-size:16px;font-weight:700;color:var(--forest);margin-bottom:10px;}
-.product-price .currency{font-size:11px;font-weight:400;color:var(--gray);}
-.product-rating{display:flex;align-items:center;gap:6px;margin-bottom:12px;}
-.stars-gold{color:var(--gold);font-size:12px;}
-.review-ct{font-size:11px;color:var(--gray);}
-.product-actions{display:flex;gap:6px;}
-.btn-sm{flex:1;padding:8px 10px;border:none;border-radius:6px;font-family:'Jost',sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:4px;}
+.cat-main{padding:36px 40px;}
+
+/* PRODUCTS GRID — BIGGER & CLEANER */
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:28px;}
+.product-card{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 4px 24px rgba(15,26,20,.07);transition:all .4s;cursor:pointer;position:relative;}
+.product-card:hover{transform:translateY(-10px);box-shadow:0 20px 56px rgba(15,26,20,.14);}
+.product-img-wrap{position:relative;height:300px;overflow:hidden;background:var(--gold-pale);}
+.product-img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .45s;display:flex;align-items:center;justify-content:center;}
+.product-img-emoji{font-size:80px;display:flex;align-items:center;justify-content:center;width:100%;height:100%;}
+.product-card:hover .product-img{transform:scale(1.07);}
+.wishlist-btn-card{position:absolute;top:14px;right:14px;width:38px;height:38px;background:rgba(255,255,255,.92);border:none;border-radius:50%;cursor:pointer;font-size:16px;color:#ccc;display:flex;align-items:center;justify-content:center;transition:all .25s;z-index:2;backdrop-filter:blur(4px);}
+.wishlist-btn-card:hover,.wishlist-btn-card.active{color:#e74c3c;transform:scale(1.15);}
+.sold-out-ribbon{position:absolute;top:0;right:0;background:#e74c3c;color:#fff;font-size:10px;font-weight:700;letter-spacing:1px;padding:6px 14px;border-bottom-left-radius:12px;z-index:3;}
+.product-info{padding:20px 22px 22px;}
+.product-cat-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:8px;}
+.product-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--forest);margin-bottom:10px;line-height:1.15;}
+.product-price{font-size:20px;font-weight:700;color:var(--forest);margin-bottom:10px;}
+.product-price .currency{font-size:13px;font-weight:400;color:var(--gray);}
+.product-rating{display:flex;align-items:center;gap:8px;margin-bottom:16px;}
+.stars-gold{color:var(--gold);font-size:13px;}
+.review-ct{font-size:12px;color:var(--gray);}
+.product-actions{display:flex;gap:10px;}
+.btn-sm{flex:1;padding:11px 12px;border:none;border-radius:10px;font-family:'Jost',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:6px;}
 .btn-sm-primary{background:linear-gradient(135deg,var(--forest),var(--forest-l));color:var(--gold);}
-.btn-sm-primary:hover{background:var(--forest);}
+.btn-sm-primary:hover{background:var(--forest-l);}
 .btn-sm-primary:disabled{background:#ccc;color:#888;cursor:not-allowed;}
-.btn-sm-outline{background:transparent;color:var(--forest);border:1px solid var(--light);}
+.btn-sm-outline{background:transparent;color:var(--forest);border:1.5px solid var(--light);}
 .btn-sm-outline:hover{background:var(--forest);color:var(--gold);border-color:var(--forest);}
+
+/* PRODUCT DETAIL */
 #product-detail{display:none;position:fixed;inset:0;background:var(--cream);z-index:6000;overflow-y:auto;animation:slideInRight .4s cubic-bezier(.16,1,.3,1);}
 #product-detail.open{display:block;}
-#order-detail-page{display:none;position:fixed;inset:0;background:var(--cream);z-index:6000;overflow-y:auto;animation:slideInRight .4s cubic-bezier(.16,1,.3,1);}
-#order-detail-page.open{display:block;}
 .detail-header{background:var(--forest);padding:18px 40px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:10;border-bottom:1px solid rgba(198,167,94,.2);}
-.detail-content{max-width:1100px;margin:0 auto;padding:40px 24px;}
-.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;}
+.detail-content{max-width:1140px;margin:0 auto;padding:48px 28px;}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;}
 .detail-gallery{position:relative;}
-.detail-main-img{width:100%;height:500px;object-fit:cover;object-position:top center;border-radius:var(--r-lg);background:var(--gold-pale);display:flex;align-items:center;justify-content:center;font-size:130px;overflow:hidden;}
+.detail-main-img{width:100%;height:540px;object-fit:cover;object-position:top center;border-radius:var(--r-lg);background:var(--gold-pale);display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:zoom-in;position:relative;}
+.detail-main-img::after{content:'\f00e';font-family:'Font Awesome 6 Free';font-weight:900;position:absolute;bottom:14px;right:14px;width:36px;height:36px;background:rgba(15,26,20,.7);color:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;opacity:0;transition:opacity .25s;}
+.detail-main-img:hover::after{opacity:1;}
 .detail-thumbs{display:flex;gap:10px;margin-top:14px;overflow-x:auto;padding-bottom:8px;scrollbar-width:thin;}
-.detail-thumbs::-webkit-scrollbar{height:6px;}
+.detail-thumbs::-webkit-scrollbar{height:5px;}
 .detail-thumbs::-webkit-scrollbar-track{background:rgba(198,167,94,.1);border-radius:3px;}
 .detail-thumbs::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px;}
-.detail-thumb{width:72px;height:72px;border-radius:10px;object-fit:cover;cursor:pointer;border:2px solid transparent;transition:all .25s;background:var(--gold-pale);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;}
-.detail-thumb:hover,.detail-thumb.active{border-color:var(--gold);}
-.detail-info{display:flex;flex-direction:column;gap:18px;}
+.detail-thumb{width:80px;height:80px;border-radius:12px;object-fit:cover;cursor:pointer;border:2px solid transparent;transition:all .25s;background:var(--gold-pale);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;overflow:hidden;}
+.detail-thumb img{width:100%;height:100%;object-fit:cover;}
+.detail-thumb:hover,.detail-thumb.active{border-color:var(--gold);transform:scale(1.05);}
+.detail-info{display:flex;flex-direction:column;gap:20px;}
 .detail-category{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:600;}
-.detail-title{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:700;color:var(--forest);line-height:1.1;}
-.detail-price{font-size:30px;font-weight:700;color:var(--forest);}
+.detail-title{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:var(--forest);line-height:1.05;}
+.detail-price{font-size:32px;font-weight:700;color:var(--forest);}
 .detail-price small{font-size:14px;color:var(--gray);font-weight:400;}
-.detail-desc-block{background:#fff;border-radius:var(--r);padding:20px;border:1px solid var(--light);}
+.detail-desc-block{background:#fff;border-radius:var(--r);padding:22px;border:1px solid var(--light);}
 .detail-desc-title{font-weight:600;font-size:14px;color:var(--forest);margin-bottom:10px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;}
-.detail-desc-body{font-size:14px;color:var(--gray);line-height:1.8;}
+.detail-desc-body{font-size:14px;color:var(--gray);line-height:1.85;}
 .detail-action-row{display:flex;gap:14px;flex-wrap:wrap;}
-.btn-detail{flex:1;min-width:140px;padding:14px 24px;border:none;border-radius:10px;font-family:'Jost',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:10px;}
+.btn-detail{flex:1;min-width:140px;padding:15px 24px;border:none;border-radius:12px;font-family:'Jost',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:10px;}
 .btn-detail-primary{background:linear-gradient(135deg,var(--gold),var(--gold-l));color:var(--forest);box-shadow:0 6px 24px rgba(198,167,94,.35);}
 .btn-detail-primary:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(198,167,94,.45);}
 .btn-detail-primary:disabled{background:#ccc;cursor:not-allowed;box-shadow:none;}
 .btn-detail-outline{background:transparent;color:var(--forest);border:2px solid var(--forest);}
 .btn-detail-outline:hover{background:var(--forest);color:var(--gold);}
-.home-products-section{padding:80px 40px;background:#fff;}
+
+/* LIGHTBOX */
+#lightbox{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:20000;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px;backdrop-filter:blur(8px);}
+#lightbox.open{display:flex;}
+.lightbox-img-wrap{position:relative;max-width:90vw;max-height:82vh;display:flex;align-items:center;justify-content:center;}
+#lightbox-img{max-width:90vw;max-height:82vh;object-fit:contain;border-radius:12px;box-shadow:0 30px 100px rgba(0,0,0,.6);transition:opacity .2s;}
+.lightbox-close{position:fixed;top:24px;right:28px;width:44px;height:44px;background:rgba(198,167,94,.15);border:1.5px solid rgba(198,167,94,.3);border-radius:50%;color:var(--gold);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:10;}
+.lightbox-close:hover{background:var(--gold);color:var(--forest);}
+.lightbox-nav{display:flex;gap:16px;}
+.lightbox-nav-btn{width:48px;height:48px;background:rgba(198,167,94,.12);border:1.5px solid rgba(198,167,94,.3);border-radius:50%;color:var(--gold);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s;}
+.lightbox-nav-btn:hover{background:var(--gold);color:var(--forest);}
+.lightbox-counter{font-size:13px;color:rgba(198,167,94,.6);letter-spacing:1px;}
+.lightbox-thumbs{display:flex;gap:10px;overflow-x:auto;padding:0 12px 4px;max-width:90vw;scrollbar-width:thin;}
+.lightbox-thumbs::-webkit-scrollbar{height:4px;}
+.lightbox-thumbs::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px;}
+.lb-thumb{width:64px;height:64px;border-radius:8px;object-fit:cover;cursor:pointer;border:2px solid transparent;flex-shrink:0;opacity:.55;transition:all .2s;}
+.lb-thumb.active,.lb-thumb:hover{border-color:var(--gold);opacity:1;}
+
+/* HOME PRODUCTS SECTION */
+.home-products-section{padding:90px 40px;background:#fff;}
 .products-scroll-wrap{position:relative;overflow:hidden;}
-.products-scroll-track{display:flex;gap:20px;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;padding-bottom:8px;}
+.products-scroll-track{display:flex;gap:24px;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;padding-bottom:8px;}
 .products-scroll-track::-webkit-scrollbar{display:none;}
-.scroll-arrow{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;background:var(--forest);color:var(--gold);border:none;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,.2);transition:all .25s;z-index:5;}
+.scroll-arrow{position:absolute;top:45%;transform:translateY(-50%);width:50px;height:50px;border-radius:50%;background:var(--forest);color:var(--gold);border:none;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,.2);transition:all .25s;z-index:5;}
 .scroll-arrow:hover{background:var(--gold);color:var(--forest);transform:translateY(-50%) scale(1.08);}
-.scroll-arrow.left{left:-20px;}
-.scroll-arrow.right{right:-20px;}
-.products-scroll-track .product-card{flex:0 0 260px;}
-.reviews-section{padding:80px 40px;background:var(--cream);}
-.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;margin-top:50px;}
-.review-card{background:#fff;border-radius:var(--r);padding:28px;border-left:4px solid var(--gold);box-shadow:0 4px 20px rgba(15,26,20,.06);transition:all .3s;}
-.review-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(15,26,20,.1);}
+.scroll-arrow.left{left:-22px;}
+.scroll-arrow.right{right:-22px;}
+.products-scroll-track .product-card{flex:0 0 290px;}
+
+/* TRUST SECTION */
+.trust-section{background:var(--cream);padding:70px 40px;border-top:1px solid var(--light);}
+.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1100px;margin:0 auto;}
+.trust-card{text-align:center;padding:32px 20px;}
+.trust-icon{width:60px;height:60px;background:linear-gradient(135deg,var(--forest),var(--forest-l));border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--gold);margin:0 auto 16px;}
+.trust-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--forest);margin-bottom:6px;}
+.trust-sub{font-size:13px;color:var(--gray);line-height:1.6;}
+
+/* REVIEWS */
+.reviews-section{padding:90px 40px;background:var(--forest);}
+.reviews-section .section-title{color:#fff;}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:50px;}
+.review-card{background:rgba(255,255,255,.05);border-radius:20px;padding:30px;border:1px solid rgba(198,167,94,.15);transition:all .3s;}
+.review-card:hover{background:rgba(198,167,94,.06);border-color:rgba(198,167,94,.3);transform:translateY(-4px);}
 .review-head{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
-.reviewer-avatar{width:48px;height:48px;background:linear-gradient(135deg,var(--gold),var(--forest));border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;flex-shrink:0;}
-.reviewer-name{font-weight:600;font-size:15px;color:var(--forest);}
-.reviewer-date{font-size:12px;color:var(--gray);margin-top:2px;}
-.review-text{font-size:14px;color:var(--gray);line-height:1.8;}
-footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
-.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:40px;margin-bottom:50px;max-width:1200px;margin-left:auto;margin-right:auto;}
+.reviewer-avatar{width:50px;height:50px;background:linear-gradient(135deg,var(--gold),var(--forest-l));border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;flex-shrink:0;}
+.reviewer-name{font-weight:600;font-size:15px;color:#fff;}
+.reviewer-date{font-size:12px;color:rgba(198,167,94,.5);margin-top:2px;}
+.review-text{font-size:14px;color:rgba(255,255,255,.6);line-height:1.85;}
+
+/* FOOTER */
+footer{background:var(--forest-m);color:#fff;padding:70px 40px 30px;border-top:1px solid rgba(198,167,94,.12);}
+.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:44px;margin-bottom:50px;max-width:1200px;margin-left:auto;margin-right:auto;}
 .footer-brand .footer-logo{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;color:var(--gold);letter-spacing:3px;margin-bottom:12px;}
-.footer-brand p{font-size:14px;color:rgba(255,255,255,.55);line-height:1.8;font-weight:300;}
+.footer-brand p{font-size:14px;color:rgba(255,255,255,.5);line-height:1.85;font-weight:300;}
 .footer-heading{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);margin-bottom:18px;font-weight:600;}
-.footer-link{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.6);text-decoration:none;font-size:14px;padding:5px 0;transition:color .2s;}
+.footer-link{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.55);text-decoration:none;font-size:14px;padding:5px 0;transition:color .2s;}
 .footer-link:hover{color:var(--gold);}
 .footer-link i{color:var(--gold);width:18px;font-size:13px;}
 .footer-social{display:flex;gap:12px;margin-top:20px;}
-.social-btn{width:42px;height:42px;border-radius:10px;background:rgba(198,167,94,.12);border:1.5px solid rgba(198,167,94,.2);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.6);font-size:17px;text-decoration:none;transition:all .25s;cursor:pointer;}
+.social-btn{width:42px;height:42px;border-radius:10px;background:rgba(198,167,94,.1);border:1.5px solid rgba(198,167,94,.18);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.6);font-size:17px;text-decoration:none;transition:all .25s;cursor:pointer;}
 .social-btn:hover{background:var(--gold);color:var(--forest);border-color:var(--gold);}
 .payment-badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;}
-.payment-badge{background:rgba(198,167,94,.1);border:1px solid rgba(198,167,94,.2);color:rgba(255,255,255,.7);padding:6px 14px;border-radius:6px;font-size:12px;font-weight:500;}
-.footer-history{background:rgba(198,167,94,.06);border:1px solid rgba(198,167,94,.15);border-radius:var(--r);padding:24px 28px;margin-bottom:30px;max-width:1200px;margin-left:auto;margin-right:auto;margin-bottom:40px;}
+.payment-badge{background:rgba(198,167,94,.08);border:1px solid rgba(198,167,94,.18);color:rgba(255,255,255,.65);padding:7px 14px;border-radius:8px;font-size:12px;font-weight:500;}
+.footer-history{background:rgba(198,167,94,.05);border:1px solid rgba(198,167,94,.12);border-radius:var(--r);padding:28px 32px;max-width:1200px;margin:0 auto 44px;}
 .footer-history h3{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);margin-bottom:12px;}
-.footer-history p{font-size:14px;color:rgba(255,255,255,.6);line-height:1.85;font-weight:300;}
-.footer-bottom{border-top:1px solid rgba(198,167,94,.15);padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;max-width:1200px;margin:0 auto;}
-.footer-copy{font-size:13px;color:rgba(255,255,255,.35);}
+.footer-history p{font-size:14px;color:rgba(255,255,255,.55);line-height:1.9;font-weight:300;}
+.footer-bottom{border-top:1px solid rgba(198,167,94,.12);padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;max-width:1200px;margin:0 auto;}
+.footer-copy{font-size:13px;color:rgba(255,255,255,.3);}
 .footer-copy span{color:var(--gold);}
-.admin-link{font-size:12px;color:rgba(198,167,94,.4);cursor:pointer;letter-spacing:1px;transition:color .2s;display:flex;align-items:center;gap:6px;}
+.admin-link{font-size:12px;color:rgba(198,167,94,.35);cursor:pointer;letter-spacing:1px;transition:color .2s;display:flex;align-items:center;gap:6px;}
 .admin-link:hover{color:var(--gold);}
+
+/* WHATSAPP */
+.whatsapp-float{position:fixed;bottom:28px;right:28px;width:58px;height:58px;border-radius:50%;background:#25d366;color:#fff;font-size:26px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(37,211,102,.4);text-decoration:none;transition:all .3s;z-index:999;}
+.whatsapp-float:hover{transform:scale(1.1);}
+
+/* MODALS */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);z-index:9000;display:none;align-items:center;justify-content:center;padding:20px;}
 .modal-overlay.open{display:flex;}
 .modal{background:#fff;border-radius:var(--r-lg);max-width:580px;width:100%;max-height:92vh;overflow-y:auto;animation:modalPop .3s cubic-bezier(.16,1,.3,1);box-shadow:0 30px 100px rgba(0,0,0,.3);}
@@ -262,7 +330,7 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
 .stitch-tab.active{background:var(--forest);color:var(--gold);border-color:var(--forest);}
 .measurement-box{display:none;background:var(--cream);border-radius:10px;padding:18px;border:1px dashed var(--gold);margin-top:10px;}
 .measurement-box.show{display:block;}
-.btn-submit{width:100%;padding:14px;background:linear-gradient(135deg,var(--forest),var(--forest-m));color:var(--gold);border:none;border-radius:10px;font-family:'Jost',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:all .3s;letter-spacing:.5px;display:flex;align-items:center;justify-content:center;gap:10px;}
+.btn-submit{width:100%;padding:15px;background:linear-gradient(135deg,var(--forest),var(--forest-m));color:var(--gold);border:none;border-radius:10px;font-family:'Jost',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:all .3s;letter-spacing:.5px;display:flex;align-items:center;justify-content:center;gap:10px;}
 .btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(15,26,20,.3);}
 .success-box{text-align:center;padding:30px 20px;}
 .success-icon{width:72px;height:72px;background:linear-gradient(135deg,#27ae60,#2ecc71);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;color:#fff;margin:0 auto 20px;animation:popIn .4s cubic-bezier(.16,1,.3,1);}
@@ -277,6 +345,8 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
 .order-price-row.total{border-top:1px solid rgba(198,167,94,.3);margin-top:8px;padding-top:10px;font-size:17px;font-weight:700;color:var(--gold);}
 .order-price-row .label{display:flex;align-items:center;gap:6px;}
 .order-price-row .label i{color:var(--gold);font-size:12px;}
+
+/* ADMIN */
 .admin-login-icon{width:64px;height:64px;background:linear-gradient(135deg,var(--forest),var(--gold));border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:28px;color:#fff;}
 .admin-login-err{color:#e74c3c;font-size:12px;display:none;margin-bottom:8px;}
 #admin-panel{display:none;position:fixed;inset:0;background:#f4f5f7;z-index:10000;overflow-y:auto;}
@@ -303,7 +373,7 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
 .stat-num{font-size:26px;font-weight:700;color:var(--forest);}
 .stat-lbl{font-size:12px;color:var(--gray);margin-top:2px;}
 .admin-card{background:#fff;border-radius:14px;box-shadow:0 4px 18px rgba(0,0,0,.06);margin-bottom:22px;overflow:hidden;}
-.admin-card-head{padding:16px 22px;border-bottom:2px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,rgba(15,26,20,.03),rgba(198,167,94,.03));}
+.admin-card-head{padding:16px 22px;border-bottom:2px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center;}
 .admin-card-title{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--forest);font-weight:600;}
 .admin-table{width:100%;border-collapse:collapse;}
 .admin-table th{background:var(--forest);color:var(--gold);padding:12px 14px;font-size:11px;font-weight:600;text-align:left;letter-spacing:1px;text-transform:uppercase;}
@@ -315,9 +385,9 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
 .badge-processing{background:#fff3cd;color:#856404;}
 .badge-done{background:#d1ecf1;color:#0c5460;}
 .action-btn{padding:6px 12px;border:none;border-radius:7px;cursor:pointer;font-size:12px;font-weight:600;transition:all .2s;margin-right:4px;display:inline-flex;align-items:center;gap:5px;}
-.btn-view{background:#dbeafe;color:#1e40af;border-radius:8px;}
+.btn-view{background:#dbeafe;color:#1e40af;}
 .btn-view:hover{background:#1e40af;color:#fff;}
-.btn-edit{background:#fef9c3;color:#854d0e;border-radius:8px;}
+.btn-edit{background:#fef9c3;color:#854d0e;}
 .btn-edit:hover{background:#854d0e;color:#fff;}
 .btn-del{background:#fee2e2;color:#b91c1c;border-radius:50px;}
 .btn-del:hover{background:#b91c1c;color:#fff;}
@@ -339,8 +409,6 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
 .admin-cancel-btn{background:#e5e7eb;color:#374151;border:none;padding:11px 22px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;margin-right:10px;transition:all .25s;}
 .settings-section{background:#fff;border-radius:14px;padding:24px;margin-bottom:20px;box-shadow:0 4px 18px rgba(0,0,0,.05);}
 .settings-title{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--forest);margin-bottom:18px;font-weight:600;}
-.whatsapp-float{position:fixed;bottom:28px;right:28px;width:56px;height:56px;border-radius:50%;background:#25d366;color:#fff;font-size:26px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(37,211,102,.4);text-decoration:none;transition:all .3s;z-index:999;}
-.whatsapp-float:hover{transform:scale(1.1);}
 .od-section{background:#f9fafb;border-radius:12px;padding:16px;margin-bottom:14px;}
 .od-section-title{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:6px;}
 .od-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
@@ -353,74 +421,51 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
 .od-meas-item strong{color:var(--gold);}
 .od-price-row{display:flex;justify-content:space-between;padding:6px 0;font-size:14px;color:var(--forest);border-bottom:1px solid #f0f0f0;}
 .od-price-row:last-child{border:none;font-weight:700;font-size:16px;color:var(--gold);}
-.order-detail-wrapper{max-width:900px;margin:0 auto;padding:40px 24px;}
+
+/* REVEAL ANIMATIONS */
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
 .reveal.on{opacity:1;transform:translateY(0);}
 .reveal-l{opacity:0;transform:translateX(-28px);transition:opacity .7s ease,transform .7s ease;}
 .reveal-l.on{opacity:1;transform:translateX(0);}
 .reveal-r{opacity:0;transform:translateX(28px);transition:opacity .7s ease,transform .7s ease;}
 .reveal-r.on{opacity:1;transform:translateX(0);}
-@media(max-width:1200px){
-  .gender-card-img{height:350px;font-size:160px;}
-  .detail-grid{grid-template-columns:1fr;gap:30px;}
-  .detail-main-img{height:400px;}
-  .products-grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .collection-grid{grid-template-columns:1fr;}
+  .collection-card{height:400px;}
+  .trust-grid{grid-template-columns:repeat(2,1fr);}
+  .quick-cats-grid{grid-template-columns:repeat(2,1fr);}
 }
 @media(max-width:900px){
   .navbar{padding:0 16px;gap:10px;}
   .nav-logo-text{font-size:18px;}
-  .nav-search{max-width:200px;}
-  .hero-title{font-size:52px;}
-  .gender-grid{grid-template-columns:1fr;}
-  .gender-card-img{height:320px;font-size:140px;}
+  .nav-search{max-width:180px;}
+  .hero-title{font-size:56px;}
+  .hero-stats{display:none;}
   .cat-layout{grid-template-columns:1fr;}
-  .cat-sidebar{display:none;position:relative;height:auto;top:auto;border-right:none;}
-  .cat-main{padding:24px;}
+  .cat-sidebar{display:none;}
+  .detail-grid{grid-template-columns:1fr;}
   .admin-layout{grid-template-columns:1fr;}
   .admin-sidebar{display:none;}
   .form-row,.admin-grid-2,.od-grid{grid-template-columns:1fr;}
   .footer-grid{grid-template-columns:1fr 1fr;}
   .img-previews{grid-template-columns:repeat(4,1fr);}
-  .products-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));}
-  .product-img-wrap{height:200px;}
-  .detail-content{padding:30px 16px;}
-  .detail-header{padding:16px 20px;}
-  .cat-main{padding:20px 16px;}
 }
-@media(max-width:600px){
-  .hero-title{font-size:38px;}
+@media(max-width:580px){
+  .hero-title{font-size:42px;}
   .hero-subtitle{font-size:20px;}
-  .section-title{font-size:34px;}
-  .gender-card-img{height:280px;font-size:120px;}
-  .navbar{padding:0 12px;}
-  .nav-search{display:none;}
-  .hero{padding-top:72px;}
-  .gender-section{padding:60px 20px;}
-  .home-products-section{padding:60px 20px;}
-  .reviews-section{padding:60px 20px;}
-  footer{padding:50px 20px 20px;}
+  .section-title{font-size:36px;}
   .footer-grid{grid-template-columns:1fr;}
+  .trust-grid{grid-template-columns:1fr 1fr;}
   .img-previews{grid-template-columns:repeat(3,1fr);}
-  .products-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
-  .product-card{margin:0;}
-  .product-img-wrap{height:160px;}
-  .product-name{font-size:14px;}
-  .product-price{font-size:14px;}
-  .product-info{padding:10px 12px;}
-  .btn-sm{padding:6px 8px;font-size:10px;}
-  .admin-stats{grid-template-columns:repeat(2,1fr);}
-  .admin-table{font-size:12px;}
-  .admin-table td,.admin-table th{padding:8px 10px;}
-  .action-btn{padding:4px 8px;font-size:11px;}
-  .order-detail-wrapper{padding:20px 16px;}
-  .detail-content{padding:20px 12px;}
-  .modal{max-width:90vw;}
-  .modal-body{padding:18px;}
+  .cat-header{flex-wrap:wrap;gap:12px;}
 }
 </style>
 </head>
 <body>
 
+<!-- LOADER -->
 <div id="loader">
   <div class="loader-3d">
     <div class="cube-face front">👗</div>
@@ -436,6 +481,7 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
 
 <div class="side-panel-overlay" id="panelOverlay" onclick="closePanels()"></div>
 
+<!-- CART PANEL -->
 <div class="side-panel" id="cartPanel">
   <div class="side-panel-head">
     <div class="side-panel-title"><i class="fas fa-shopping-bag" style="margin-right:10px;font-size:20px;"></i>My Cart</div>
@@ -446,6 +492,7 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
   </div>
 </div>
 
+<!-- WISHLIST PANEL -->
 <div class="side-panel" id="wishPanel">
   <div class="side-panel-head">
     <div class="side-panel-title"><i class="fas fa-heart" style="margin-right:10px;font-size:20px;"></i>Wishlist</div>
@@ -456,6 +503,7 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
   </div>
 </div>
 
+<!-- MENU PANEL -->
 <div class="menu-panel" id="menuPanel">
   <div class="menu-panel-head">
     <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);font-weight:600;">Menu</div>
@@ -475,6 +523,7 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
   <div class="menu-nav-item" onclick="openAdminLogin()"><i class="fas fa-shield-alt"></i> Admin Panel</div>
 </div>
 
+<!-- NAVBAR -->
 <nav class="navbar" id="navbar">
   <a href="#" class="nav-logo">
     <div class="nav-logo-icon"><i class="fas fa-crown"></i></div>
@@ -497,11 +546,12 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
       <span class="badge" id="wishBadge">0</span>
     </button>
     <button class="nav-icon-btn menu-btn" onclick="openMenuPanel()">
-      <i class="fas fa-bars"></i> <span class="hidden-mobile">Menu</span>
+      <i class="fas fa-bars"></i> Menu
     </button>
   </div>
 </nav>
 
+<!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-bg-3d"></div>
   <div class="hero-particles" id="heroParticles"></div>
@@ -512,13 +562,19 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
     <div class="hero-subtitle">Elegance Woven Into Every Thread</div>
     <p class="hero-desc">Discover our curated collection of men's and women's fashion — from premium stitched and unstitched clothing to footwear, watches, and accessories. Crafted for Pakistan's finest.</p>
     <div class="hero-actions">
-      <a href="#shop-now" class="btn-gold"><i class="fas fa-shopping-bag"></i> Shop Now</a>
-      <a href="#products-home" class="btn-outline"><i class="fas fa-th-large"></i> View Collection</a>
+      <a href="#collections" class="btn-gold"><i class="fas fa-th-large"></i> Explore Collections</a>
+      <a href="#products-home" class="btn-outline"><i class="fas fa-fire"></i> Best Sellers</a>
     </div>
   </div>
-  <div class="hero-scroll"><i class="fas fa-chevron-down"></i><span>Scroll</span></div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-num">5,000+</div><div class="hero-stat-lbl">Happy Customers</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">200+</div><div class="hero-stat-lbl">Products</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">Since 2018</div><div class="hero-stat-lbl">Trusted Brand</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">Nationwide</div><div class="hero-stat-lbl">Delivery</div></div>
+  </div>
 </section>
 
+<!-- MARQUEE -->
 <div class="marquee-strip">
   <div class="marquee-track">
     <span class="marquee-item">Premium Lawn Collection</span>
@@ -538,32 +594,79 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
   </div>
 </div>
 
-<div id="shop-now"></div>
-<section class="gender-section">
-  <div class="section-header reveal">
-    <div class="section-label"><span>Shop By Category</span></div>
+<!-- ═══ HERO COLLECTIONS SECTION ═══ -->
+<section class="hero-collections" id="collections">
+  <div class="section-header reveal" style="text-align:center;">
+    <div class="section-label" style="justify-content:center;"><span>Shop By Gender</span></div>
     <h2 class="section-title">Explore Our <em>Collections</em></h2>
   </div>
-  <div class="gender-grid">
-    <div class="gender-card reveal-l" onclick="openMenPage()">
-      <div class="gender-card-img">👨‍💼</div>
-      <div class="gender-card-overlay">
-        <div class="gender-card-title">Men's</div>
-        <div class="gender-card-sub">Premium Shalwar Qameez · Casual Wear · Footwear</div>
-        <button class="gender-explore-btn"><i class="fas fa-arrow-right"></i> Explore Men's</button>
+  <div class="collection-grid">
+    <div class="collection-card reveal-l" onclick="openMenPage()">
+      <div class="collection-card-bg">👔</div>
+      <div class="collection-card-overlay">
+        <div class="collection-badge"><i class="fas fa-male"></i> Men's Fashion</div>
+        <div class="collection-card-title">Men's</div>
+        <div class="collection-card-sub">Explore our complete range of premium menswear — from traditional to contemporary cuts.</div>
+        <div class="collection-tags">
+          <span class="collection-tag">Cotton</span>
+          <span class="collection-tag">Linen</span>
+          <span class="collection-tag">Boski</span>
+          <span class="collection-tag">Khaddar</span>
+          <span class="collection-tag">Wash & Wear</span>
+        </div>
+        <button class="collection-explore-btn">Explore Men's <i class="fas fa-arrow-right"></i></button>
       </div>
     </div>
-    <div class="gender-card reveal-r" onclick="openWomenPage()">
-      <div class="gender-card-img">👩‍🦰</div>
-      <div class="gender-card-overlay">
-        <div class="gender-card-title">Women's</div>
-        <div class="gender-card-sub">Lawn · Chiffon · Alkaram · Embroidered Dresses</div>
-        <button class="gender-explore-btn"><i class="fas fa-arrow-right"></i> Explore Women's</button>
+    <div class="collection-card reveal-r" onclick="openWomenPage()">
+      <div class="collection-card-bg">👗</div>
+      <div class="collection-card-overlay">
+        <div class="collection-badge"><i class="fas fa-female"></i> Women's Fashion</div>
+        <div class="collection-card-title">Women's</div>
+        <div class="collection-card-sub">Discover elegant womenswear — from casual lawn to embroidered formal masterpieces.</div>
+        <div class="collection-tags">
+          <span class="collection-tag">Lawn</span>
+          <span class="collection-tag">Cotton</span>
+          <span class="collection-tag">Chiffon</span>
+          <span class="collection-tag">Khaddar</span>
+          <span class="collection-tag">Embroidered</span>
+        </div>
+        <button class="collection-explore-btn">Explore Women's <i class="fas fa-arrow-right"></i></button>
       </div>
     </div>
   </div>
 </section>
 
+<!-- QUICK CATEGORY CARDS -->
+<section class="quick-cats">
+  <div class="section-header reveal" style="text-align:center;margin-bottom:40px;">
+    <div class="section-label" style="justify-content:center;"><span>Browse Categories</span></div>
+    <h2 class="section-title" style="color:#fff;">Shop by <em>Category</em></h2>
+  </div>
+  <div class="quick-cats-grid">
+    <div class="quick-cat-card reveal" onclick="openMenPage();setTimeout(()=>{switchMenTab('clothing',document.querySelector('#men-page .cat-sub-tab'))},100)">
+      <span class="quick-cat-icon">👔</span>
+      <div class="quick-cat-name">Clothing</div>
+      <div class="quick-cat-count">Suits · Kurtas · Dresses</div>
+    </div>
+    <div class="quick-cat-card reveal" style="transition-delay:.1s" onclick="openMenPage();setTimeout(()=>{let tabs=document.querySelectorAll('#men-page .cat-sub-tab');switchMenTab('shoes',tabs[1])},100)">
+      <span class="quick-cat-icon">👟</span>
+      <div class="quick-cat-name">Footwear</div>
+      <div class="quick-cat-count">Shoes · Heels · Sandals</div>
+    </div>
+    <div class="quick-cat-card reveal" style="transition-delay:.2s" onclick="openMenPage();setTimeout(()=>{let tabs=document.querySelectorAll('#men-page .cat-sub-tab');switchMenTab('watches',tabs[2])},100)">
+      <span class="quick-cat-icon">⌚</span>
+      <div class="quick-cat-name">Watches</div>
+      <div class="quick-cat-count">Formal · Casual · Sport</div>
+    </div>
+    <div class="quick-cat-card reveal" style="transition-delay:.3s" onclick="openMenPage();setTimeout(()=>{let tabs=document.querySelectorAll('#men-page .cat-sub-tab');switchMenTab('accessories',tabs[3])},100)">
+      <span class="quick-cat-icon">💎</span>
+      <div class="quick-cat-name">Accessories</div>
+      <div class="quick-cat-count">Bags · Belts · Jewelry</div>
+    </div>
+  </div>
+</section>
+
+<!-- MEN'S PAGE -->
 <div class="cat-page" id="men-page">
   <div class="cat-header">
     <button class="cat-back-btn" onclick="closeCatPage('men-page')"><i class="fas fa-arrow-left"></i> Back</button>
@@ -579,8 +682,8 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
     <div class="cat-sidebar" id="men-sidebar">
       <div class="cat-sidebar-title">Filter by Fabric</div>
       <button class="cat-filter-btn active" onclick="filterMen('',this)"><i class="fas fa-th"></i> All</button>
-      <button class="cat-filter-btn" onclick="filterMen('Cotton',this)"><i class="fas fa-leaf"></i> Cotton 🌿</button>
-      <button class="cat-filter-btn" onclick="filterMen('Linen',this)"><i class="fas fa-wind"></i> Linen Fabrics</button>
+      <button class="cat-filter-btn" onclick="filterMen('Cotton',this)"><i class="fas fa-leaf"></i> Cotton</button>
+      <button class="cat-filter-btn" onclick="filterMen('Linen',this)"><i class="fas fa-wind"></i> Linen</button>
       <button class="cat-filter-btn" onclick="filterMen('Boski',this)"><i class="fas fa-star"></i> Boski</button>
       <button class="cat-filter-btn" onclick="filterMen('Khaddar',this)"><i class="fas fa-fire"></i> Khaddar</button>
       <button class="cat-filter-btn" onclick="filterMen('Wash',this)"><i class="fas fa-tint"></i> Wash & Wear</button>
@@ -591,6 +694,7 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
   </div>
 </div>
 
+<!-- WOMEN'S PAGE -->
 <div class="cat-page" id="women-page">
   <div class="cat-header">
     <button class="cat-back-btn" onclick="closeCatPage('women-page')"><i class="fas fa-arrow-left"></i> Back</button>
@@ -617,6 +721,7 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
   </div>
 </div>
 
+<!-- PRODUCT DETAIL -->
 <div id="product-detail">
   <div class="detail-header">
     <button class="cat-back-btn" onclick="closeDetail()"><i class="fas fa-arrow-left"></i> Back</button>
@@ -625,7 +730,7 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
   <div class="detail-content">
     <div class="detail-grid">
       <div class="detail-gallery">
-        <div class="detail-main-img" id="detail-main-img-wrap">
+        <div class="detail-main-img" id="detail-main-img-wrap" onclick="openLightbox()">
           <span id="detail-main-emoji" style="font-size:130px"></span>
         </div>
         <div class="detail-thumbs" id="detail-thumbs"></div>
@@ -655,30 +760,64 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
   </div>
 </div>
 
-<div id="order-detail-page">
-  <div class="detail-header">
-    <button class="cat-back-btn" onclick="closeOrderDetail()"><i class="fas fa-arrow-left"></i> Back to Orders</button>
-    <div class="cat-header-title" id="od-header-name"></div>
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
+  <div class="lightbox-img-wrap">
+    <img id="lightbox-img" src="" alt="Product Image">
   </div>
-  <div class="order-detail-wrapper" id="order-detail-content"></div>
+  <div class="lightbox-counter" id="lightbox-counter">1 / 1</div>
+  <div class="lightbox-nav">
+    <button class="lightbox-nav-btn" onclick="lbNav(-1)"><i class="fas fa-chevron-left"></i></button>
+    <button class="lightbox-nav-btn" onclick="lbNav(1)"><i class="fas fa-chevron-right"></i></button>
+  </div>
+  <div class="lightbox-thumbs" id="lightbox-thumbs"></div>
 </div>
 
+<!-- BEST SELLERS -->
 <section class="home-products-section" id="products-home">
-  <div class="section-header reveal" style="margin-bottom:40px;">
-    <div class="section-label" style="justify-content:center"><span>Featured Items</span></div>
-    <h2 class="section-title" style="text-align:center">Our <em>Best Sellers</em></h2>
+  <div class="section-header reveal" style="text-align:center;margin-bottom:48px;">
+    <div class="section-label" style="justify-content:center;"><span>Featured Items</span></div>
+    <h2 class="section-title" style="text-align:center;">Our <em>Best Sellers</em></h2>
   </div>
-  <div class="products-scroll-wrap" style="max-width:1400px;margin:0 auto;padding:0 60px;">
+  <div class="products-scroll-wrap" style="max-width:1400px;margin:0 auto;padding:0 64px;">
     <button class="scroll-arrow left" onclick="scrollTrack(-1)"><i class="fas fa-chevron-left"></i></button>
     <div class="products-scroll-track" id="homeProductsTrack"></div>
     <button class="scroll-arrow right" onclick="scrollTrack(1)"><i class="fas fa-chevron-right"></i></button>
   </div>
 </section>
 
+<!-- TRUST SECTION -->
+<section class="trust-section">
+  <div class="trust-grid">
+    <div class="trust-card reveal">
+      <div class="trust-icon"><i class="fas fa-truck"></i></div>
+      <div class="trust-title">Nationwide Delivery</div>
+      <div class="trust-sub">We deliver to every corner of Pakistan with care and speed.</div>
+    </div>
+    <div class="trust-card reveal" style="transition-delay:.1s">
+      <div class="trust-icon"><i class="fas fa-money-bill-wave"></i></div>
+      <div class="trust-title">Cash on Delivery</div>
+      <div class="trust-sub">Pay when your order arrives. No risk, full trust.</div>
+    </div>
+    <div class="trust-card reveal" style="transition-delay:.2s">
+      <div class="trust-icon"><i class="fas fa-cut"></i></div>
+      <div class="trust-title">Expert Stitching</div>
+      <div class="trust-sub">Custom measurements, perfectly tailored for your fit.</div>
+    </div>
+    <div class="trust-card reveal" style="transition-delay:.3s">
+      <div class="trust-icon"><i class="fab fa-whatsapp"></i></div>
+      <div class="trust-title">WhatsApp Support</div>
+      <div class="trust-sub">Instant support directly on WhatsApp, any time.</div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
 <section class="reviews-section">
   <div style="max-width:1200px;margin:0 auto;">
-    <div class="section-header reveal" style="margin-bottom:0;">
-      <div class="section-label" style="justify-content:center"><span>What Customers Say</span></div>
+    <div class="section-header reveal" style="text-align:center;margin-bottom:0;">
+      <div class="section-label" style="justify-content:center;"><span>What Customers Say</span></div>
       <h2 class="section-title" style="text-align:center;margin-bottom:0;">Customer <em>Reviews</em></h2>
     </div>
     <div class="reviews-grid" id="reviews-grid">
@@ -707,14 +846,15 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
         <p class="review-text">"Shoes ki quality ne hiran kar diya! Bahut genuine leather aur comfortable hain. Price bhi reasonable thi. Customer service bhi bahut achi hai. Highly recommend karta hun!"</p>
       </div>
     </div>
-    <div id="customer-reviews-grid" class="reviews-grid" style="margin-top:20px;"></div>
+    <div id="customer-reviews-grid" class="reviews-grid" style="margin-top:24px;"></div>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <div class="footer-history reveal">
     <h3><i class="fas fa-history"></i> Our Story — Since 2018</h3>
-    <p>Nobel Wear was founded by Abdullah in 2018 with a single vision: to bring premium, affordable fashion to every corner of Pakistan. What started as a small boutique in Lahore has grown into Pakistan's most trusted online fashion destination. Over the years, we have served thousands of satisfied customers across all provinces, delivering quality clothing, footwear, and accessories with exceptional service. Our commitment to craftsmanship, fair pricing, and customer satisfaction has made Nobel Wear a household name. Today, with a wide range of men's and women's fashion — from traditional Khaddar and Lawn to modern cuts and luxury accessories — we continue Abdullah's founding promise: fashion for every Pakistani, delivered with pride.</p>
+    <p>Nobel Wear was founded by Abdullah in 2018 with a single vision: to bring premium, affordable fashion to every corner of Pakistan. What started as a small boutique in Lahore has grown into Pakistan's most trusted online fashion destination. Over the years, we have served thousands of satisfied customers across all provinces, delivering quality clothing, footwear, and accessories with exceptional service. Our commitment to craftsmanship, fair pricing, and customer satisfaction has made Nobel Wear a household name.</p>
   </div>
   <div class="footer-grid">
     <div class="footer-brand reveal">
@@ -729,7 +869,7 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
     </div>
     <div class="reveal" style="transition-delay:.1s">
       <div class="footer-heading">Quick Links</div>
-      <a class="footer-link" href="#shop-now"><i class="fas fa-store"></i> Shop Now</a>
+      <a class="footer-link" href="#collections"><i class="fas fa-store"></i> Collections</a>
       <a class="footer-link" onclick="openCartPanel()" href="#"><i class="fas fa-shopping-bag"></i> My Cart</a>
       <a class="footer-link" onclick="openWishPanel()" href="#"><i class="fas fa-heart"></i> Wishlist</a>
       <a class="footer-link" onclick="document.querySelector('.reviews-section').scrollIntoView({behavior:'smooth'})" href="#"><i class="fas fa-star"></i> Reviews</a>
@@ -753,7 +893,7 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
     </div>
   </div>
   <div class="footer-bottom">
-    <div class="footer-copy">&copy; 2024 <span>NOBEL WEAR</span> — Founded by Abdullah · All Rights Reserved</div>
+    <div class="footer-copy">&copy; 2025 <span>NOBEL WEAR</span> — Founded by Abdullah · All Rights Reserved</div>
     <div class="admin-link" onclick="openAdminLogin()"><i class="fas fa-shield-alt"></i> Admin Panel</div>
   </div>
 </footer>
@@ -798,50 +938,22 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
           </div>
         </div>
         <div class="order-price-summary" id="order-price-summary">
-          <div class="order-price-row" id="opr-product">
-            <span class="label"><i class="fas fa-tag"></i> Product Price</span>
-            <span id="opr-product-val">PKR 0</span>
-          </div>
-          <div class="order-price-row" id="opr-stitch-row" style="display:none;">
-            <span class="label"><i class="fas fa-cut"></i> Stitching Charges</span>
-            <span id="opr-stitch-val">PKR 1,500</span>
-          </div>
-          <div class="order-price-row" id="opr-qty-row" style="display:none;">
-            <span class="label"><i class="fas fa-layer-group"></i> Quantity</span>
-            <span id="opr-qty-val">× 1</span>
-          </div>
-          <div class="order-price-row total">
-            <span class="label"><i class="fas fa-receipt"></i> Total Amount</span>
-            <span id="opr-total-val">PKR 0</span>
-          </div>
+          <div class="order-price-row"><span class="label"><i class="fas fa-tag"></i> Product Price</span><span id="opr-product-val">PKR 0</span></div>
+          <div class="order-price-row" id="opr-stitch-row" style="display:none;"><span class="label"><i class="fas fa-cut"></i> Stitching Charges</span><span id="opr-stitch-val">PKR 1,500</span></div>
+          <div class="order-price-row" id="opr-qty-row" style="display:none;"><span class="label"><i class="fas fa-layer-group"></i> Quantity</span><span id="opr-qty-val">× 1</span></div>
+          <div class="order-price-row total"><span class="label"><i class="fas fa-receipt"></i> Total Amount</span><span id="opr-total-val">PKR 0</span></div>
         </div>
         <form onsubmit="submitOrder(event)">
           <div class="form-row">
-            <div class="form-group">
-              <label class="form-label"><i class="fas fa-user"></i> Full Name *</label>
-              <input class="form-input" id="o-name" placeholder="Your full name" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label"><i class="fab fa-whatsapp"></i> WhatsApp No *</label>
-              <input class="form-input" id="o-phone" placeholder="03XX-XXXXXXX" required>
-            </div>
+            <div class="form-group"><label class="form-label"><i class="fas fa-user"></i> Full Name *</label><input class="form-input" id="o-name" placeholder="Your full name" required></div>
+            <div class="form-group"><label class="form-label"><i class="fab fa-whatsapp"></i> WhatsApp No *</label><input class="form-input" id="o-phone" placeholder="03XX-XXXXXXX" required></div>
           </div>
-          <div class="form-group">
-            <label class="form-label"><i class="fas fa-map-marker-alt"></i> Address *</label>
-            <textarea class="form-textarea" id="o-address" rows="2" placeholder="House #, Street, Area" required></textarea>
-          </div>
+          <div class="form-group"><label class="form-label"><i class="fas fa-map-marker-alt"></i> Address *</label><textarea class="form-textarea" id="o-address" rows="2" placeholder="House #, Street, Area" required></textarea></div>
           <div class="form-row">
-            <div class="form-group">
-              <label class="form-label"><i class="fas fa-city"></i> City *</label>
-              <input class="form-input" id="o-city" placeholder="e.g. Lahore" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label"><i class="fas fa-cubes"></i> Quantity *</label>
-              <input class="form-input" type="number" id="o-qty" min="1" value="1" required oninput="updatePriceSummary()">
-            </div>
+            <div class="form-group"><label class="form-label"><i class="fas fa-city"></i> City *</label><input class="form-input" id="o-city" placeholder="e.g. Lahore" required></div>
+            <div class="form-group"><label class="form-label"><i class="fas fa-cubes"></i> Quantity *</label><input class="form-input" type="number" id="o-qty" min="1" value="1" required oninput="updatePriceSummary()"></div>
           </div>
-          <div class="form-group">
-            <label class="form-label"><i class="fas fa-credit-card"></i> Payment *</label>
+          <div class="form-group"><label class="form-label"><i class="fas fa-credit-card"></i> Payment *</label>
             <select class="form-select" id="o-payment" required>
               <option value="">Select Payment</option>
               <option>Cash on Delivery</option>
@@ -850,10 +962,7 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
               <option>JazzCash</option>
             </select>
           </div>
-          <div class="form-group">
-            <label class="form-label"><i class="fas fa-sticky-note"></i> Special Notes (Optional)</label>
-            <textarea class="form-textarea" id="o-notes" rows="2" placeholder="Any special requests..."></textarea>
-          </div>
+          <div class="form-group"><label class="form-label"><i class="fas fa-sticky-note"></i> Special Notes (Optional)</label><textarea class="form-textarea" id="o-notes" rows="2" placeholder="Any special requests..."></textarea></div>
           <button type="submit" class="btn-submit"><i class="fas fa-paper-plane"></i> Place Order</button>
         </form>
       </div>
@@ -861,7 +970,7 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
         <div class="success-box">
           <div class="success-icon"><i class="fas fa-check"></i></div>
           <h3>Order Placed!</h3>
-          <p>Your order has been received and saved. Our team will review it and contact you on WhatsApp to confirm your order details.</p>
+          <p>Your order has been received. Our team will contact you on WhatsApp to confirm your order details.</p>
           <button class="btn-gold" onclick="closeModal('orderModal')"><i class="fas fa-shopping-bag"></i> Continue Shopping</button>
         </div>
       </div>
@@ -878,10 +987,7 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
     </div>
     <div class="modal-body">
       <form onsubmit="submitReview(event)">
-        <div class="form-group">
-          <label class="form-label">Your Name</label>
-          <input class="form-input" id="r-name" placeholder="Your name" required>
-        </div>
+        <div class="form-group"><label class="form-label">Your Name</label><input class="form-input" id="r-name" placeholder="Your name" required></div>
         <div class="form-group">
           <label class="form-label">Star Rating</label>
           <div class="star-input" id="star-input">
@@ -893,36 +999,32 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
           </div>
           <input type="hidden" id="r-stars" value="0">
         </div>
-        <div class="form-group">
-          <label class="form-label">Your Review</label>
-          <textarea class="form-textarea" id="r-text" rows="4" placeholder="Share your experience..." required></textarea>
-        </div>
+        <div class="form-group"><label class="form-label">Your Review</label><textarea class="form-textarea" id="r-text" rows="4" placeholder="Share your experience..." required></textarea></div>
         <button type="submit" class="btn-submit"><i class="fas fa-paper-plane"></i> Submit Review</button>
       </form>
     </div>
   </div>
 </div>
 
+<!-- ORDER DETAIL MODAL (ADMIN) -->
+<div class="modal-overlay" id="orderDetailModal">
+  <div class="modal" style="max-width:680px;">
+    <div class="modal-head"><h3><i class="fas fa-receipt"></i> Order Details</h3><button class="modal-close-btn" onclick="closeModal('orderDetailModal')"><i class="fas fa-times"></i></button></div>
+    <div class="modal-body" id="orderDetailBody"></div>
+  </div>
+</div>
+
 <!-- ADMIN LOGIN -->
 <div class="modal-overlay" id="adminLoginModal">
   <div class="modal" style="max-width:400px;">
-    <div class="modal-head">
-      <h3><i class="fas fa-shield-alt"></i> Admin Access</h3>
-      <button class="modal-close-btn" onclick="closeModal('adminLoginModal')"><i class="fas fa-times"></i></button>
-    </div>
+    <div class="modal-head"><h3><i class="fas fa-shield-alt"></i> Admin Access</h3><button class="modal-close-btn" onclick="closeModal('adminLoginModal')"><i class="fas fa-times"></i></button></div>
     <div class="modal-body">
       <div style="text-align:center;margin-bottom:24px;">
         <div class="admin-login-icon"><i class="fas fa-user-shield"></i></div>
         <p style="color:var(--gray);font-size:14px;">Enter credentials to access admin panel</p>
       </div>
-      <div class="form-group">
-        <label class="form-label"><i class="fas fa-user"></i> Username</label>
-        <input class="form-input" id="admin-u" placeholder="Username" onkeydown="if(event.key==='Enter')adminLogin()">
-      </div>
-      <div class="form-group">
-        <label class="form-label"><i class="fas fa-lock"></i> Password</label>
-        <input class="form-input" type="password" id="admin-p" placeholder="Password" onkeydown="if(event.key==='Enter')adminLogin()">
-      </div>
+      <div class="form-group"><label class="form-label"><i class="fas fa-user"></i> Username</label><input class="form-input" id="admin-u" placeholder="Username" onkeydown="if(event.key==='Enter')adminLogin()"></div>
+      <div class="form-group"><label class="form-label"><i class="fas fa-lock"></i> Password</label><input class="form-input" type="password" id="admin-p" placeholder="Password" onkeydown="if(event.key==='Enter')adminLogin()"></div>
       <p class="admin-login-err" id="admin-err"><i class="fas fa-times-circle"></i> Incorrect credentials</p>
       <button class="btn-submit" onclick="adminLogin()"><i class="fas fa-sign-in-alt"></i> Login</button>
     </div>
@@ -945,10 +1047,9 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
       <div class="admin-nav" onclick="showAdminTab('products')"><i class="fas fa-box-open"></i> Products</div>
       <div class="admin-nav" onclick="showAdminTab('add-product')"><i class="fas fa-plus-circle"></i> Add Product</div>
       <div class="admin-nav" onclick="showAdminTab('reviews-admin')"><i class="fas fa-star"></i> Reviews</div>
-      <div class="admin-nav" onclick="showAdminTab('settings')"><i class="fas fa-cog"></i> Settings / Footer</div>
+      <div class="admin-nav" onclick="showAdminTab('settings')"><i class="fas fa-cog"></i> Settings</div>
     </div>
     <div class="admin-main">
-
       <!-- DASHBOARD -->
       <div class="admin-tab active" id="tab-dashboard">
         <h2 style="font-family:'Cormorant Garamond',serif;color:var(--forest);font-size:30px;margin-bottom:22px;"><i class="fas fa-tachometer-alt" style="color:var(--gold);margin-right:10px;"></i>Dashboard</h2>
@@ -956,84 +1057,47 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
           <div class="stat-card"><div class="stat-icon si-green"><i class="fas fa-clipboard-list"></i></div><div><div class="stat-num" id="s-orders">0</div><div class="stat-lbl">Total Orders</div></div></div>
           <div class="stat-card"><div class="stat-icon si-gold"><i class="fas fa-box-open"></i></div><div><div class="stat-num" id="s-products">0</div><div class="stat-lbl">Products</div></div></div>
           <div class="stat-card"><div class="stat-icon si-blue"><i class="fas fa-star"></i></div><div><div class="stat-num" id="s-reviews">0</div><div class="stat-lbl">Reviews</div></div></div>
-          <div class="stat-card"><div class="stat-icon si-red"><i class="fas fa-rupee-sign"></i></div><div><div class="stat-num" id="s-revenue">0</div><div class="stat-lbl">Total Revenue (PKR)</div></div></div>
+          <div class="stat-card"><div class="stat-icon si-red"><i class="fas fa-rupee-sign"></i></div><div><div class="stat-num" id="s-revenue">0</div><div class="stat-lbl">Revenue (PKR)</div></div></div>
         </div>
         <div class="admin-card">
           <div class="admin-card-head"><div class="admin-card-title"><i class="fas fa-clock"></i> Recent Orders</div></div>
           <div style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>#</th><th>Customer</th><th>Product</th><th>City</th><th>Total</th><th>Status</th><th>Action</th></tr></thead><tbody id="dash-orders-tb"></tbody></table></div>
         </div>
       </div>
-
       <!-- ALL ORDERS -->
       <div class="admin-tab" id="tab-orders">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;flex-wrap:wrap;gap:12px;">
           <h2 style="font-family:'Cormorant Garamond',serif;color:var(--forest);font-size:30px;"><i class="fas fa-clipboard-list" style="color:var(--gold);margin-right:10px;"></i>All Orders</h2>
           <input class="admin-input" style="max-width:240px;" placeholder="🔍 Search orders..." oninput="searchOrders(this.value)">
         </div>
-        <div class="admin-card">
-          <div style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>#ID</th><th>Date</th><th>Customer</th><th>Phone</th><th>Product</th><th>City</th><th>Qty</th><th>Stitch</th><th>Total</th><th>Status</th><th>Actions</th></tr></thead><tbody id="all-orders-tb"></tbody></table></div>
-        </div>
+        <div class="admin-card"><div style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>#ID</th><th>Date</th><th>Customer</th><th>Phone</th><th>Product</th><th>City</th><th>Qty</th><th>Stitch</th><th>Total</th><th>Status</th><th>Actions</th></tr></thead><tbody id="all-orders-tb"></tbody></table></div></div>
       </div>
-
       <!-- PRODUCTS -->
       <div class="admin-tab" id="tab-products">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;">
           <h2 style="font-family:'Cormorant Garamond',serif;color:var(--forest);font-size:30px;"><i class="fas fa-box-open" style="color:var(--gold);margin-right:10px;"></i>Products</h2>
           <button class="admin-save-btn" onclick="showAdminTab('add-product')"><i class="fas fa-plus"></i> Add Product</button>
         </div>
-        <div class="admin-card">
-          <div style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Gender</th><th>Actions</th></tr></thead><tbody id="products-tb"></tbody></table></div>
-        </div>
+        <div class="admin-card"><div style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Gender</th><th>Actions</th></tr></thead><tbody id="products-tb"></tbody></table></div></div>
       </div>
-
       <!-- ADD PRODUCT -->
       <div class="admin-tab" id="tab-add-product">
         <h2 style="font-family:'Cormorant Garamond',serif;color:var(--forest);font-size:30px;margin-bottom:22px;" id="add-p-heading"><i class="fas fa-plus-circle" style="color:var(--gold);margin-right:10px;"></i>Add Product</h2>
         <div class="admin-card">
           <div style="padding:24px;">
             <div class="admin-grid-2">
-              <div class="admin-form-group">
-                <label class="admin-label">Product Title *</label>
-                <input class="admin-input" id="p-title" placeholder="e.g. Premium Lawn Suit">
-              </div>
-              <div class="admin-form-group">
-                <label class="admin-label">Gender</label>
-                <select class="admin-select" id="p-gender">
-                  <option value="men">Men</option>
-                  <option value="women">Women</option>
-                  <option value="both">Both</option>
-                </select>
-              </div>
-              <div class="admin-form-group">
-                <label class="admin-label">Category</label>
-                <select class="admin-select" id="p-category">
-                  <option value="clothing">Clothing</option>
-                  <option value="shoes">Shoes</option>
-                  <option value="watches">Watches</option>
-                  <option value="accessories">Accessories</option>
-                </select>
-              </div>
-              <div class="admin-form-group">
-                <label class="admin-label">Fabric / Type</label>
-                <input class="admin-input" id="p-fabric" placeholder="e.g. Lawn, Boski, Cotton">
-              </div>
-              <div class="admin-form-group">
-                <label class="admin-label">Price (PKR) *</label>
-                <input class="admin-input" type="number" id="p-price" placeholder="e.g. 3500">
-              </div>
-              <div class="admin-form-group">
-                <label class="admin-label">Available Quantity *</label>
-                <input class="admin-input" type="number" id="p-qty" placeholder="e.g. 50">
-              </div>
+              <div class="admin-form-group"><label class="admin-label">Product Title *</label><input class="admin-input" id="p-title" placeholder="e.g. Premium Lawn Suit"></div>
+              <div class="admin-form-group"><label class="admin-label">Gender</label><select class="admin-select" id="p-gender"><option value="men">Men</option><option value="women">Women</option><option value="both">Both</option></select></div>
+              <div class="admin-form-group"><label class="admin-label">Category</label><select class="admin-select" id="p-category"><option value="clothing">Clothing</option><option value="shoes">Shoes</option><option value="watches">Watches</option><option value="accessories">Accessories</option></select></div>
+              <div class="admin-form-group"><label class="admin-label">Fabric / Type</label><input class="admin-input" id="p-fabric" placeholder="e.g. Lawn, Boski, Cotton"></div>
+              <div class="admin-form-group"><label class="admin-label">Price (PKR) *</label><input class="admin-input" type="number" id="p-price" placeholder="e.g. 3500"></div>
+              <div class="admin-form-group"><label class="admin-label">Available Quantity *</label><input class="admin-input" type="number" id="p-qty" placeholder="e.g. 50"></div>
+              <div class="admin-form-group" style="grid-column:1/-1"><label class="admin-label">Description *</label><textarea class="admin-textarea" id="p-desc" rows="3" placeholder="Describe the product..."></textarea></div>
               <div class="admin-form-group" style="grid-column:1/-1">
-                <label class="admin-label">Description *</label>
-                <textarea class="admin-textarea" id="p-desc" rows="3" placeholder="Describe the product..."></textarea>
-              </div>
-              <div class="admin-form-group" style="grid-column:1/-1">
-                <label class="admin-label">Product Images * (Up to 10)</label>
+                <label class="admin-label">Product Images * (Up to 10 — all images show in gallery & lightbox)</label>
                 <div class="img-upload-area" onclick="document.getElementById('p-images').click()">
                   <i class="fas fa-cloud-upload-alt"></i>
-                  <p>Click to upload from device (any format accepted)</p>
+                  <p>Click to upload from device — add as many as you want (max 10)</p>
                 </div>
                 <input type="file" id="p-images" multiple accept="image/*" style="display:none" onchange="handleProductImages(event)">
                 <div class="img-previews" id="img-prev-grid"></div>
@@ -1046,70 +1110,41 @@ footer{background:var(--forest);color:#fff;padding:70px 40px 30px;}
           </div>
         </div>
       </div>
-
       <!-- REVIEWS ADMIN -->
       <div class="admin-tab" id="tab-reviews-admin">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;">
           <h2 style="font-family:'Cormorant Garamond',serif;color:var(--forest);font-size:30px;"><i class="fas fa-star" style="color:var(--gold);margin-right:10px;"></i>Reviews</h2>
           <button class="admin-save-btn" onclick="openAddAdminReview()"><i class="fas fa-plus"></i> Add Review</button>
         </div>
-        <div class="admin-card">
-          <div style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>#</th><th>Name</th><th>Stars</th><th>Review</th><th>Product</th><th>Date</th><th>Action</th></tr></thead><tbody id="reviews-admin-tb"></tbody></table></div>
-        </div>
+        <div class="admin-card"><div style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>#</th><th>Name</th><th>Stars</th><th>Review</th><th>Product</th><th>Date</th><th>Action</th></tr></thead><tbody id="reviews-admin-tb"></tbody></table></div></div>
       </div>
-
       <!-- SETTINGS -->
       <div class="admin-tab" id="tab-settings">
-        <h2 style="font-family:'Cormorant Garamond',serif;color:var(--forest);font-size:30px;margin-bottom:22px;"><i class="fas fa-cog" style="color:var(--gold);margin-right:10px;"></i>Settings / Footer</h2>
+        <h2 style="font-family:'Cormorant Garamond',serif;color:var(--forest);font-size:30px;margin-bottom:22px;"><i class="fas fa-cog" style="color:var(--gold);margin-right:10px;"></i>Settings</h2>
         <div class="settings-section">
           <div class="settings-title"><i class="fas fa-share-alt" style="color:var(--gold);margin-right:8px;"></i>Social Media Links</div>
           <div class="admin-grid-2">
-            <div class="admin-form-group">
-              <label class="admin-label"><i class="fab fa-instagram"></i> Instagram URL</label>
-              <input class="admin-input" id="set-insta" placeholder="https://instagram.com/nobelwear">
-            </div>
-            <div class="admin-form-group">
-              <label class="admin-label"><i class="fab fa-tiktok"></i> TikTok URL</label>
-              <input class="admin-input" id="set-tiktok" placeholder="https://tiktok.com/@nobelwear">
-            </div>
-            <div class="admin-form-group">
-              <label class="admin-label"><i class="fab fa-whatsapp"></i> WhatsApp Number</label>
-              <input class="admin-input" id="set-whatsapp" placeholder="923163475925" value="923163475925">
-            </div>
-            <div class="admin-form-group">
-              <label class="admin-label"><i class="fab fa-facebook"></i> Facebook URL</label>
-              <input class="admin-input" id="set-facebook" placeholder="https://facebook.com/nobelwear">
-            </div>
+            <div class="admin-form-group"><label class="admin-label"><i class="fab fa-instagram"></i> Instagram URL</label><input class="admin-input" id="set-insta" placeholder="https://instagram.com/nobelwear"></div>
+            <div class="admin-form-group"><label class="admin-label"><i class="fab fa-tiktok"></i> TikTok URL</label><input class="admin-input" id="set-tiktok" placeholder="https://tiktok.com/@nobelwear"></div>
+            <div class="admin-form-group"><label class="admin-label"><i class="fab fa-whatsapp"></i> WhatsApp Number</label><input class="admin-input" id="set-whatsapp" placeholder="923163475925"></div>
+            <div class="admin-form-group"><label class="admin-label"><i class="fab fa-facebook"></i> Facebook URL</label><input class="admin-input" id="set-facebook" placeholder="https://facebook.com/nobelwear"></div>
           </div>
-          <button class="admin-save-btn" onclick="saveSettings()"><i class="fas fa-save"></i> Save Social Links</button>
+          <button class="admin-save-btn" onclick="saveSettings()"><i class="fas fa-save"></i> Save Links</button>
         </div>
         <div class="settings-section">
           <div class="settings-title"><i class="fas fa-lock" style="color:var(--gold);margin-right:8px;"></i>Change Admin Password</div>
           <div class="admin-grid-2">
-            <div class="admin-form-group">
-              <label class="admin-label">New Password</label>
-              <input class="admin-input" type="password" id="new-pass" placeholder="New password">
-            </div>
-            <div class="admin-form-group">
-              <label class="admin-label">Confirm Password</label>
-              <input class="admin-input" type="password" id="conf-pass" placeholder="Confirm password">
-            </div>
+            <div class="admin-form-group"><label class="admin-label">New Password</label><input class="admin-input" type="password" id="new-pass" placeholder="New password"></div>
+            <div class="admin-form-group"><label class="admin-label">Confirm Password</label><input class="admin-input" type="password" id="conf-pass" placeholder="Confirm password"></div>
           </div>
           <button class="admin-save-btn" onclick="changeAdminPass()"><i class="fas fa-key"></i> Change Password</button>
         </div>
         <div class="settings-section">
           <div class="settings-title"><i class="fas fa-address-card" style="color:var(--gold);margin-right:8px;"></i>Contact Info</div>
-          <div class="admin-form-group">
-            <label class="admin-label">WhatsApp / Phone</label>
-            <input class="admin-input" value="+92 316 3475925" readonly>
-          </div>
-          <div class="admin-form-group">
-            <label class="admin-label">Email</label>
-            <input class="admin-input" value="nobel.wearofficial@gmail.com" readonly>
-          </div>
+          <div class="admin-form-group"><label class="admin-label">WhatsApp / Phone</label><input class="admin-input" value="+92 316 3475925" readonly></div>
+          <div class="admin-form-group"><label class="admin-label">Email</label><input class="admin-input" value="nobel.wearofficial@gmail.com" readonly></div>
         </div>
       </div>
-
     </div>
   </div>
 </div>
@@ -1121,18 +1156,18 @@ let products = JSON.parse(localStorage.getItem('nw_products') || 'null');
 if (!products) {
   products = [
     {id:1,title:'Premium Lawn Suit',gender:'women',category:'clothing',fabric:'Lawn',price:3500,qty:30,desc:'Beautiful printed lawn unstitched suit with embroidered dupatta. Perfect for summer.',images:[],emoji:'👗',rating:4.8,ratingCount:24},
-    {id:2,title:'Boski Shalwar Qameez',gender:'men',category:'clothing',fabric:'Boski',price:4200,qty:25,desc:'Premium Boski fabric shalwar qameez. Lightweight and comfortable.',images:[],emoji:'👔',rating:4.7,ratingCount:18},
+    {id:2,title:'Boski Shalwar Qameez',gender:'men',category:'clothing',fabric:'Boski',price:4200,qty:25,desc:'Premium Boski fabric shalwar qameez. Lightweight and comfortable for all seasons.',images:[],emoji:'👔',rating:4.7,ratingCount:18},
     {id:3,title:'Khaddar Winter Suit',gender:'women',category:'clothing',fabric:'Khaddar',price:2800,qty:40,desc:'Warm and cozy Khaddar suit perfect for winters. 3-piece unstitched with embroidery.',images:[],emoji:'🧥',rating:4.6,ratingCount:12},
     {id:4,title:'Cotton Casual Kurta',gender:'men',category:'clothing',fabric:'Cotton',price:1800,qty:60,desc:'Comfortable everyday cotton kurta. Available in multiple colors.',images:[],emoji:'👕',rating:4.5,ratingCount:31},
-    {id:5,title:'Chiffon Party Dress',gender:'women',category:'clothing',fabric:'Chiffon',price:5500,qty:20,desc:'Elegant chiffon party dress with heavy embroidery.',images:[],emoji:'💃',rating:4.9,ratingCount:8},
+    {id:5,title:'Chiffon Party Dress',gender:'women',category:'clothing',fabric:'Chiffon',price:5500,qty:20,desc:'Elegant chiffon party dress with heavy embroidery. Perfect for weddings.',images:[],emoji:'💃',rating:4.9,ratingCount:8},
     {id:6,title:'Classic Leather Shoes',gender:'men',category:'shoes',fabric:'',price:3200,qty:15,desc:'Handcrafted genuine leather shoes. Comfortable, durable, and stylish.',images:[],emoji:'👞',rating:4.7,ratingCount:22},
     {id:7,title:'Ladies Heels',gender:'women',category:'shoes',fabric:'',price:2400,qty:18,desc:'Elegant block heels perfect for formal and casual wear.',images:[],emoji:'👠',rating:4.5,ratingCount:14},
     {id:8,title:'Classic Dress Watch',gender:'men',category:'watches',fabric:'',price:6500,qty:10,desc:'Premium dress watch with genuine leather strap. Water resistant.',images:[],emoji:'⌚',rating:4.8,ratingCount:19},
   ];
   saveProducts();
 }
-let orders = JSON.parse(localStorage.getItem('nw_orders') || '[]');
-let reviews = JSON.parse(localStorage.getItem('nw_reviews') || '[]');
+let orders   = JSON.parse(localStorage.getItem('nw_orders')  || '[]');
+let reviews  = JSON.parse(localStorage.getItem('nw_reviews') || '[]');
 let cart = [], wishlist = [];
 let currentProduct = null, currentDetailId = null;
 let pendingImages = [], editProductId = null;
@@ -1142,37 +1177,37 @@ let starCount = 0;
 let menCurrentTab = 'clothing', womenCurrentTab = 'clothing';
 let menCurrentFilter = '', womenCurrentFilter = '';
 let adminSettings = JSON.parse(localStorage.getItem('nw_settings') || '{"insta":"#","tiktok":"#","facebook":"#","whatsapp":"923163475925"}');
+let currentDetailImages = [];
+let lightboxIdx = 0;
 
-function saveProducts(){ localStorage.setItem('nw_products', JSON.stringify(products)); }
-function saveOrders()  { localStorage.setItem('nw_orders',   JSON.stringify(orders));   }
-function saveReviews() { localStorage.setItem('nw_reviews',  JSON.stringify(reviews));  }
-function saveOC()      { localStorage.setItem('nw_oc', orderCounter); }
+function saveProducts(){ localStorage.setItem('nw_products',JSON.stringify(products)); }
+function saveOrders()  { localStorage.setItem('nw_orders',JSON.stringify(orders)); }
+function saveReviews() { localStorage.setItem('nw_reviews',JSON.stringify(reviews)); }
+function saveOC()      { localStorage.setItem('nw_oc',orderCounter); }
 
-setTimeout(() => { document.getElementById('loader').classList.add('hidden'); }, 2600);
+setTimeout(()=>{ document.getElementById('loader').classList.add('hidden'); }, 2600);
 
 const particlesCont = document.getElementById('heroParticles');
-for (let i = 0; i < 35; i++) {
+for(let i=0;i<35;i++){
   const p = document.createElement('div');
   p.className = 'hero-particle';
   p.style.cssText = `left:${Math.random()*100}%;animation-duration:${8+Math.random()*16}s;animation-delay:${-Math.random()*20}s;width:${1+Math.random()*3}px;height:${1+Math.random()*3}px;`;
   particlesCont.appendChild(p);
 }
 const shapesCont = document.getElementById('heroShapes');
-[80,120,60,100,40].forEach((s,i) => {
+[80,120,60,100,40].forEach((s,i)=>{
   const sh = document.createElement('div');
   sh.className = 'hero-shape';
-  const positions = [[10,15],[85,20],[5,75],[90,60],[50,80]];
-  sh.style.cssText = `width:${s}px;height:${s}px;left:${positions[i][0]}%;top:${positions[i][1]}%;border-radius:${i%2===0?'50%':'8px'};animation-duration:${4+i*2}s;animation-delay:${-i}s;`;
+  const pos = [[10,15],[85,20],[5,75],[90,60],[50,80]];
+  sh.style.cssText = `width:${s}px;height:${s}px;left:${pos[i][0]}%;top:${pos[i][1]}%;border-radius:${i%2===0?'50%':'8px'};animation-duration:${4+i*2}s;animation-delay:${-i}s;`;
   shapesCont.appendChild(sh);
 });
 
-window.addEventListener('scroll', () => {
-  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 80);
-});
+window.addEventListener('scroll',()=>{ document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>80); });
 
-function openCartPanel()  { closePanels(); document.getElementById('cartPanel').classList.add('open'); document.getElementById('panelOverlay').classList.add('show'); renderCart(); }
-function openWishPanel()  { closePanels(); document.getElementById('wishPanel').classList.add('open'); document.getElementById('panelOverlay').classList.add('show'); renderWish(); }
-function openMenuPanel()  { closePanels(); document.getElementById('menuPanel').classList.add('open'); document.getElementById('panelOverlay').classList.add('show'); }
+function openCartPanel() { closePanels(); document.getElementById('cartPanel').classList.add('open'); document.getElementById('panelOverlay').classList.add('show'); renderCart(); }
+function openWishPanel() { closePanels(); document.getElementById('wishPanel').classList.add('open'); document.getElementById('panelOverlay').classList.add('show'); renderWish(); }
+function openMenuPanel() { closePanels(); document.getElementById('menuPanel').classList.add('open'); document.getElementById('panelOverlay').classList.add('show'); }
 function closePanels() {
   document.getElementById('cartPanel').classList.remove('open');
   document.getElementById('wishPanel').classList.remove('open');
@@ -1180,79 +1215,73 @@ function closePanels() {
   document.getElementById('panelOverlay').classList.remove('show');
 }
 
-function addToCart(product) {
-  const ex = cart.find(c => c.id === product.id);
-  if (ex) { ex.qty++; } else { cart.push({...product, qty:1}); }
-  updateCartBadge(); showToast('Added to cart!');
+function addToCart(product){ const ex=cart.find(c=>c.id===product.id); if(ex){ex.qty++;}else{cart.push({...product,qty:1});} updateCartBadge(); showToast('Added to cart!'); }
+function removeFromCart(id){ cart=cart.filter(c=>c.id!==id); updateCartBadge(); renderCart(); }
+function updateCartBadge(){
+  const total=cart.reduce((a,b)=>a+b.qty,0);
+  const b=document.getElementById('cartBadge');
+  b.textContent=total; b.style.display=total>0?'flex':'none';
 }
-function removeFromCart(id) { cart = cart.filter(c => c.id !== id); updateCartBadge(); renderCart(); }
-function updateCartBadge() {
-  const total = cart.reduce((a,b) => a+b.qty, 0);
-  const b = document.getElementById('cartBadge');
-  b.textContent = total; b.style.display = total > 0 ? 'flex' : 'none';
-}
-function renderCart() {
-  const body = document.getElementById('cartBody');
-  if (!cart.length) { body.innerHTML='<div class="panel-empty"><i class="fas fa-shopping-bag"></i><p>Your cart is empty</p></div>'; return; }
-  body.innerHTML = cart.map(c => `<div class="panel-item">
+function renderCart(){
+  const body=document.getElementById('cartBody');
+  if(!cart.length){body.innerHTML='<div class="panel-empty"><i class="fas fa-shopping-bag"></i><p>Your cart is empty</p></div>';return;}
+  body.innerHTML=cart.map(c=>`<div class="panel-item">
     <div style="width:72px;height:72px;background:var(--gold-pale);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:32px;flex-shrink:0;">${c.emoji||'📦'}</div>
     <div class="panel-item-info"><h4>${c.title}</h4><p>PKR ${(c.price*c.qty).toLocaleString()} × ${c.qty}</p></div>
     <button class="panel-item-remove" onclick="removeFromCart(${c.id})"><i class="fas fa-trash"></i></button>
   </div>`).join('');
 }
-
-function toggleWish(id) {
-  const idx = wishlist.findIndex(x => x.id === id);
-  const p = products.find(x => x.id === id);
-  const btn = document.getElementById(`wb-${id}`);
-  if (idx === -1) { wishlist.push(p); if(btn) btn.classList.add('active'); showToast('Added to wishlist ❤️'); }
-  else { wishlist.splice(idx,1); if(btn) btn.classList.remove('active'); showToast('Removed from wishlist'); }
-  const wb = document.getElementById('wishBadge');
-  wb.textContent = wishlist.length;
-  wb.style.display = wishlist.length > 0 ? 'flex' : 'none';
+function toggleWish(id){
+  const idx=wishlist.findIndex(x=>x.id===id);
+  const p=products.find(x=>x.id===id);
+  const btn=document.getElementById(`wb-${id}`);
+  if(idx===-1){wishlist.push(p);if(btn)btn.classList.add('active');showToast('Added to wishlist ❤️');}
+  else{wishlist.splice(idx,1);if(btn)btn.classList.remove('active');showToast('Removed from wishlist');}
+  const wb=document.getElementById('wishBadge');
+  wb.textContent=wishlist.length; wb.style.display=wishlist.length>0?'flex':'none';
   renderWish();
 }
-function renderWish() {
-  const body = document.getElementById('wishBody');
-  if (!wishlist.length) { body.innerHTML='<div class="panel-empty"><i class="fas fa-heart"></i><p>Your wishlist is empty</p></div>'; return; }
-  body.innerHTML = wishlist.map(p => `<div class="panel-item">
+function renderWish(){
+  const body=document.getElementById('wishBody');
+  if(!wishlist.length){body.innerHTML='<div class="panel-empty"><i class="fas fa-heart"></i><p>Your wishlist is empty</p></div>';return;}
+  body.innerHTML=wishlist.map(p=>`<div class="panel-item">
     <div style="width:72px;height:72px;background:var(--gold-pale);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:32px;flex-shrink:0;">${p.emoji||'📦'}</div>
     <div class="panel-item-info"><h4>${p.title}</h4><p>PKR ${p.price.toLocaleString()}</p></div>
     <button class="panel-item-remove" onclick="removeFromWish(${p.id})"><i class="fas fa-trash"></i></button>
   </div>`).join('');
 }
-function removeFromWish(id) {
-  wishlist = wishlist.filter(x => x.id !== id); renderWish();
-  const wb = document.getElementById('wishBadge');
-  wb.textContent = wishlist.length;
-  wb.style.display = wishlist.length > 0 ? 'flex' : 'none';
+function removeFromWish(id){
+  wishlist=wishlist.filter(x=>x.id!==id); renderWish();
+  const wb=document.getElementById('wishBadge');
+  wb.textContent=wishlist.length; wb.style.display=wishlist.length>0?'flex':'none';
 }
 
-function starsHTML(r) {
-  let s = '';
-  for (let i=1; i<=5; i++) {
-    if (i <= Math.floor(r)) s += '<i class="fas fa-star"></i>';
-    else if (i - r < 1) s += '<i class="fas fa-star-half-alt"></i>';
-    else s += '<i class="far fa-star"></i>';
+function starsHTML(r){
+  let s='';
+  for(let i=1;i<=5;i++){
+    if(i<=Math.floor(r))s+='<i class="fas fa-star"></i>';
+    else if(i-r<1)s+='<i class="fas fa-star-half-alt"></i>';
+    else s+='<i class="far fa-star"></i>';
   }
   return s;
 }
-function buildCard(p) {
-  const soldOut = p.qty <= 0;
-  const inWish  = wishlist.some(x => x.id === p.id);
+function buildCard(p){
+  const soldOut=p.qty<=0;
+  const inWish=wishlist.some(x=>x.id===p.id);
+  const imgHtml = p.images&&p.images[0]
+    ? `<img src="${p.images[0]}" style="width:100%;height:100%;object-fit:cover;object-position:top center;" alt="${p.title}">`
+    : `<span class="product-img-emoji">${p.emoji||'📦'}</span>`;
   return `<div class="product-card" onclick="openDetail(${p.id})">
-    ${soldOut ? '<div class="sold-out-ribbon">SOLD OUT</div>' : ''}
+    ${soldOut?'<div class="sold-out-ribbon">SOLD OUT</div>':''}
     <div class="product-img-wrap">
-      <div class="product-img product-img-emoji">${p.images&&p.images[0]
-        ? `<img src="${p.images[0]}" style="width:100%;height:100%;object-fit:cover;object-position:top center;" alt="${p.title}">`
-        : `<span>${p.emoji||'📦'}</span>`}</div>
+      <div class="product-img">${imgHtml}</div>
       <button class="wishlist-btn-card ${inWish?'active':''}" id="wb-${p.id}" onclick="event.stopPropagation();toggleWish(${p.id})"><i class="fas fa-heart"></i></button>
     </div>
     <div class="product-info">
       <div class="product-cat-label">${catLabel(p.category)}${p.fabric?' · '+p.fabric:''}</div>
       <div class="product-name">${p.title}</div>
       <div class="product-price">PKR ${p.price.toLocaleString()} <span class="currency">incl. tax</span></div>
-      <div class="product-rating"><span class="stars-gold" style="font-size:13px;">${starsHTML(p.rating||5)}</span><span class="review-ct">(${p.ratingCount||0})</span></div>
+      <div class="product-rating"><span class="stars-gold">${starsHTML(p.rating||5)}</span><span class="review-ct">(${p.ratingCount||0})</span></div>
       <div class="product-actions" onclick="event.stopPropagation()">
         <button class="btn-sm btn-sm-primary" onclick="openOrderModal(${p.id})" ${soldOut?'disabled':''}>
           <i class="fas fa-${soldOut?'ban':'shopping-bag'}"></i> ${soldOut?'Sold Out':'Order Now'}
@@ -1262,266 +1291,262 @@ function buildCard(p) {
     </div>
   </div>`;
 }
-function catLabel(c) { return {clothing:'Clothing',shoes:'Footwear',watches:'Watches',accessories:'Accessories'}[c]||c; }
+function catLabel(c){ return {clothing:'Clothing',shoes:'Footwear',watches:'Watches',accessories:'Accessories'}[c]||c; }
 
 function openMenPage()   { document.getElementById('men-page').classList.add('open');   document.body.style.overflow='hidden'; renderMenGrid(); }
 function openWomenPage() { document.getElementById('women-page').classList.add('open'); document.body.style.overflow='hidden'; renderWomenGrid(); }
 function closeCatPage(id){ document.getElementById(id).classList.remove('open'); document.body.style.overflow=''; }
 
-function renderMenGrid() {
-  let f = products.filter(p => p.gender==='men'||p.gender==='both');
-  if (menCurrentTab) f = f.filter(p => p.category===menCurrentTab);
-  if (menCurrentFilter) f = f.filter(p => p.fabric&&p.fabric.toLowerCase().includes(menCurrentFilter.toLowerCase()));
-  document.getElementById('men-grid').innerHTML = f.length ? f.map(buildCard).join('') : '<p style="color:var(--gray);padding:20px;">No products found.</p>';
+function renderMenGrid(){
+  let f=products.filter(p=>p.gender==='men'||p.gender==='both');
+  if(menCurrentTab)f=f.filter(p=>p.category===menCurrentTab);
+  if(menCurrentFilter)f=f.filter(p=>p.fabric&&p.fabric.toLowerCase().includes(menCurrentFilter.toLowerCase()));
+  document.getElementById('men-grid').innerHTML=f.length?f.map(buildCard).join(''):'<p style="color:var(--gray);padding:20px;">No products found.</p>';
 }
-function renderWomenGrid() {
-  let f = products.filter(p => p.gender==='women'||p.gender==='both');
-  if (womenCurrentTab) f = f.filter(p => p.category===womenCurrentTab);
-  if (womenCurrentFilter) f = f.filter(p => p.fabric&&p.fabric.toLowerCase().includes(womenCurrentFilter.toLowerCase()));
-  document.getElementById('women-grid').innerHTML = f.length ? f.map(buildCard).join('') : '<p style="color:var(--gray);padding:20px;">No products found.</p>';
+function renderWomenGrid(){
+  let f=products.filter(p=>p.gender==='women'||p.gender==='both');
+  if(womenCurrentTab)f=f.filter(p=>p.category===womenCurrentTab);
+  if(womenCurrentFilter)f=f.filter(p=>p.fabric&&p.fabric.toLowerCase().includes(womenCurrentFilter.toLowerCase()));
+  document.getElementById('women-grid').innerHTML=f.length?f.map(buildCard).join(''):'<p style="color:var(--gray);padding:20px;">No products found.</p>';
 }
-function switchMenTab(tab,el) {
+function switchMenTab(tab,el){
   menCurrentTab=tab; menCurrentFilter='';
   el.closest('.cat-sub-tabs').querySelectorAll('.cat-sub-tab').forEach(b=>b.classList.remove('active'));
   el.classList.add('active');
-  document.getElementById('men-sidebar').style.display = tab==='clothing' ? 'block' : 'none';
+  document.getElementById('men-sidebar').style.display=tab==='clothing'?'block':'none';
   renderMenGrid();
 }
-function switchWomenTab(tab,el) {
+function switchWomenTab(tab,el){
   womenCurrentTab=tab; womenCurrentFilter='';
   el.closest('.cat-sub-tabs').querySelectorAll('.cat-sub-tab').forEach(b=>b.classList.remove('active'));
   el.classList.add('active');
-  document.getElementById('women-sidebar').style.display = tab==='clothing' ? 'block' : 'none';
+  document.getElementById('women-sidebar').style.display=tab==='clothing'?'block':'none';
   renderWomenGrid();
 }
-function filterMen(fabric,el) {
+function filterMen(fabric,el){
   menCurrentFilter=fabric;
   el.closest('div').querySelectorAll('.cat-filter-btn').forEach(b=>b.classList.remove('active')); el.classList.add('active');
   renderMenGrid();
 }
-function filterWomen(fabric,el) {
+function filterWomen(fabric,el){
   womenCurrentFilter=fabric;
   el.closest('div').querySelectorAll('.cat-filter-btn').forEach(b=>b.classList.remove('active')); el.classList.add('active');
   renderWomenGrid();
 }
 
-function renderHomeProducts() {
-  document.getElementById('homeProductsTrack').innerHTML = products.map(buildCard).join('');
-}
-function scrollTrack(dir) {
-  document.getElementById('homeProductsTrack').scrollBy({left: dir*280, behavior:'smooth'});
-}
+function renderHomeProducts(){ document.getElementById('homeProductsTrack').innerHTML=products.map(buildCard).join(''); }
+function scrollTrack(dir){ document.getElementById('homeProductsTrack').scrollBy({left:dir*300,behavior:'smooth'}); }
 
-function openDetail(id) {
-  const p = products.find(x => x.id===id); if(!p) return;
-  currentDetailId = id;
-  document.getElementById('detail-header-name').textContent = p.title;
-  document.getElementById('detail-cat').textContent = catLabel(p.category)+(p.fabric?' · '+p.fabric:'');
-  document.getElementById('detail-title').textContent = p.title;
-  document.getElementById('detail-price').innerHTML = `PKR ${p.price.toLocaleString()} <small>incl. tax</small>`;
-  document.getElementById('detail-rating').innerHTML = `<span class="stars-gold" style="font-size:14px;">${starsHTML(p.rating||5)}</span><span class="review-ct">(${p.ratingCount||0} reviews)</span>`;
-  document.getElementById('detail-desc').textContent = p.description||p.desc||'';
-  const wrap = document.getElementById('detail-main-img-wrap');
-  if (p.images&&p.images[0]) {
-    document.getElementById('detail-main-emoji').style.display='none';
-    wrap.style.background='#f5f5f5';
-    let img = wrap.querySelector('img') || document.createElement('img');
-    img.src = p.images[0]; img.style.cssText='width:100%;height:100%;object-fit:cover;object-position:top center;';
-    if (!wrap.querySelector('img')) wrap.insertBefore(img, document.getElementById('detail-main-emoji'));
+/* ══ PRODUCT DETAIL ══ */
+function openDetail(id){
+  const p=products.find(x=>x.id===id); if(!p) return;
+  currentDetailId=id;
+  currentDetailImages=p.images&&p.images.length?[...p.images]:[];
+  document.getElementById('detail-header-name').textContent=p.title;
+  document.getElementById('detail-cat').textContent=catLabel(p.category)+(p.fabric?' · '+p.fabric:'');
+  document.getElementById('detail-title').textContent=p.title;
+  document.getElementById('detail-price').innerHTML=`PKR ${p.price.toLocaleString()} <small>incl. tax</small>`;
+  document.getElementById('detail-rating').innerHTML=`<span class="stars-gold" style="font-size:14px;">${starsHTML(p.rating||5)}</span><span class="review-ct">(${p.ratingCount||0} reviews)</span>`;
+  document.getElementById('detail-desc').textContent=p.description||p.desc||'';
+  const wrap=document.getElementById('detail-main-img-wrap');
+  wrap.innerHTML='<span id="detail-main-emoji" style="font-size:130px"></span>';
+  if(currentDetailImages.length){
+    const img=document.createElement('img');
+    img.src=currentDetailImages[0]; img.style.cssText='width:100%;height:100%;object-fit:cover;object-position:top center;';
+    wrap.innerHTML=''; wrap.appendChild(img);
   } else {
-    document.getElementById('detail-main-emoji').style.display='block';
-    document.getElementById('detail-main-emoji').textContent = p.emoji||'📦';
-    const ex = wrap.querySelector('img'); if(ex) ex.remove();
+    document.getElementById('detail-main-emoji').textContent=p.emoji||'📦';
   }
-  document.getElementById('detail-thumbs').innerHTML = (p.images&&p.images.length
-    ? p.images.map((img,i) => `<div class="detail-thumb ${i===0?'active':''}" onclick="switchDetailImg(this,'${img}')"><img src="${img}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></div>`)
-    : ['👗','👔','👟','⌚'].map((em,i) => `<div class="detail-thumb ${i===0?'active':''}" style="font-size:24px;display:flex;align-items:center;justify-content:center;">${em}</div>`)
-  ).join('');
-  const soldOut = p.qty<=0;
-  const btn = document.getElementById('detail-order-btn');
-  btn.disabled = soldOut;
-  btn.innerHTML = soldOut ? '<i class="fas fa-ban"></i> Sold Out' : '<i class="fas fa-shopping-bag"></i> Order Now';
+  /* thumbnails */
+  const thumbsEl=document.getElementById('detail-thumbs');
+  if(currentDetailImages.length){
+    thumbsEl.innerHTML=currentDetailImages.map((src,i)=>`
+      <div class="detail-thumb ${i===0?'active':''}" onclick="switchDetailImg(this,'${src}',${i})">
+        <img src="${src}" alt="img${i+1}">
+      </div>`).join('');
+  } else {
+    thumbsEl.innerHTML=[p.emoji||'📦','📦','📦','📦'].map((em,i)=>
+      `<div class="detail-thumb ${i===0?'active':''}" style="font-size:24px;display:flex;align-items:center;justify-content:center;">${em}</div>`).join('');
+  }
+  const soldOut=p.qty<=0;
+  const btn=document.getElementById('detail-order-btn');
+  btn.disabled=soldOut;
+  btn.innerHTML=soldOut?'<i class="fas fa-ban"></i> Sold Out':'<i class="fas fa-shopping-bag"></i> Order Now';
   document.getElementById('product-detail').classList.add('open');
   document.body.style.overflow='hidden';
   document.getElementById('product-detail').scrollTop=0;
 }
-function switchDetailImg(el,src) {
-  document.getElementById('detail-main-emoji').style.display='none';
-  const wrap = document.getElementById('detail-main-img-wrap');
-  let img = wrap.querySelector('img');
-  if (!img) { img=document.createElement('img'); img.style.cssText='width:100%;height:100%;object-fit:cover;object-position:top center;'; wrap.insertBefore(img,document.getElementById('detail-main-emoji')); }
-  img.src=src;
+function switchDetailImg(el,src,idx){
+  lightboxIdx=idx||0;
+  const wrap=document.getElementById('detail-main-img-wrap');
+  wrap.innerHTML=''; const img=document.createElement('img');
+  img.src=src; img.style.cssText='width:100%;height:100%;object-fit:cover;object-position:top center;';
+  wrap.appendChild(img);
   document.querySelectorAll('.detail-thumb').forEach(t=>t.classList.remove('active')); el.classList.add('active');
 }
-function closeDetail() { document.getElementById('product-detail').classList.remove('open'); document.body.style.overflow=''; }
+function closeDetail(){ document.getElementById('product-detail').classList.remove('open'); document.body.style.overflow=''; }
 function openOrderFromDetail()  { if(currentDetailId) openOrderModal(currentDetailId); }
 function openReviewFromDetail() { if(currentDetailId) openReviewModal(currentDetailId); }
 
-function updatePriceSummary() {
-  if (!currentProduct) return;
-  const qty    = parseInt(document.getElementById('o-qty').value) || 1;
-  const isClothing = currentProduct.category === 'clothing';
-  const stitched   = isClothing && currentStitch === 'Stitched';
-  const unitPrice  = currentProduct.price;
-  const stitchFee  = stitched ? STITCH_PRICE : 0;
-  const total      = (unitPrice + stitchFee) * qty;
-
-  document.getElementById('opr-product-val').textContent = `PKR ${unitPrice.toLocaleString()}`;
-  const stitchRow = document.getElementById('opr-stitch-row');
-  stitchRow.style.display = stitched ? 'flex' : 'none';
-  document.getElementById('opr-stitch-val').textContent = `PKR ${STITCH_PRICE.toLocaleString()}`;
-  const qtyRow = document.getElementById('opr-qty-row');
-  qtyRow.style.display = qty > 1 ? 'flex' : 'none';
-  document.getElementById('opr-qty-val').textContent = `× ${qty}`;
-  document.getElementById('opr-total-val').textContent = `PKR ${total.toLocaleString()}`;
+/* ══ LIGHTBOX ══ */
+function openLightbox(){
+  if(!currentDetailImages.length) return;
+  const lb=document.getElementById('lightbox');
+  lb.classList.add('open');
+  document.body.style.overflow='hidden';
+  renderLightbox(lightboxIdx);
 }
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow='hidden';
+}
+function renderLightbox(idx){
+  lightboxIdx=Math.max(0,Math.min(idx,currentDetailImages.length-1));
+  const img=document.getElementById('lightbox-img');
+  img.style.opacity='0';
+  setTimeout(()=>{ img.src=currentDetailImages[lightboxIdx]; img.style.opacity='1'; },100);
+  document.getElementById('lightbox-counter').textContent=`${lightboxIdx+1} / ${currentDetailImages.length}`;
+  document.getElementById('lightbox-thumbs').innerHTML=currentDetailImages.map((src,i)=>
+    `<img class="lb-thumb ${i===lightboxIdx?'active':''}" src="${src}" onclick="renderLightbox(${i})" alt="img${i}">`
+  ).join('');
+}
+function lbNav(dir){ renderLightbox(lightboxIdx+dir); }
+document.getElementById('lightbox').addEventListener('click',e=>{ if(e.target===document.getElementById('lightbox')) closeLightbox(); });
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('lightbox').classList.contains('open')) return;
+  if(e.key==='ArrowRight') lbNav(1);
+  if(e.key==='ArrowLeft')  lbNav(-1);
+  if(e.key==='Escape')     closeLightbox();
+});
 
-function openOrderModal(id) {
-  const p = products.find(x => x.id===id); if(!p) return;
-  if (p.qty<=0) { showToast('Sorry, this product is sold out!'); return; }
-  currentProduct  = p;
-  currentStitch   = 'Stitched';
-
-  document.getElementById('order-product-preview').innerHTML = `
-    <div style="width:72px;height:72px;background:var(--gold-pale);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:36px;flex-shrink:0;">${p.emoji||'📦'}</div>
+/* ══ ORDER ══ */
+function updatePriceSummary(){
+  if(!currentProduct) return;
+  const qty=parseInt(document.getElementById('o-qty').value)||1;
+  const isClothing=currentProduct.category==='clothing';
+  const stitched=isClothing&&currentStitch==='Stitched';
+  const unitPrice=currentProduct.price;
+  const stitchFee=stitched?STITCH_PRICE:0;
+  const total=(unitPrice+stitchFee)*qty;
+  document.getElementById('opr-product-val').textContent=`PKR ${unitPrice.toLocaleString()}`;
+  const stitchRow=document.getElementById('opr-stitch-row');
+  stitchRow.style.display=stitched?'flex':'none';
+  document.getElementById('opr-stitch-val').textContent=`PKR ${STITCH_PRICE.toLocaleString()}`;
+  const qtyRow=document.getElementById('opr-qty-row');
+  qtyRow.style.display=qty>1?'flex':'none';
+  document.getElementById('opr-qty-val').textContent=`× ${qty}`;
+  document.getElementById('opr-total-val').textContent=`PKR ${total.toLocaleString()}`;
+}
+function openOrderModal(id){
+  const p=products.find(x=>x.id===id); if(!p) return;
+  if(p.qty<=0){showToast('Sorry, this product is sold out!');return;}
+  currentProduct=p; currentStitch='Stitched';
+  document.getElementById('order-product-preview').innerHTML=`
+    <div style="width:72px;height:72px;background:var(--gold-pale);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:36px;flex-shrink:0;">${p.images&&p.images[0]?`<img src="${p.images[0]}" style="width:100%;height:100%;object-fit:cover;border-radius:10px;">`:p.emoji||'📦'}</div>
     <div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--forest);font-weight:600;">${p.title}</div>
-      <div style="color:var(--gray);font-size:13px;">${catLabel(p.category)}${p.fabric?' · '+p.fabric:''}</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--forest);font-weight:700;">${p.title}</div>
+      <div style="color:var(--gray);font-size:13px;margin-top:2px;">${catLabel(p.category)}${p.fabric?' · '+p.fabric:''}</div>
     </div>`;
-
-  const sg = document.getElementById('stitch-group');
-  if (p.category === 'clothing') {
-    sg.style.display = 'block';
-    document.querySelectorAll('.stitch-tab').forEach(t => t.classList.remove('active'));
+  const sg=document.getElementById('stitch-group');
+  if(p.category==='clothing'){
+    sg.style.display='block';
+    document.querySelectorAll('.stitch-tab').forEach(t=>t.classList.remove('active'));
     document.querySelectorAll('.stitch-tab')[1].classList.add('active');
     document.getElementById('measurement-box').classList.add('show');
-  } else {
-    sg.style.display = 'none';
-    currentStitch = 'N/A';
-  }
-
-  document.getElementById('order-form-wrap').style.display = 'block';
-  document.getElementById('order-success').style.display   = 'none';
-  ['o-name','o-phone','o-address','o-city','o-notes'].forEach(id => document.getElementById(id).value='');
-  document.getElementById('o-qty').value   = '1';
-  document.getElementById('o-payment').value = '';
+  } else { sg.style.display='none'; currentStitch='N/A'; }
+  document.getElementById('order-form-wrap').style.display='block';
+  document.getElementById('order-success').style.display='none';
+  ['o-name','o-phone','o-address','o-city','o-notes'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('o-qty').value='1';
+  document.getElementById('o-payment').value='';
   document.getElementById('m-photo-preview').style.display='none';
-
   updatePriceSummary();
   openModal('orderModal');
 }
-
-function selectStitch(el, val) {
-  currentStitch = val;
-  el.closest('.stitch-tabs').querySelectorAll('.stitch-tab').forEach(t => t.classList.remove('active'));
+function selectStitch(el,val){
+  currentStitch=val;
+  el.closest('.stitch-tabs').querySelectorAll('.stitch-tab').forEach(t=>t.classList.remove('active'));
   el.classList.add('active');
-  document.getElementById('measurement-box').classList.toggle('show', val==='Stitched');
+  document.getElementById('measurement-box').classList.toggle('show',val==='Stitched');
   updatePriceSummary();
 }
-
-function previewMeasurement(inp) {
-  if (inp.files&&inp.files[0]) {
-    const r = new FileReader();
-    r.onload = e => { const img=document.getElementById('m-photo-preview'); img.src=e.target.result; img.style.display='block'; };
+function previewMeasurement(inp){
+  if(inp.files&&inp.files[0]){
+    const r=new FileReader();
+    r.onload=e=>{ const img=document.getElementById('m-photo-preview'); img.src=e.target.result; img.style.display='block'; };
     r.readAsDataURL(inp.files[0]);
   }
 }
-
-function submitOrder(e) {
+function submitOrder(e){
   e.preventDefault();
-  if (!currentProduct) return;
-  const name    = document.getElementById('o-name').value.trim();
-  const phone   = document.getElementById('o-phone').value.trim();
-  const address = document.getElementById('o-address').value.trim();
-  const city    = document.getElementById('o-city').value.trim();
-  const qty     = parseInt(document.getElementById('o-qty').value)||1;
-  const payment = document.getElementById('o-payment').value;
-  const notes   = document.getElementById('o-notes').value.trim();
-  if (!name||!phone||!address||!city||!payment) { showToast('Please fill all required fields'); return; }
-  if (qty > currentProduct.qty) { showToast(`Only ${currentProduct.qty} in stock`); return; }
-
+  if(!currentProduct) return;
+  const name=document.getElementById('o-name').value.trim();
+  const phone=document.getElementById('o-phone').value.trim();
+  const address=document.getElementById('o-address').value.trim();
+  const city=document.getElementById('o-city').value.trim();
+  const qty=parseInt(document.getElementById('o-qty').value)||1;
+  const payment=document.getElementById('o-payment').value;
+  const notes=document.getElementById('o-notes').value.trim();
+  if(!name||!phone||!address||!city||!payment){showToast('Please fill all required fields');return;}
+  if(qty>currentProduct.qty){showToast(`Only ${currentProduct.qty} in stock`);return;}
   orderCounter++; saveOC();
-
-  const isClothing = currentProduct.category === 'clothing';
-  const stitched   = isClothing && currentStitch === 'Stitched';
-  const unitPrice  = currentProduct.price;
-  const stitchFee  = stitched ? STITCH_PRICE : 0;
-  const total      = (unitPrice + stitchFee) * qty;
-
-  let measurementPhoto = null;
-  const mPhotoEl = document.getElementById('m-photo-preview');
-  if (mPhotoEl.style.display !== 'none' && mPhotoEl.src) {
-    measurementPhoto = mPhotoEl.src;
-  }
-
-  const measurement = (isClothing && currentStitch==='Stitched') ? {
-    chest    : document.getElementById('m-chest').value,
-    length   : document.getElementById('m-length').value,
-    shoulders: document.getElementById('m-shoulders').value,
-    sleeves  : document.getElementById('m-sleeves').value,
-    photo    : measurementPhoto
-  } : null;
-
-  const order = {
-    id          : orderCounter,
-    date        : new Date().toLocaleString('en-PK'),
-    product     : currentProduct.title,
-    productId   : currentProduct.id,
-    productEmoji: currentProduct.emoji||'📦',
-    unitPrice,
-    stitchFee,
-    qty,
-    total,
-    customer    : { name, phone, address, city },
-    payment,
-    notes,
-    stitch      : isClothing ? currentStitch : 'N/A',
-    measurement,
-    status      : 'new'
-  };
-
+  const isClothing=currentProduct.category==='clothing';
+  const stitched=isClothing&&currentStitch==='Stitched';
+  const unitPrice=currentProduct.price;
+  const stitchFee=stitched?STITCH_PRICE:0;
+  const total=(unitPrice+stitchFee)*qty;
+  let measurementPhoto=null;
+  const mPhotoEl=document.getElementById('m-photo-preview');
+  if(mPhotoEl.style.display!=='none'&&mPhotoEl.src) measurementPhoto=mPhotoEl.src;
+  const measurement=(isClothing&&currentStitch==='Stitched')?{
+    chest:document.getElementById('m-chest').value,
+    length:document.getElementById('m-length').value,
+    shoulders:document.getElementById('m-shoulders').value,
+    sleeves:document.getElementById('m-sleeves').value,
+    photo:measurementPhoto
+  }:null;
+  const order={id:orderCounter,date:new Date().toLocaleString('en-PK'),product:currentProduct.title,productId:currentProduct.id,productEmoji:currentProduct.emoji||'📦',unitPrice,stitchFee,qty,total,customer:{name,phone,address,city},payment,notes,stitch:isClothing?currentStitch:'N/A',measurement,status:'new'};
   orders.unshift(order); saveOrders();
-
-  const idx = products.findIndex(x => x.id===currentProduct.id);
-  if (idx !== -1) { products[idx].qty = Math.max(0, products[idx].qty - qty); saveProducts(); }
+  const idx=products.findIndex(x=>x.id===currentProduct.id);
+  if(idx!==-1){products[idx].qty=Math.max(0,products[idx].qty-qty);saveProducts();}
   renderHomeProducts();
-
-  document.getElementById('order-form-wrap').style.display = 'none';
-  document.getElementById('order-success').style.display   = 'block';
+  document.getElementById('order-form-wrap').style.display='none';
+  document.getElementById('order-success').style.display='block';
   showToast('Order placed successfully! ✅');
 }
 
-let currentReviewProductId = null;
-function openReviewModal(id) { currentReviewProductId=id; starCount=0; setStar(0); document.getElementById('r-name').value=''; document.getElementById('r-text').value=''; openModal('reviewModal'); }
-function setStar(n) {
+/* ══ REVIEWS ══ */
+let currentReviewProductId=null;
+function openReviewModal(id){currentReviewProductId=id;starCount=0;setStar(0);document.getElementById('r-name').value='';document.getElementById('r-text').value='';openModal('reviewModal');}
+function setStar(n){
   starCount=n; document.getElementById('r-stars').value=n;
-  document.querySelectorAll('#star-input .star').forEach((s,i) => s.classList.toggle('on', i<n));
+  document.querySelectorAll('#star-input .star').forEach((s,i)=>s.classList.toggle('on',i<n));
 }
-function submitReview(e) {
+function submitReview(e){
   e.preventDefault();
-  const name  = document.getElementById('r-name').value.trim();
-  const text  = document.getElementById('r-text').value.trim();
-  const stars = parseInt(document.getElementById('r-stars').value);
-  if (!stars) { showToast('Please select a rating'); return; }
-  const p = products.find(x => x.id===currentReviewProductId);
-  const review = { id:Date.now(), name, text, stars, product:p?p.title:'General', productId:currentReviewProductId, date:new Date().toLocaleDateString('en-PK') };
+  const name=document.getElementById('r-name').value.trim();
+  const text=document.getElementById('r-text').value.trim();
+  const stars=parseInt(document.getElementById('r-stars').value);
+  if(!stars){showToast('Please select a rating');return;}
+  const p=products.find(x=>x.id===currentReviewProductId);
+  const review={id:Date.now(),name,text,stars,product:p?p.title:'General',productId:currentReviewProductId,date:new Date().toLocaleDateString('en-PK')};
   reviews.unshift(review); saveReviews();
-  if (currentReviewProductId) {
-    const pi = products.findIndex(x => x.id===currentReviewProductId);
-    if (pi !== -1) {
-      const prRevs = reviews.filter(r => r.productId===currentReviewProductId);
-      products[pi].rating = parseFloat((prRevs.reduce((a,b)=>a+b.stars,0)/prRevs.length).toFixed(1));
-      products[pi].ratingCount = prRevs.length;
+  if(currentReviewProductId){
+    const pi=products.findIndex(x=>x.id===currentReviewProductId);
+    if(pi!==-1){
+      const prRevs=reviews.filter(r=>r.productId===currentReviewProductId);
+      products[pi].rating=parseFloat((prRevs.reduce((a,b)=>a+b.stars,0)/prRevs.length).toFixed(1));
+      products[pi].ratingCount=prRevs.length;
       saveProducts();
     }
   }
   renderCustomerReviews(); renderHomeProducts();
   showToast('Thank you for your review! ⭐'); closeModal('reviewModal');
 }
-function renderCustomerReviews() {
-  const grid = document.getElementById('customer-reviews-grid');
-  if (!reviews.length) { grid.innerHTML=''; return; }
-  grid.innerHTML = reviews.map(r => `<div class="review-card reveal">
+function renderCustomerReviews(){
+  const grid=document.getElementById('customer-reviews-grid');
+  if(!reviews.length){grid.innerHTML='';return;}
+  grid.innerHTML=reviews.map(r=>`<div class="review-card reveal">
     <div class="review-head">
       <div class="reviewer-avatar">${r.name.substring(0,2).toUpperCase()}</div>
       <div><div class="reviewer-name">${r.name}</div><div class="reviewer-date">${r.date}</div></div>
@@ -1531,33 +1556,33 @@ function renderCustomerReviews() {
     ${r.product?`<div style="font-size:11px;color:var(--gold);margin-top:8px;letter-spacing:1px;text-transform:uppercase;">${r.product}</div>`:''}
   </div>`).join('');
 }
-
-function liveSearch(q) {
-  if (!q.trim()) { renderHomeProducts(); return; }
-  const f = products.filter(p => p.title.toLowerCase().includes(q.toLowerCase())||p.fabric.toLowerCase().includes(q.toLowerCase())||p.category.toLowerCase().includes(q.toLowerCase()));
-  const track = document.getElementById('homeProductsTrack');
-  track.innerHTML = f.length ? f.map(buildCard).join('') : `<div style="padding:30px;color:var(--gray);">No products found for "${q}"</div>`;
+function liveSearch(q){
+  if(!q.trim()){renderHomeProducts();return;}
+  const f=products.filter(p=>p.title.toLowerCase().includes(q.toLowerCase())||p.fabric.toLowerCase().includes(q.toLowerCase())||p.category.toLowerCase().includes(q.toLowerCase()));
+  const track=document.getElementById('homeProductsTrack');
+  track.innerHTML=f.length?f.map(buildCard).join(''):`<div style="padding:30px;color:var(--gray);">No products found for "${q}"</div>`;
   document.getElementById('products-home').scrollIntoView({behavior:'smooth'});
 }
 
-function openModal(id)  { document.getElementById(id).classList.add('open'); }
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-document.querySelectorAll('.modal-overlay').forEach(o => {
-  o.addEventListener('click', e => { if(e.target===o) o.classList.remove('open'); });
+function openModal(id){ document.getElementById(id).classList.add('open'); }
+function closeModal(id){ document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-overlay').forEach(o=>{
+  o.addEventListener('click',e=>{ if(e.target===o) o.classList.remove('open'); });
 });
 
-function showToast(msg) {
-  const t = document.createElement('div');
-  t.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--forest);color:var(--gold);padding:12px 24px;border-radius:50px;font-size:14px;font-weight:500;z-index:99999;box-shadow:0 8px 24px rgba(0,0,0,.3);';
-  t.textContent = msg; document.body.appendChild(t);
-  setTimeout(() => { t.style.opacity='0'; t.style.transition='opacity .3s'; setTimeout(()=>t.remove(),300); }, 2800);
+function showToast(msg){
+  const t=document.createElement('div');
+  t.style.cssText='position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--forest);color:var(--gold);padding:12px 26px;border-radius:50px;font-size:14px;font-weight:500;z-index:99999;box-shadow:0 8px 24px rgba(0,0,0,.3);border:1px solid rgba(198,167,94,.2);';
+  t.textContent=msg; document.body.appendChild(t);
+  setTimeout(()=>{ t.style.opacity='0'; t.style.transition='opacity .3s'; setTimeout(()=>t.remove(),300); },2800);
 }
 
-function openAdminLogin() { openModal('adminLoginModal'); document.getElementById('admin-u').value=''; document.getElementById('admin-p').value=''; document.getElementById('admin-err').style.display='none'; }
-function adminLogin() {
-  const u = document.getElementById('admin-u').value.trim();
-  const p = document.getElementById('admin-p').value;
-  if (u==='abdullah' && p===adminPassword) {
+/* ══ ADMIN ══ */
+function openAdminLogin(){ openModal('adminLoginModal'); document.getElementById('admin-u').value=''; document.getElementById('admin-p').value=''; document.getElementById('admin-err').style.display='none'; }
+function adminLogin(){
+  const u=document.getElementById('admin-u').value.trim();
+  const p=document.getElementById('admin-p').value;
+  if(u==='abdullah'&&p===adminPassword){
     closeModal('adminLoginModal');
     document.getElementById('admin-panel').style.display='block';
     document.body.style.overflow='hidden';
@@ -1567,13 +1592,12 @@ function adminLogin() {
     document.getElementById('admin-p').value='';
   }
 }
-function adminLogout() { document.getElementById('admin-panel').style.display='none'; document.body.style.overflow=''; }
-
-function showAdminTab(tab) {
-  document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.admin-nav').forEach(n => n.classList.remove('active'));
+function adminLogout(){ document.getElementById('admin-panel').style.display='none'; document.body.style.overflow=''; }
+function showAdminTab(tab){
+  document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.admin-nav').forEach(n=>n.classList.remove('active'));
   document.getElementById(`tab-${tab}`).classList.add('active');
-  document.querySelectorAll('.admin-nav').forEach(n => { if(n.getAttribute('onclick')&&n.getAttribute('onclick').includes(`'${tab}'`)) n.classList.add('active'); });
+  document.querySelectorAll('.admin-nav').forEach(n=>{ if(n.getAttribute('onclick')&&n.getAttribute('onclick').includes(`'${tab}'`)) n.classList.add('active'); });
   if(tab==='dashboard')    renderDashboard();
   if(tab==='orders')       renderAllOrders();
   if(tab==='products')     renderAdminProducts();
@@ -1581,33 +1605,28 @@ function showAdminTab(tab) {
   if(tab==='reviews-admin') renderAdminReviews();
   if(tab==='settings')     loadSettings();
 }
-function refreshAdmin() {
-  orders  = JSON.parse(localStorage.getItem('nw_orders')  || '[]');
-  reviews = JSON.parse(localStorage.getItem('nw_reviews') || '[]');
-}
-
-function renderDashboard() {
+function refreshAdmin(){ orders=JSON.parse(localStorage.getItem('nw_orders')||'[]'); reviews=JSON.parse(localStorage.getItem('nw_reviews')||'[]'); }
+function renderDashboard(){
   refreshAdmin();
-  document.getElementById('s-orders').textContent   = orders.length;
-  document.getElementById('s-products').textContent = products.length;
-  document.getElementById('s-reviews').textContent  = reviews.length;
-  document.getElementById('s-revenue').textContent  = orders.reduce((a,o)=>a+(o.total||0),0).toLocaleString();
-  const tb = document.getElementById('dash-orders-tb');
-  tb.innerHTML = orders.slice(0,5).map(o => `<tr>
+  document.getElementById('s-orders').textContent=orders.length;
+  document.getElementById('s-products').textContent=products.length;
+  document.getElementById('s-reviews').textContent=reviews.length;
+  document.getElementById('s-revenue').textContent=orders.reduce((a,o)=>a+(o.total||0),0).toLocaleString();
+  const tb=document.getElementById('dash-orders-tb');
+  tb.innerHTML=orders.slice(0,5).map(o=>`<tr>
     <td><strong>#${o.id}</strong></td>
     <td>${o.customer.name}</td>
     <td style="max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${o.product}</td>
     <td>${o.customer.city}</td>
     <td style="color:var(--gold);font-weight:700;">PKR ${(o.total||0).toLocaleString()}</td>
     <td><span class="admin-badge badge-${o.status||'new'}">${(o.status||'new').toUpperCase()}</span></td>
-    <td><button class="action-btn btn-view" onclick="viewOrderDetail(${o.id})"><i class="fas fa-eye"></i> View</button></td>
-  </tr>`).join('') || '<tr><td colspan="7" style="text-align:center;padding:30px;color:#9ca3af;">No orders yet</td></tr>';
+    <td><button class="action-btn btn-view" onclick="viewOrder(${o.id})"><i class="fas fa-eye"></i> View</button></td>
+  </tr>`).join('')||'<tr><td colspan="7" style="text-align:center;padding:30px;color:#9ca3af;">No orders yet</td></tr>';
 }
-
-function renderAllOrders(list) {
-  list = list || orders;
-  const tb = document.getElementById('all-orders-tb');
-  tb.innerHTML = list.map(o => `<tr>
+function renderAllOrders(list){
+  list=list||orders;
+  const tb=document.getElementById('all-orders-tb');
+  tb.innerHTML=list.map(o=>`<tr>
     <td><strong>#${o.id}</strong></td>
     <td style="font-size:11px;color:#6b7280;">${o.date}</td>
     <td><strong>${o.customer.name}</strong></td>
@@ -1619,124 +1638,67 @@ function renderAllOrders(list) {
     <td style="color:#1a472a;font-weight:700;">PKR ${(o.total||0).toLocaleString()}</td>
     <td><span class="admin-badge badge-${o.status||'new'}">${(o.status||'new').toUpperCase()}</span></td>
     <td>
-      <button class="action-btn btn-view" onclick="viewOrderDetail(${o.id})"><i class="fas fa-eye"></i></button>
+      <button class="action-btn btn-view" onclick="viewOrder(${o.id})"><i class="fas fa-eye"></i></button>
       <button class="action-btn btn-edit" onclick="changeOrderStatus(${o.id})"><i class="fas fa-sync"></i></button>
-      <button class="action-btn btn-del"  onclick="deleteOrder(${o.id})"><i class="fas fa-trash"></i></button>
+      <button class="action-btn btn-del" onclick="deleteOrder(${o.id})"><i class="fas fa-trash"></i></button>
     </td>
-  </tr>`).join('') || '<tr><td colspan="11" style="text-align:center;padding:30px;color:#9ca3af;">No orders yet</td></tr>';
+  </tr>`).join('')||'<tr><td colspan="11" style="text-align:center;padding:30px;color:#9ca3af;">No orders yet</td></tr>';
 }
-
-function viewOrderDetail(id) {
-  const o = orders.find(x => x.id===id); if(!o) return;
-
-  const stitchBadge = o.stitch==='Stitched'
-    ? '<span style="background:#d4edda;color:#155724;padding:3px 10px;border-radius:10px;font-size:12px;font-weight:700;">✂️ Stitched</span>'
-    : o.stitch==='Unstitched'
-    ? '<span style="background:#fff3cd;color:#856404;padding:3px 10px;border-radius:10px;font-size:12px;font-weight:700;">📦 Unstitched</span>'
-    : '<span style="background:#e5e7eb;color:#374151;padding:3px 10px;border-radius:10px;font-size:12px;">N/A</span>';
-
-  const measurementsHTML = o.measurement ? `
-    <div class="od-section">
-      <div class="od-section-title"><i class="fas fa-ruler"></i> Measurements</div>
-      <div class="od-measurements">
-        ${o.measurement.chest     ? `<div class="od-meas-item">Chest <strong>${o.measurement.chest}"</strong></div>` : ''}
-        ${o.measurement.length    ? `<div class="od-meas-item">Length <strong>${o.measurement.length}"</strong></div>` : ''}
-        ${o.measurement.shoulders ? `<div class="od-meas-item">Shoulders <strong>${o.measurement.shoulders}"</strong></div>` : ''}
-        ${o.measurement.sleeves   ? `<div class="od-meas-item">Sleeves <strong>${o.measurement.sleeves}"</strong></div>` : ''}
-      </div>
-      ${o.measurement.photo ? `<div style="margin-top:12px;"><div style="font-size:11px;color:#9ca3af;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Measurement Photo</div><img src="${o.measurement.photo}" style="max-width:100%;border-radius:10px;border:1px solid #e5e7eb;" alt="Measurement"></div>` : ''}
-    </div>` : '';
-
-  const notesHTML = o.notes ? `
-    <div class="od-section">
-      <div class="od-section-title"><i class="fas fa-sticky-note"></i> Special Notes</div>
-      <p style="font-size:14px;color:#6b7280;">${o.notes}</p>
-    </div>` : '';
-
-  const contentHTML = `
+function viewOrder(id){
+  const o=orders.find(x=>x.id===id); if(!o) return;
+  const stitchBadge=o.stitch==='Stitched'?'<span style="background:#d4edda;color:#155724;padding:3px 10px;border-radius:10px;font-size:12px;font-weight:700;">✂️ Stitched</span>':o.stitch==='Unstitched'?'<span style="background:#fff3cd;color:#856404;padding:3px 10px;border-radius:10px;font-size:12px;font-weight:700;">📦 Unstitched</span>':'<span style="background:#e5e7eb;color:#374151;padding:3px 10px;border-radius:10px;font-size:12px;">N/A</span>';
+  const measurementsHTML=o.measurement?`<div class="od-section"><div class="od-section-title"><i class="fas fa-ruler"></i> Measurements</div><div class="od-measurements">${o.measurement.chest?`<div class="od-meas-item">Chest <strong>${o.measurement.chest}"</strong></div>`:''} ${o.measurement.length?`<div class="od-meas-item">Length <strong>${o.measurement.length}"</strong></div>`:''} ${o.measurement.shoulders?`<div class="od-meas-item">Shoulders <strong>${o.measurement.shoulders}"</strong></div>`:''} ${o.measurement.sleeves?`<div class="od-meas-item">Sleeves <strong>${o.measurement.sleeves}"</strong></div>`:''}</div>${o.measurement.photo?`<div style="margin-top:12px;"><div style="font-size:11px;color:#9ca3af;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Measurement Photo</div><img src="${o.measurement.photo}" style="max-width:100%;border-radius:10px;border:1px solid #e5e7eb;"></div>`:''}</div>`:'';
+  const notesHTML=o.notes?`<div class="od-section"><div class="od-section-title"><i class="fas fa-sticky-note"></i> Special Notes</div><p style="font-size:14px;color:#6b7280;">${o.notes}</p></div>`:'';
+  document.getElementById('orderDetailBody').innerHTML=`
     <div style="background:linear-gradient(135deg,var(--forest),var(--forest-m));border-radius:12px;padding:18px 20px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
-      <div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);font-weight:600;">Order #${o.id}</div>
-        <div style="color:rgba(255,255,255,.55);font-size:12px;margin-top:2px;"><i class="fas fa-clock"></i> ${o.date}</div>
-      </div>
-      <div style="text-align:right;">
-        <div style="font-size:22px;font-weight:800;color:var(--gold);">PKR ${(o.total||0).toLocaleString()}</div>
-        <span class="admin-badge badge-${o.status||'new'}" style="margin-top:4px;display:inline-block;">${(o.status||'new').toUpperCase()}</span>
-      </div>
+      <div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);font-weight:600;">Order #${o.id}</div><div style="color:rgba(255,255,255,.55);font-size:12px;margin-top:2px;"><i class="fas fa-clock"></i> ${o.date}</div></div>
+      <div style="text-align:right;"><div style="font-size:22px;font-weight:800;color:var(--gold);">PKR ${(o.total||0).toLocaleString()}</div><span class="admin-badge badge-${o.status||'new'}" style="margin-top:4px;display:inline-block;">${(o.status||'new').toUpperCase()}</span></div>
     </div>
-
-    <div class="od-section">
-      <div class="od-section-title"><i class="fas fa-user"></i> Customer Details</div>
-      <div class="od-grid">
-        <div class="od-field"><div class="od-field-label">Full Name</div><div class="od-field-value">${o.customer.name}</div></div>
-        <div class="od-field"><div class="od-field-label"><i class="fab fa-whatsapp" style="color:#25d366;"></i> WhatsApp</div><div class="od-field-value">${o.customer.phone}</div></div>
-        <div class="od-field"><div class="od-field-label">City</div><div class="od-field-value">${o.customer.city}</div></div>
-        <div class="od-field"><div class="od-field-label">Payment Method</div><div class="od-field-value">${o.payment}</div></div>
-        <div class="od-field full"><div class="od-field-label"><i class="fas fa-map-marker-alt"></i> Delivery Address</div><div class="od-field-value" style="font-weight:500;">${o.customer.address}</div></div>
-      </div>
-    </div>
-
-    <div class="od-section">
-      <div class="od-section-title"><i class="fas fa-box-open"></i> Order Details</div>
-      <div class="od-grid">
-        <div class="od-field"><div class="od-field-label">Product</div><div class="od-field-value">${o.productEmoji||'📦'} ${o.product}</div></div>
-        <div class="od-field"><div class="od-field-label">Quantity</div><div class="od-field-value">${o.qty} piece${o.qty>1?'s':''}</div></div>
-        <div class="od-field"><div class="od-field-label">Stitching</div><div class="od-field-value">${stitchBadge}</div></div>
-        <div class="od-field"><div class="od-field-label">Product Price</div><div class="od-field-value">PKR ${(o.unitPrice||0).toLocaleString()}</div></div>
-      </div>
-    </div>
-
-    <div class="od-section">
-      <div class="od-section-title"><i class="fas fa-receipt"></i> Price Breakdown</div>
-      <div style="background:#fff;border-radius:10px;padding:14px 16px;">
-        <div class="od-price-row"><span>Product Price</span><span>PKR ${(o.unitPrice||0).toLocaleString()}</span></div>
-        ${o.stitchFee ? `<div class="od-price-row"><span>Stitching Charges</span><span>PKR ${o.stitchFee.toLocaleString()}</span></div>` : ''}
-        ${o.qty > 1 ? `<div class="od-price-row"><span>Quantity</span><span>× ${o.qty}</span></div>` : ''}
-        <div class="od-price-row"><span>Total Amount</span><span>PKR ${(o.total||0).toLocaleString()}</span></div>
-      </div>
-    </div>
-
-    ${measurementsHTML}
-    ${notesHTML}
-
+    <div class="od-section"><div class="od-section-title"><i class="fas fa-user"></i> Customer Details</div><div class="od-grid">
+      <div class="od-field"><div class="od-field-label">Full Name</div><div class="od-field-value">${o.customer.name}</div></div>
+      <div class="od-field"><div class="od-field-label">WhatsApp</div><div class="od-field-value">${o.customer.phone}</div></div>
+      <div class="od-field"><div class="od-field-label">City</div><div class="od-field-value">${o.customer.city}</div></div>
+      <div class="od-field"><div class="od-field-label">Payment</div><div class="od-field-value">${o.payment}</div></div>
+      <div class="od-field full"><div class="od-field-label">Address</div><div class="od-field-value">${o.customer.address}</div></div>
+    </div></div>
+    <div class="od-section"><div class="od-section-title"><i class="fas fa-box-open"></i> Order Details</div><div class="od-grid">
+      <div class="od-field"><div class="od-field-label">Product</div><div class="od-field-value">${o.productEmoji||'📦'} ${o.product}</div></div>
+      <div class="od-field"><div class="od-field-label">Quantity</div><div class="od-field-value">${o.qty} piece${o.qty>1?'s':''}</div></div>
+      <div class="od-field"><div class="od-field-label">Stitching</div><div class="od-field-value">${stitchBadge}</div></div>
+      <div class="od-field"><div class="od-field-label">Unit Price</div><div class="od-field-value">PKR ${(o.unitPrice||0).toLocaleString()}</div></div>
+    </div></div>
+    <div class="od-section"><div class="od-section-title"><i class="fas fa-receipt"></i> Price Breakdown</div>
+    <div style="background:#fff;border-radius:10px;padding:14px 16px;">
+      <div class="od-price-row"><span>Product Price</span><span>PKR ${(o.unitPrice||0).toLocaleString()}</span></div>
+      ${o.stitchFee?`<div class="od-price-row"><span>Stitching Charges</span><span>PKR ${o.stitchFee.toLocaleString()}</span></div>`:''}
+      ${o.qty>1?`<div class="od-price-row"><span>Quantity</span><span>× ${o.qty}</span></div>`:''}
+      <div class="od-price-row"><span>Total Amount</span><span>PKR ${(o.total||0).toLocaleString()}</span></div>
+    </div></div>
+    ${measurementsHTML}${notesHTML}
     <div style="display:flex;gap:10px;margin-top:4px;flex-wrap:wrap;">
-      <button class="admin-save-btn" onclick="changeOrderStatus(${o.id});closeOrderDetail()"><i class="fas fa-sync"></i> Change Status</button>
-      <button class="admin-cancel-btn" onclick="closeOrderDetail()"><i class="fas fa-times"></i> Close</button>
+      <button class="admin-save-btn" onclick="changeOrderStatus(${o.id});closeModal('orderDetailModal')"><i class="fas fa-sync"></i> Change Status</button>
+      <button class="admin-cancel-btn" onclick="closeModal('orderDetailModal')"><i class="fas fa-times"></i> Close</button>
     </div>`;
-
-  document.getElementById('od-header-name').textContent = `Order #${o.id}`;
-  document.getElementById('order-detail-content').innerHTML = contentHTML;
-  document.getElementById('order-detail-page').classList.add('open');
-  document.body.style.overflow='hidden';
+  openModal('orderDetailModal');
 }
-
-function closeOrderDetail() {
-  document.getElementById('order-detail-page').classList.remove('open');
-  document.body.style.overflow='';
-}
-
-function changeOrderStatus(id) {
-  const statuses = ['new','processing','done'];
-  const o = orders.find(x => x.id===id); if(!o) return;
-  const i = statuses.indexOf(o.status||'new');
-  o.status = statuses[(i+1)%statuses.length];
+function changeOrderStatus(id){
+  const statuses=['new','processing','done'];
+  const o=orders.find(x=>x.id===id); if(!o) return;
+  const i=statuses.indexOf(o.status||'new');
+  o.status=statuses[(i+1)%statuses.length];
   saveOrders(); renderAllOrders(); renderDashboard();
   showToast(`Order #${id} → ${o.status.toUpperCase()}`);
 }
-function deleteOrder(id) {
-  if (!confirm('Delete this order?')) return;
-  orders = orders.filter(x => x.id!==id); saveOrders(); renderAllOrders(); renderDashboard(); showToast('Order deleted');
-}
-function searchOrders(q) {
-  q = q.toLowerCase();
-  const f = q ? orders.filter(o => o.customer.name.toLowerCase().includes(q)||o.customer.phone.includes(q)||o.product.toLowerCase().includes(q)||String(o.id).includes(q)) : orders;
+function deleteOrder(id){ if(!confirm('Delete this order?')) return; orders=orders.filter(x=>x.id!==id); saveOrders(); renderAllOrders(); renderDashboard(); showToast('Order deleted'); }
+function searchOrders(q){
+  q=q.toLowerCase();
+  const f=q?orders.filter(o=>o.customer.name.toLowerCase().includes(q)||o.customer.phone.includes(q)||o.product.toLowerCase().includes(q)||String(o.id).includes(q)):orders;
   renderAllOrders(f);
 }
-
-function renderAdminProducts() {
-  const tb = document.getElementById('products-tb');
-  if (!products.length) { tb.innerHTML='<tr><td colspan="7" style="text-align:center;padding:30px;color:#9ca3af;">No products yet</td></tr>'; return; }
-  tb.innerHTML = products.map(p => `<tr>
+function renderAdminProducts(){
+  const tb=document.getElementById('products-tb');
+  if(!products.length){tb.innerHTML='<tr><td colspan="7" style="text-align:center;padding:30px;color:#9ca3af;">No products yet</td></tr>';return;}
+  tb.innerHTML=products.map(p=>`<tr>
     <td><div style="width:56px;height:56px;background:var(--gold-pale);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:26px;">${p.images&&p.images[0]?`<img src="${p.images[0]}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;" alt="">`:p.emoji||'📦'}</div></td>
     <td><strong>${p.title}</strong></td>
     <td><span style="background:rgba(198,167,94,.1);padding:3px 10px;border-radius:10px;font-size:12px;">${catLabel(p.category)}</span></td>
@@ -1745,55 +1707,52 @@ function renderAdminProducts() {
     <td>${p.gender}</td>
     <td>
       <button class="action-btn btn-edit" onclick="editProduct(${p.id})"><i class="fas fa-pencil-alt"></i> Edit</button>
-      <button class="action-btn btn-del"  onclick="deleteProduct(${p.id})"><i class="fas fa-trash"></i></button>
+      <button class="action-btn btn-del" onclick="deleteProduct(${p.id})"><i class="fas fa-trash"></i></button>
     </td>
   </tr>`).join('');
 }
-function deleteProduct(id) {
-  if (!confirm('Delete this product?')) return;
-  products = products.filter(x => x.id!==id); saveProducts(); renderAdminProducts(); renderHomeProducts(); showToast('Product deleted');
-}
-function editProduct(id) {
-  const p = products.find(x => x.id===id); if(!p) return;
-  editProductId = id;
+function deleteProduct(id){ if(!confirm('Delete this product?')) return; products=products.filter(x=>x.id!==id); saveProducts(); renderAdminProducts(); renderHomeProducts(); showToast('Product deleted'); }
+function editProduct(id){
+  const p=products.find(x=>x.id===id); if(!p) return;
+  editProductId=id;
   document.getElementById('add-p-heading').innerHTML='<i class="fas fa-pencil-alt" style="color:var(--gold);margin-right:10px;"></i>Edit Product';
-  document.getElementById('p-title').value    = p.title;
-  document.getElementById('p-gender').value   = p.gender;
-  document.getElementById('p-category').value = p.category;
-  document.getElementById('p-fabric').value   = p.fabric||'';
-  document.getElementById('p-price').value    = p.price;
-  document.getElementById('p-qty').value      = p.qty;
-  document.getElementById('p-desc').value     = p.description||p.desc||'';
-  pendingImages = p.images ? [...p.images] : [];
+  document.getElementById('p-title').value=p.title;
+  document.getElementById('p-gender').value=p.gender;
+  document.getElementById('p-category').value=p.category;
+  document.getElementById('p-fabric').value=p.fabric||'';
+  document.getElementById('p-price').value=p.price;
+  document.getElementById('p-qty').value=p.qty;
+  document.getElementById('p-desc').value=p.description||p.desc||'';
+  pendingImages=p.images?[...p.images]:[];
   renderImgPreviews();
   showAdminTab('add-product');
 }
-function handleProductImages(event) {
-  const files = Array.from(event.target.files);
-  const rem   = 10 - pendingImages.length;
-  files.slice(0,rem).forEach(file => {
-    const r = new FileReader();
-    r.onload = e => { pendingImages.push(e.target.result); renderImgPreviews(); };
+function handleProductImages(event){
+  const files=Array.from(event.target.files);
+  const rem=10-pendingImages.length;
+  files.slice(0,rem).forEach(file=>{
+    const r=new FileReader();
+    r.onload=e=>{ pendingImages.push(e.target.result); renderImgPreviews(); };
     r.readAsDataURL(file);
   });
   event.target.value='';
 }
-function removeImg(i)       { pendingImages.splice(i,1); renderImgPreviews(); }
+function removeImg(i){ pendingImages.splice(i,1); renderImgPreviews(); }
 function renderImgPreviews(){ document.getElementById('img-prev-grid').innerHTML=pendingImages.map((src,i)=>`<div class="img-prev-item"><img src="${src}" alt=""><button class="img-prev-remove" onclick="removeImg(${i})">×</button></div>`).join(''); }
-function saveProduct() {
-  const title    = document.getElementById('p-title').value.trim();
-  const gender   = document.getElementById('p-gender').value;
-  const category = document.getElementById('p-category').value;
-  const fabric   = document.getElementById('p-fabric').value.trim();
-  const price    = parseFloat(document.getElementById('p-price').value);
-  const qty      = parseInt(document.getElementById('p-qty').value);
-  const desc     = document.getElementById('p-desc').value.trim();
-  if (!title||!price||isNaN(qty)||!desc) { showToast('Please fill all required fields'); return; }
-  if (!pendingImages.length) { showToast('Please add at least one image'); return; }
-  const emojis = {clothing:'👔',shoes:'👟',watches:'⌚',accessories:'💎'};
-  if (editProductId) {
-    const idx = products.findIndex(x => x.id===editProductId);
-    if (idx !== -1) { products[idx]={...products[idx],title,gender,category,fabric,price,qty,description:desc,images:[...pendingImages]}; }
+function saveProduct(){
+  const title=document.getElementById('p-title').value.trim();
+  const gender=document.getElementById('p-gender').value;
+  const category=document.getElementById('p-category').value;
+  const fabric=document.getElementById('p-fabric').value.trim();
+  const price=parseFloat(document.getElementById('p-price').value);
+  const qty=parseInt(document.getElementById('p-qty').value);
+  const desc=document.getElementById('p-desc').value.trim();
+  if(!title||!price||isNaN(qty)||!desc){showToast('Please fill all required fields');return;}
+  if(!pendingImages.length){showToast('Please add at least one image');return;}
+  const emojis={clothing:'👔',shoes:'👟',watches:'⌚',accessories:'💎'};
+  if(editProductId){
+    const idx=products.findIndex(x=>x.id===editProductId);
+    if(idx!==-1){products[idx]={...products[idx],title,gender,category,fabric,price,qty,description:desc,images:[...pendingImages]};}
     editProductId=null; showToast('Product updated ✅');
   } else {
     products.push({id:Date.now(),title,gender,category,fabric,price,qty,description:desc,images:[...pendingImages],emoji:emojis[category]||'📦',rating:5,ratingCount:0});
@@ -1802,19 +1761,18 @@ function saveProduct() {
   saveProducts(); renderHomeProducts(); renderAdminProducts();
   resetProductForm(); showAdminTab('products');
 }
-function resetProductForm() {
+function resetProductForm(){
   document.getElementById('p-title').value=''; document.getElementById('p-gender').value='men';
   document.getElementById('p-category').value='clothing'; document.getElementById('p-fabric').value='';
   document.getElementById('p-price').value=''; document.getElementById('p-qty').value=''; document.getElementById('p-desc').value='';
   pendingImages=[]; renderImgPreviews(); editProductId=null;
   document.getElementById('add-p-heading').innerHTML='<i class="fas fa-plus-circle" style="color:var(--gold);margin-right:10px;"></i>Add Product';
 }
-function cancelAddProduct() { resetProductForm(); showAdminTab('products'); }
-
-function renderAdminReviews() {
-  const tb = document.getElementById('reviews-admin-tb');
-  if (!reviews.length) { tb.innerHTML='<tr><td colspan="7" style="text-align:center;padding:30px;color:#9ca3af;">No reviews yet</td></tr>'; return; }
-  tb.innerHTML = reviews.map((r,i) => `<tr>
+function cancelAddProduct(){ resetProductForm(); showAdminTab('products'); }
+function renderAdminReviews(){
+  const tb=document.getElementById('reviews-admin-tb');
+  if(!reviews.length){tb.innerHTML='<tr><td colspan="7" style="text-align:center;padding:30px;color:#9ca3af;">No reviews yet</td></tr>';return;}
+  tb.innerHTML=reviews.map((r,i)=>`<tr>
     <td>${i+1}</td>
     <td><strong>${r.name}</strong></td>
     <td>${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</td>
@@ -1824,55 +1782,51 @@ function renderAdminReviews() {
     <td><button class="action-btn btn-del" onclick="deleteReview(${r.id})"><i class="fas fa-trash"></i></button></td>
   </tr>`).join('');
 }
-function deleteReview(id) {
-  if (!confirm('Delete this review?')) return;
-  reviews=reviews.filter(x=>x.id!==id); saveReviews(); renderAdminReviews(); renderCustomerReviews(); showToast('Review deleted');
+function deleteReview(id){ if(!confirm('Delete this review?')) return; reviews=reviews.filter(x=>x.id!==id); saveReviews(); renderAdminReviews(); renderCustomerReviews(); showToast('Review deleted'); }
+function openAddAdminReview(){ starCount=0; setStar(0); document.getElementById('r-name').value=''; document.getElementById('r-text').value=''; currentReviewProductId=null; openModal('reviewModal'); }
+function loadSettings(){
+  const s=adminSettings;
+  document.getElementById('set-insta').value=s.insta||'';
+  document.getElementById('set-tiktok').value=s.tiktok||'';
+  document.getElementById('set-whatsapp').value=s.whatsapp||'';
+  document.getElementById('set-facebook').value=s.facebook||'';
 }
-function openAddAdminReview() { starCount=0; setStar(0); document.getElementById('r-name').value=''; document.getElementById('r-text').value=''; currentReviewProductId=null; openModal('reviewModal'); }
-
-function loadSettings() {
-  const s = adminSettings;
-  document.getElementById('set-insta').value     = s.insta||'';
-  document.getElementById('set-tiktok').value    = s.tiktok||'';
-  document.getElementById('set-whatsapp').value  = s.whatsapp||'';
-  document.getElementById('set-facebook').value  = s.facebook||'';
-}
-function saveSettings() {
-  adminSettings.insta     = document.getElementById('set-insta').value.trim();
-  adminSettings.tiktok    = document.getElementById('set-tiktok').value.trim();
-  adminSettings.whatsapp  = document.getElementById('set-whatsapp').value.trim();
-  adminSettings.facebook  = document.getElementById('set-facebook').value.trim();
-  localStorage.setItem('nw_settings', JSON.stringify(adminSettings));
-  if(adminSettings.insta)    document.getElementById('footer-insta').href    = adminSettings.insta;
-  if(adminSettings.tiktok)   document.getElementById('footer-tiktok').href   = adminSettings.tiktok;
-  if(adminSettings.facebook) document.getElementById('footer-facebook').href = adminSettings.facebook;
-  if(adminSettings.whatsapp) {
-    document.getElementById('footer-whatsapp').href = `https://wa.me/${adminSettings.whatsapp}`;
-    document.querySelector('.whatsapp-float').href  = `https://wa.me/${adminSettings.whatsapp}`;
+function saveSettings(){
+  adminSettings.insta=document.getElementById('set-insta').value.trim();
+  adminSettings.tiktok=document.getElementById('set-tiktok').value.trim();
+  adminSettings.whatsapp=document.getElementById('set-whatsapp').value.trim();
+  adminSettings.facebook=document.getElementById('set-facebook').value.trim();
+  localStorage.setItem('nw_settings',JSON.stringify(adminSettings));
+  if(adminSettings.insta) document.getElementById('footer-insta').href=adminSettings.insta;
+  if(adminSettings.tiktok) document.getElementById('footer-tiktok').href=adminSettings.tiktok;
+  if(adminSettings.facebook) document.getElementById('footer-facebook').href=adminSettings.facebook;
+  if(adminSettings.whatsapp){
+    document.getElementById('footer-whatsapp').href=`https://wa.me/${adminSettings.whatsapp}`;
+    document.querySelector('.whatsapp-float').href=`https://wa.me/${adminSettings.whatsapp}`;
   }
   showToast('Settings saved ✅');
 }
-function changeAdminPass() {
-  const np = document.getElementById('new-pass').value;
-  const cp = document.getElementById('conf-pass').value;
-  if (!np||np!==cp) { showToast('Passwords do not match'); return; }
+function changeAdminPass(){
+  const np=document.getElementById('new-pass').value;
+  const cp=document.getElementById('conf-pass').value;
+  if(!np||np!==cp){showToast('Passwords do not match');return;}
   adminPassword=np; document.getElementById('new-pass').value=''; document.getElementById('conf-pass').value='';
   showToast('Password changed ✅');
 }
 
-const revObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('on'); });
-}, {threshold:.12});
-document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => revObs.observe(el));
+const revObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('on'); });
+},{threshold:.12});
+document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>revObs.observe(el));
 
-function applySettings() {
-  const s = adminSettings;
-  if(s.insta&&s.insta!=='#')       document.getElementById('footer-insta').href    = s.insta;
-  if(s.tiktok&&s.tiktok!=='#')     document.getElementById('footer-tiktok').href   = s.tiktok;
-  if(s.facebook&&s.facebook!=='#') document.getElementById('footer-facebook').href = s.facebook;
-  if(s.whatsapp) {
-    document.getElementById('footer-whatsapp').href = `https://wa.me/${s.whatsapp}`;
-    document.querySelector('.whatsapp-float').href  = `https://wa.me/${s.whatsapp}`;
+function applySettings(){
+  const s=adminSettings;
+  if(s.insta&&s.insta!=='#') document.getElementById('footer-insta').href=s.insta;
+  if(s.tiktok&&s.tiktok!=='#') document.getElementById('footer-tiktok').href=s.tiktok;
+  if(s.facebook&&s.facebook!=='#') document.getElementById('footer-facebook').href=s.facebook;
+  if(s.whatsapp){
+    document.getElementById('footer-whatsapp').href=`https://wa.me/${s.whatsapp}`;
+    document.querySelector('.whatsapp-float').href=`https://wa.me/${s.whatsapp}`;
   }
 }
 
