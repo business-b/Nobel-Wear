@@ -1155,33 +1155,14 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 // ══════════════════════════════════════════════════
 //  CONSTANTS & STATE
 // ══════════════════════════════════════════════════
-  // ═══ FIREBASE CONFIG ═══
-const firebaseConfig = {
-  apiKey: "AIzaSyD...",
-  authDomain: "nobelwear-xxx.firebaseapp.com",
-  projectId: "nobelwear-xxx",
-  databaseURL: "https://nobelwear-xxx.firebaseio.com",
-  storageBucket: "nobelwear-xxx.appspot.com",
-  messagingSenderId: "...",
-  appId: "..."
-};
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
 const STITCH_PRICE = 1500;
 let adminPassword = localStorage.getItem('nw_adminpass') || 'nobel01';
 
 // ── Products: load from localStorage; seed defaults only if empty ──
-async function loadProducts() {
-  // Try cloud first, fallback to local
-  try {
-    const response = await fetch('https://your-api.com/products');
-    const data = await response.json();
-    if (data && data.length) return data;
-  } catch(e) {}
-  
+function loadProducts() {
   const stored = localStorage.getItem('nw_products');
-  // ... rest stays same
-}
+  if (stored) {
+    try {
       const parsed = JSON.parse(stored);
       if (Array.isArray(parsed) && parsed.length > 0) return parsed;
     } catch(e) {}
@@ -1220,18 +1201,6 @@ let carouselIdx = 0;
 // ── Persist helpers ──
 function saveProducts() {
   localStorage.setItem('nw_products', JSON.stringify(products));
-  // Also save to cloud
-  syncToCloud('products', products);
-}
-
-function syncToCloud(type, data) {
-  try {
-    fetch('https://your-api.com/sync', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({type, data, timestamp: Date.now()})
-    });
-  } catch(e) { console.log('Cloud sync failed'); }
 }
 function saveOrders()  { localStorage.setItem('nw_orders',   JSON.stringify(orders)); }
 function saveReviews() { localStorage.setItem('nw_reviews',  JSON.stringify(reviews)); }
