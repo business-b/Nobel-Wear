@@ -6,79 +6,6 @@
 <title>NOBEL WEAR — Pakistan's Premium Fashion Destination</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-<!-- ═══════════════════════════════════════════════════
-     FIREBASE SETUP INSTRUCTIONS:
-     1. Go to https://console.firebase.google.com
-     2. Create a new project named "Nobel Wear"
-     3. Add Firestore Database (test mode)
-     4. Add a Web App, then replace the config below
-     ═══════════════════════════════════════════════════ -->
-
-<!-- Firebase SDK -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import {
-    getFirestore, collection, doc,
-    onSnapshot, setDoc, addDoc, updateDoc, deleteDoc,
-    query, orderBy, serverTimestamp, getDocs, writeBatch
-  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-  // ══════════════════════════════════════════════
-  // 🔧 REPLACE THIS WITH YOUR FIREBASE CONFIG
-  //    (from Firebase Console → Project Settings → Web App)
-  // ══════════════════════════════════════════════
-  const firebaseConfig = {
-    apiKey:            "YOUR_API_KEY",
-    authDomain:        "YOUR_PROJECT.firebaseapp.com",
-    projectId:         "YOUR_PROJECT_ID",
-    storageBucket:     "YOUR_PROJECT.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId:             "YOUR_APP_ID"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db  = getFirestore(app);
-
-  // Expose db + Firestore functions to global scope
-  window._db = db;
-  window._fs = {
-    collection, doc, onSnapshot, setDoc, addDoc, updateDoc,
-    deleteDoc, query, orderBy, serverTimestamp, getDocs, writeBatch
-  };
-
-  // ── Real-time listeners ──────────────────────
-  // Products
-  onSnapshot(query(collection(db,'products'), orderBy('createdAt','asc')), snap => {
-    window._products = snap.docs.map(d => ({...d.data(), _docId: d.id}));
-    if (window._onProductsUpdate) window._onProductsUpdate();
-  });
-
-  // Orders
-  onSnapshot(query(collection(db,'orders'), orderBy('createdAt','desc')), snap => {
-    window._orders = snap.docs.map(d => ({...d.data(), _docId: d.id}));
-    if (window._onOrdersUpdate) window._onOrdersUpdate();
-  });
-
-  // Reviews
-  onSnapshot(query(collection(db,'reviews'), orderBy('createdAt','desc')), snap => {
-    window._reviews = snap.docs.map(d => ({...d.data(), _docId: d.id}));
-    if (window._onReviewsUpdate) window._onReviewsUpdate();
-  });
-
-  // Settings
-  onSnapshot(doc(db,'settings','main'), snap => {
-    if (snap.exists()) {
-      window._settings = snap.data();
-      if (window._onSettingsUpdate) window._onSettingsUpdate();
-    }
-  });
-
-  // Signal that Firebase is ready
-  window._fbReady = true;
-  window.dispatchEvent(new Event('fbReady'));
-</script>
-
 <style>
 :root{
   --gold:#c6a75e;--gold-l:#e2c98a;--gold-pale:#f5edda;
@@ -110,7 +37,6 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--forest);o
 .loader-bar{width:220px;height:3px;background:rgba(198,167,94,.2);border-radius:2px;overflow:hidden;}
 .loader-bar-fill{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-l));border-radius:2px;animation:loaderFill 2.2s ease forwards;}
 @keyframes loaderFill{0%{width:0}100%{width:100%}}
-.loader-status{font-size:12px;color:rgba(198,167,94,.6);letter-spacing:1px;}
 
 /* NAVBAR */
 .navbar{position:fixed;top:0;width:100%;z-index:1000;padding:0 24px;height:74px;display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(15,26,20,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(198,167,94,.18);transition:all .3s;}
@@ -274,7 +200,18 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--forest);o
 .btn-sm-primary:disabled{background:#ccc;color:#888;cursor:not-allowed;}
 .btn-sm-outline{background:transparent;color:var(--forest);border:1.5px solid var(--light);}
 .btn-sm-outline:hover{background:var(--forest);color:var(--gold);border-color:var(--forest);}
-.best-seller-ribbon{position:absolute;top:0;left:0;background:linear-gradient(135deg,#c6a75e,#e2c98a);color:var(--forest);font-size:9px;font-weight:800;letter-spacing:1.5px;padding:6px 14px;border-bottom-right-radius:14px;z-index:3;text-transform:uppercase;display:flex;align-items:center;gap:5px;box-shadow:0 4px 12px rgba(198,167,94,.45);}
+
+/* BEST SELLER BADGE — improved visibility */
+.best-seller-ribbon{
+  position:absolute;top:0;left:0;
+  background:linear-gradient(135deg,#c6a75e,#e2c98a);
+  color:var(--forest);font-size:9px;font-weight:800;
+  letter-spacing:1.5px;padding:6px 14px;
+  border-bottom-right-radius:14px;z-index:3;
+  text-transform:uppercase;
+  display:flex;align-items:center;gap:5px;
+  box-shadow:0 4px 12px rgba(198,167,94,.45);
+}
 
 /* PRODUCT DETAIL */
 #product-detail{display:none;position:fixed;inset:0;background:var(--cream);z-index:6000;overflow-y:auto;animation:slideInRight .4s cubic-bezier(.16,1,.3,1);}
@@ -294,7 +231,7 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--forest);o
 .detail-price{font-size:28px;font-weight:700;color:var(--forest);}
 .detail-price small{font-size:13px;color:var(--gray);font-weight:400;}
 .detail-desc-block{background:#fff;border-radius:var(--r);padding:20px;border:1px solid var(--light);}
-.detail-desc-title{font-weight:600;font-size:14px;color:var(--forest);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;}
+.detail-desc-title{font-weight:600;font-size:14px;color:var(--forest);margin-bottom:10px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;}
 .detail-desc-body{font-size:14px;color:var(--gray);line-height:1.85;}
 .detail-action-row{display:flex;gap:12px;flex-wrap:wrap;}
 .btn-detail{flex:1;min-width:130px;padding:14px 20px;border:none;border-radius:12px;font-family:'Jost',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:10px;}
@@ -319,13 +256,19 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--forest);o
 .lb-thumb{width:56px;height:56px;border-radius:8px;object-fit:cover;cursor:pointer;border:2px solid transparent;flex-shrink:0;opacity:.55;transition:all .2s;}
 .lb-thumb.active,.lb-thumb:hover{border-color:var(--gold);opacity:1;}
 
-/* BEST SELLERS CAROUSEL */
+/* ══ BEST SELLERS CAROUSEL ══ */
 .home-products-section{padding:70px 0;background:#fff;overflow:hidden;}
 .home-products-section .section-header{text-align:center;margin-bottom:40px;padding:0 20px;}
 .products-scroll-wrap{position:relative;max-width:100%;overflow:hidden;}
 .products-scroll-outer{overflow:hidden;padding:0 20px;}
-.products-scroll-track{display:flex;gap:20px;transition:transform .45s cubic-bezier(.25,.8,.25,1);will-change:transform;}
-.products-scroll-track .product-card{flex:0 0 calc(25% - 15px);min-width:240px;max-width:320px;}
+.products-scroll-track{
+  display:flex;gap:20px;
+  transition:transform .45s cubic-bezier(.25,.8,.25,1);
+  will-change:transform;
+}
+.products-scroll-track .product-card{
+  flex:0 0 calc(25% - 15px);min-width:240px;max-width:320px;
+}
 .scroll-arrow{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;background:var(--forest);color:var(--gold);border:none;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,.25);transition:all .25s;z-index:5;}
 .scroll-arrow:hover{background:var(--gold);color:var(--forest);transform:translateY(-50%) scale(1.08);}
 .scroll-arrow.left{left:6px;}
@@ -395,7 +338,7 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 .form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--gold);background:#fff;box-shadow:0 0 0 3px rgba(198,167,94,.1);}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 .stitch-tabs{display:flex;gap:10px;margin-bottom:4px;}
-.stitch-tab{flex:1;padding:10px;border-radius:8px;border:1.5px solid var(--light);background:transparent;font-family:'Jost',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-align:center;color:var(--forest);transition:all .25s;}
+.stitch-tab{flex:1;padding:10px;border-radius:8px;border:1.5px solid var(--light);background:transparent;font-family:'Jost',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-align:center;color:var(--forest);transition:all .25px;}
 .stitch-tab.active{background:var(--forest);color:var(--gold);border-color:var(--forest);}
 .measurement-box{display:none;background:var(--cream);border-radius:10px;padding:16px;border:1px dashed var(--gold);margin-top:10px;}
 .measurement-box.show{display:block;}
@@ -415,27 +358,26 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 .order-price-row .label{display:flex;align-items:center;gap:6px;}
 .order-price-row .label i{color:var(--gold);font-size:12px;}
 
-/* FIREBASE STATUS BANNER */
-.fb-status{position:fixed;top:74px;left:0;right:0;z-index:999;padding:10px 20px;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:500;transition:all .4s;transform:translateY(-100%);}
-.fb-status.show{transform:translateY(0);}
-.fb-status.error{background:#fee2e2;color:#b91c1c;border-bottom:1px solid #fecaca;}
-.fb-status.success{background:#d1fae5;color:#065f46;border-bottom:1px solid #a7f3d0;}
-
-/* ADMIN PANEL */
+/* ══ ADMIN PANEL ══ */
 .admin-login-icon{width:64px;height:64px;background:linear-gradient(135deg,var(--forest),var(--gold));border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:28px;color:#fff;}
 .admin-login-err{color:#e74c3c;font-size:12px;display:none;margin-bottom:8px;}
+
 #admin-panel{display:none;position:fixed;inset:0;background:#f4f5f7;z-index:10000;overflow-y:auto;flex-direction:column;}
 #admin-panel.open{display:flex;}
+
 .admin-topbar{background:linear-gradient(135deg,var(--forest),var(--forest-m));padding:0 20px;height:62px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 4px 20px rgba(0,0,0,.3);flex-shrink:0;}
 .admin-brand{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);letter-spacing:2px;font-weight:600;display:flex;align-items:center;gap:8px;}
 .admin-logout{background:rgba(231,76,60,.15);border:1.5px solid #e74c3c;color:#e74c3c;padding:6px 16px;border-radius:20px;cursor:pointer;font-size:13px;font-weight:600;transition:all .25s;}
 .admin-logout:hover{background:#e74c3c;color:#fff;}
+
+/* Mobile nav bar for admin */
 .admin-mobile-nav{display:none;background:var(--forest);overflow-x:auto;scrollbar-width:none;border-bottom:1px solid rgba(198,167,94,.2);flex-shrink:0;}
 .admin-mobile-nav::-webkit-scrollbar{display:none;}
 .admin-mobile-nav-inner{display:flex;min-width:max-content;padding:0 8px;}
 .admin-mob-tab{display:flex;align-items:center;gap:7px;padding:12px 16px;color:rgba(255,255,255,.65);cursor:pointer;font-size:13px;font-weight:500;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;}
 .admin-mob-tab i{color:var(--gold);font-size:14px;}
 .admin-mob-tab.active,.admin-mob-tab:hover{color:#fff;border-bottom-color:var(--gold);}
+
 .admin-body{display:flex;flex:1;min-height:0;}
 .admin-sidebar{background:var(--forest);width:200px;flex-shrink:0;padding:18px 0;overflow-y:auto;}
 .admin-nav{display:flex;align-items:center;gap:12px;padding:12px 20px;color:rgba(255,255,255,.65);cursor:pointer;font-size:13px;transition:all .25s;border-left:3px solid transparent;}
@@ -444,6 +386,7 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 .admin-main{flex:1;padding:24px;overflow-y:auto;}
 .admin-tab{display:none;}
 .admin-tab.active{display:block;}
+
 .admin-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:24px;}
 .stat-card{background:#fff;border-radius:14px;padding:18px 20px;display:flex;align-items:center;gap:14px;box-shadow:0 4px 18px rgba(0,0,0,.06);transition:all .3s;}
 .stat-card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,0,0,.1);}
@@ -454,6 +397,7 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 .si-red{background:linear-gradient(135deg,#b91c1c,#ef4444);}
 .stat-num{font-size:24px;font-weight:700;color:var(--forest);}
 .stat-lbl{font-size:11px;color:var(--gray);margin-top:2px;}
+
 .admin-card{background:#fff;border-radius:14px;box-shadow:0 4px 18px rgba(0,0,0,.06);margin-bottom:20px;overflow:hidden;}
 .admin-card-head{padding:14px 20px;border-bottom:2px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center;}
 .admin-card-title{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--forest);font-weight:600;}
@@ -473,6 +417,7 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 .btn-edit:hover{background:#854d0e;color:#fff;}
 .btn-del{background:#fee2e2;color:#b91c1c;border-radius:50px;}
 .btn-del:hover{background:#b91c1c;color:#fff;}
+
 .admin-input,.admin-select,.admin-textarea{width:100%;padding:10px 12px;border:1.5px solid #e0e0e0;border-radius:9px;font-family:'Jost',sans-serif;font-size:14px;transition:all .25s;outline:none;background:#fafafa;}
 .admin-input:focus,.admin-select:focus,.admin-textarea:focus{border-color:var(--gold);background:#fff;box-shadow:0 0 0 3px rgba(198,167,94,.1);}
 .admin-label{display:block;margin-bottom:6px;font-size:12px;font-weight:600;color:var(--forest);}
@@ -489,8 +434,10 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 .admin-save-btn{background:linear-gradient(135deg,var(--forest),var(--forest-l));color:var(--gold);border:none;padding:10px 22px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:8px;}
 .admin-save-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(15,26,20,.3);}
 .admin-cancel-btn{background:#e5e7eb;color:#374151;border:none;padding:10px 20px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;margin-right:8px;transition:all .25s;}
+
 .settings-section{background:#fff;border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:0 4px 18px rgba(0,0,0,.05);}
 .settings-title{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--forest);margin-bottom:16px;font-weight:600;display:flex;align-items:center;gap:8px;}
+
 .od-section{background:#f9fafb;border-radius:12px;padding:14px;margin-bottom:12px;}
 .od-section-title{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
 .od-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
@@ -503,6 +450,7 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 .od-meas-item strong{color:var(--gold);}
 .od-price-row{display:flex;justify-content:space-between;padding:5px 0;font-size:13px;color:var(--forest);border-bottom:1px solid #f0f0f0;}
 .od-price-row:last-child{border:none;font-weight:700;font-size:15px;color:var(--gold);}
+
 .best-seller-toggle{display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(198,167,94,.06);border:1.5px solid rgba(198,167,94,.2);border-radius:10px;cursor:pointer;transition:all .25s;}
 .best-seller-toggle:hover{background:rgba(198,167,94,.12);border-color:var(--gold);}
 .best-seller-toggle input[type=checkbox]{width:18px;height:18px;accent-color:var(--gold);cursor:pointer;flex-shrink:0;}
@@ -517,12 +465,13 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 .reveal-r{opacity:0;transform:translateX(24px);transition:opacity .7s ease,transform .7s ease;}
 .reveal-r.on{opacity:1;transform:translateX(0);}
 
-/* RESPONSIVE */
+/* ══ RESPONSIVE ══ */
 @media(max-width:1024px){
   .products-scroll-track .product-card{flex:0 0 calc(33.333% - 14px);}
   .detail-grid{grid-template-columns:1fr;}
   .cat-layout{grid-template-columns:1fr;}
   .cat-sidebar{display:none;}
+  /* Admin: hide desktop sidebar, show mobile nav */
   .admin-sidebar{display:none;}
   .admin-mobile-nav{display:block;}
   .admin-body{flex-direction:column;}
@@ -570,9 +519,6 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 </head>
 <body>
 
-<!-- Firebase status banner -->
-<div class="fb-status" id="fbStatus"></div>
-
 <!-- LOADER -->
 <div id="loader">
   <div class="loader-3d">
@@ -582,7 +528,6 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
   </div>
   <div class="loader-logo">NOBEL WEAR</div>
   <div class="loader-bar"><div class="loader-bar-fill"></div></div>
-  <div class="loader-status" id="loaderStatus">Connecting to server...</div>
 </div>
 
 <div class="side-panel-overlay" id="panelOverlay" onclick="closePanels()"></div>
@@ -1049,15 +994,21 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
   </div>
 </div>
 
-<!-- ADMIN PANEL -->
+<!-- ═══════════════════════════════════════════════════════════
+     ADMIN PANEL — Fixed layout with mobile navigation
+     ═══════════════════════════════════════════════════════════ -->
 <div id="admin-panel">
+
+  <!-- Top bar -->
   <div class="admin-topbar">
     <div class="admin-brand"><i class="fas fa-crown"></i> NOBEL WEAR — Admin</div>
     <div style="display:flex;align-items:center;gap:14px;">
-      <span style="color:rgba(198,167,94,.7);font-size:13px;display:flex;align-items:center;gap:6px;"><i class="fas fa-circle" style="color:#27ae60;font-size:8px;" id="fbDot"></i> <span id="fbLabel">Connecting...</span></span>
+      <span style="color:rgba(198,167,94,.7);font-size:13px;display:flex;align-items:center;gap:6px;"><i class="fas fa-user-circle"></i> abdullah</span>
       <button class="admin-logout" onclick="adminLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
     </div>
   </div>
+
+  <!-- Mobile horizontal nav (visible ≤1024px) -->
   <div class="admin-mobile-nav" id="adminMobileNav">
     <div class="admin-mobile-nav-inner">
       <div class="admin-mob-tab active" onclick="showAdminTab('dashboard',this)"><i class="fas fa-tachometer-alt"></i> Dashboard</div>
@@ -1068,8 +1019,12 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
       <div class="admin-mob-tab" onclick="showAdminTab('settings',this)"><i class="fas fa-cog"></i> Settings</div>
     </div>
   </div>
+
+  <!-- Body -->
   <div class="admin-body">
-    <div class="admin-sidebar">
+
+    <!-- Desktop sidebar -->
+    <div class="admin-sidebar" id="adminDesktopSidebar">
       <div class="admin-nav active" onclick="showAdminTab('dashboard')"><i class="fas fa-tachometer-alt"></i> Dashboard</div>
       <div class="admin-nav" onclick="showAdminTab('orders')"><i class="fas fa-clipboard-list"></i> All Orders</div>
       <div class="admin-nav" onclick="showAdminTab('products')"><i class="fas fa-box-open"></i> Products</div>
@@ -1077,6 +1032,8 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
       <div class="admin-nav" onclick="showAdminTab('reviews-admin')"><i class="fas fa-star"></i> Reviews</div>
       <div class="admin-nav" onclick="showAdminTab('settings')"><i class="fas fa-cog"></i> Settings</div>
     </div>
+
+    <!-- Main content -->
     <div class="admin-main">
 
       <!-- DASHBOARD -->
@@ -1118,20 +1075,20 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
         <div class="admin-card">
           <div style="padding:22px;">
             <div class="admin-grid-2">
-              <div class="admin-form-group"><label class="admin-label">Product Title *</label><input class="admin-input" id="p-title" placeholder="e.g. Premium Lawn Suit" autocomplete="off"></div>
+              <div class="admin-form-group"><label class="admin-label">Product Title *</label><input class="admin-input" id="p-title" placeholder="e.g. Premium Lawn Suit" autocomplete="off" spellcheck="false"></div>
               <div class="admin-form-group"><label class="admin-label">Gender</label><select class="admin-select" id="p-gender"><option value="men">Men</option><option value="women">Women</option><option value="both">Both</option></select></div>
               <div class="admin-form-group"><label class="admin-label">Category</label><select class="admin-select" id="p-category"><option value="clothing">Clothing</option><option value="shoes">Shoes</option><option value="watches">Watches</option><option value="accessories">Accessories</option></select></div>
-              <div class="admin-form-group"><label class="admin-label">Fabric / Type</label><input class="admin-input" id="p-fabric" placeholder="e.g. Lawn, Boski, Cotton" autocomplete="off"></div>
+              <div class="admin-form-group"><label class="admin-label">Fabric / Type</label><input class="admin-input" id="p-fabric" placeholder="e.g. Lawn, Boski, Cotton" autocomplete="off" spellcheck="false"></div>
               <div class="admin-form-group"><label class="admin-label">Price (PKR) *</label><input class="admin-input" type="number" id="p-price" placeholder="e.g. 3500"></div>
               <div class="admin-form-group"><label class="admin-label">Available Quantity *</label><input class="admin-input" type="number" id="p-qty" placeholder="e.g. 50"></div>
               <div class="admin-form-group" style="grid-column:1/-1;">
                 <label class="admin-label"><i class="fas fa-crown" style="color:var(--gold);margin-right:4px;"></i>Best Seller Status</label>
                 <div class="best-seller-toggle">
                   <input type="checkbox" id="p-bestseller">
-                  <label for="p-bestseller"><i class="fas fa-crown"></i> Mark as Best Seller — shows in homepage carousel for all devices</label>
+                  <label for="p-bestseller"><i class="fas fa-crown"></i> Mark as Best Seller — shows in homepage carousel for all customers</label>
                 </div>
               </div>
-              <div class="admin-form-group" style="grid-column:1/-1"><label class="admin-label">Description *</label><textarea class="admin-textarea" id="p-desc" rows="3" placeholder="Describe the product..." autocomplete="off"></textarea></div>
+              <div class="admin-form-group" style="grid-column:1/-1"><label class="admin-label">Description *</label><textarea class="admin-textarea" id="p-desc" rows="3" placeholder="Describe the product..." autocomplete="off" spellcheck="false"></textarea></div>
               <div class="admin-form-group" style="grid-column:1/-1">
                 <label class="admin-label">Product Images * (Up to 10)</label>
                 <div class="img-upload-area" onclick="document.getElementById('p-images').click()">
@@ -1162,6 +1119,7 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
       <!-- SETTINGS -->
       <div class="admin-tab" id="tab-settings">
         <h2 style="font-family:'Cormorant Garamond',serif;color:var(--forest);font-size:26px;margin-bottom:18px;display:flex;align-items:center;gap:8px;"><i class="fas fa-cog" style="color:var(--gold);"></i>Settings</h2>
+
         <div class="settings-section">
           <div class="settings-title"><i class="fas fa-share-alt" style="color:var(--gold);"></i>Social Media Links</div>
           <div class="admin-grid-2">
@@ -1172,6 +1130,7 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
           </div>
           <button class="admin-save-btn" onclick="saveSettings()"><i class="fas fa-save"></i> Save Links</button>
         </div>
+
         <div class="settings-section">
           <div class="settings-title"><i class="fas fa-lock" style="color:var(--gold);"></i>Change Admin Password</div>
           <div class="admin-grid-2">
@@ -1180,6 +1139,7 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
           </div>
           <button class="admin-save-btn" onclick="changeAdminPass()"><i class="fas fa-key"></i> Change Password</button>
         </div>
+
         <div class="settings-section">
           <div class="settings-title"><i class="fas fa-address-card" style="color:var(--gold);"></i>Contact Info</div>
           <div class="admin-form-group"><label class="admin-label">WhatsApp / Phone</label><input class="admin-input" value="+92 316 3475925" readonly></div>
@@ -1187,9 +1147,9 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
         </div>
       </div>
 
-    </div>
-  </div>
-</div>
+    </div><!-- /admin-main -->
+  </div><!-- /admin-body -->
+</div><!-- /admin-panel -->
 
 <script>
 // ══════════════════════════════════════════════════
@@ -1198,13 +1158,33 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 const STITCH_PRICE = 1500;
 let adminPassword = localStorage.getItem('nw_adminpass') || 'nobel01';
 
-// In-memory state (populated from Firebase real-time listeners)
-window._products = [];
-window._orders   = [];
-window._reviews  = [];
-window._settings = {insta:'#', tiktok:'#', facebook:'#', whatsapp:'923163475925'};
+// ── Products: load from localStorage; seed defaults only if empty ──
+function loadProducts() {
+  const stored = localStorage.getItem('nw_products');
+  if (stored) {
+    try {
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    } catch(e) {}
+  }
+  const defaults = [
+    {id:1,title:'Premium Lawn Suit',gender:'women',category:'clothing',fabric:'Lawn',price:3500,qty:30,description:'Beautiful printed lawn unstitched suit with embroidered dupatta. Perfect for summer.',images:[],emoji:'👗',rating:4.8,ratingCount:24,bestSeller:true},
+    {id:2,title:'Boski Shalwar Qameez',gender:'men',category:'clothing',fabric:'Boski',price:4200,qty:25,description:'Premium Boski fabric shalwar qameez. Lightweight and comfortable for all seasons.',images:[],emoji:'👔',rating:4.7,ratingCount:18,bestSeller:true},
+    {id:3,title:'Khaddar Winter Suit',gender:'women',category:'clothing',fabric:'Khaddar',price:2800,qty:40,description:'Warm and cozy Khaddar suit perfect for winters. 3-piece unstitched with embroidery.',images:[],emoji:'🧥',rating:4.6,ratingCount:12,bestSeller:false},
+    {id:4,title:'Cotton Casual Kurta',gender:'men',category:'clothing',fabric:'Cotton',price:1800,qty:60,description:'Comfortable everyday cotton kurta. Available in multiple colors.',images:[],emoji:'👕',rating:4.5,ratingCount:31,bestSeller:true},
+    {id:5,title:'Chiffon Party Dress',gender:'women',category:'clothing',fabric:'Chiffon',price:5500,qty:20,description:'Elegant chiffon party dress with heavy embroidery. Perfect for weddings.',images:[],emoji:'💃',rating:4.9,ratingCount:8,bestSeller:true},
+    {id:6,title:'Classic Leather Shoes',gender:'men',category:'shoes',fabric:'',price:3200,qty:15,description:'Handcrafted genuine leather shoes. Comfortable, durable, and stylish.',images:[],emoji:'👞',rating:4.7,ratingCount:22,bestSeller:true},
+    {id:7,title:'Ladies Heels',gender:'women',category:'shoes',fabric:'',price:2400,qty:18,description:'Elegant block heels perfect for formal and casual wear.',images:[],emoji:'👠',rating:4.5,ratingCount:14,bestSeller:false},
+    {id:8,title:'Classic Dress Watch',gender:'men',category:'watches',fabric:'',price:6500,qty:10,description:'Premium dress watch with genuine leather strap. Water resistant.',images:[],emoji:'⌚',rating:4.8,ratingCount:19,bestSeller:true},
+  ];
+  localStorage.setItem('nw_products', JSON.stringify(defaults));
+  return defaults;
+}
 
-// Local-only state (cart + wishlist stay on device — this is normal for ecommerce)
+// Single source of truth: always sync from localStorage on operations that matter
+let products = loadProducts();
+let orders   = JSON.parse(localStorage.getItem('nw_orders')  || '[]');
+let reviews  = JSON.parse(localStorage.getItem('nw_reviews') || '[]');
 let cart = [], wishlist = [];
 let currentProduct = null, currentDetailId = null;
 let pendingImages = [], editProductId = null;
@@ -1213,86 +1193,30 @@ let currentStitch = 'Stitched';
 let starCount = 0;
 let menCurrentTab = 'clothing', womenCurrentTab = 'clothing';
 let menCurrentFilter = '', womenCurrentFilter = '';
+let adminSettings = JSON.parse(localStorage.getItem('nw_settings') || '{"insta":"#","tiktok":"#","facebook":"#","whatsapp":"923163475925"}');
 let currentDetailImages = [];
 let lightboxIdx = 0;
 let carouselIdx = 0;
-let fbReady = false;
-let currentReviewProductId = null;
 
-// ── Firebase connection status ──
-function setFbStatus(ok, msg) {
-  fbReady = ok;
-  const dot   = document.getElementById('fbDot');
-  const label = document.getElementById('fbLabel');
-  if (dot)   dot.style.color = ok ? '#27ae60' : '#e74c3c';
-  if (label) label.textContent = msg;
+// ── Persist helpers ──
+function saveProducts() {
+  localStorage.setItem('nw_products', JSON.stringify(products));
 }
+function saveOrders()  { localStorage.setItem('nw_orders',   JSON.stringify(orders)); }
+function saveReviews() { localStorage.setItem('nw_reviews',  JSON.stringify(reviews)); }
+function saveOC()      { localStorage.setItem('nw_oc', String(orderCounter)); }
 
-// ── Wait for Firebase or show fallback ──
-function waitForFb(cb) {
-  if (window._fbReady) { cb(); return; }
-  window.addEventListener('fbReady', cb, {once:true});
+// ── Reload helpers (keep in-memory array in sync) ──
+function reloadProducts() {
+  try { products = JSON.parse(localStorage.getItem('nw_products') || '[]'); } catch(e){}
 }
-
-// ── React to real-time data updates ──
-window._onProductsUpdate = function() {
-  renderHomeProducts();
-  if (document.getElementById('men-page').classList.contains('open'))   renderMenGrid();
-  if (document.getElementById('women-page').classList.contains('open')) renderWomenGrid();
-  if (document.getElementById('admin-panel').classList.contains('open')) {
-    const activeTab = document.querySelector('.admin-tab.active');
-    if (activeTab && activeTab.id === 'tab-products') renderAdminProducts();
-    if (activeTab && activeTab.id === 'tab-dashboard') renderDashboard();
-  }
-};
-window._onOrdersUpdate = function() {
-  const activeTab = document.querySelector('.admin-tab.active');
-  if (!activeTab) return;
-  if (activeTab.id === 'tab-orders')    renderAllOrders();
-  if (activeTab.id === 'tab-dashboard') renderDashboard();
-};
-window._onReviewsUpdate = function() {
-  renderCustomerReviews();
-  const activeTab = document.querySelector('.admin-tab.active');
-  if (activeTab && activeTab.id === 'tab-reviews-admin') renderAdminReviews();
-};
-window._onSettingsUpdate = function() {
-  applySettings();
-  const activeTab = document.querySelector('.admin-tab.active');
-  if (activeTab && activeTab.id === 'tab-settings') loadSettings();
-};
+function reloadOrders()  { try { orders  = JSON.parse(localStorage.getItem('nw_orders')  || '[]'); } catch(e){} }
+function reloadReviews() { try { reviews = JSON.parse(localStorage.getItem('nw_reviews') || '[]'); } catch(e){} }
 
 // ══════════════════════════════════════════════════
-//  LOADER + INIT
+//  LOADER
 // ══════════════════════════════════════════════════
-document.getElementById('loaderStatus').textContent = 'Connecting to server...';
-
-waitForFb(() => {
-  setFbStatus(true, 'Live');
-  document.getElementById('loaderStatus').textContent = 'Loading products...';
-  // Give Firebase listeners 600ms to populate initial data, then hide loader
-  setTimeout(() => {
-    document.getElementById('loader').classList.add('hidden');
-    renderHomeProducts();
-    renderCustomerReviews();
-    applySettings();
-  }, 800);
-});
-
-// If Firebase takes too long (config not set), still hide loader after 4s
-setTimeout(() => {
-  document.getElementById('loader').classList.add('hidden');
-  if (!fbReady) {
-    setFbStatus(false, 'Not connected');
-    showFbBanner('⚠️ Firebase not configured — data will not sync across devices. Open HTML source and add your Firebase config.', 'error');
-  }
-}, 4000);
-
-function showFbBanner(msg, type) {
-  const b = document.getElementById('fbStatus');
-  b.textContent = msg; b.className = `fb-status ${type} show`;
-  if (type === 'success') setTimeout(() => b.classList.remove('show'), 3000);
-}
+setTimeout(() => { document.getElementById('loader').classList.add('hidden'); }, 2600);
 
 // ══════════════════════════════════════════════════
 //  HERO PARTICLES & SHAPES
@@ -1316,34 +1240,6 @@ window.addEventListener('scroll', () => {
 });
 
 // ══════════════════════════════════════════════════
-//  FIREBASE DB HELPERS
-// ══════════════════════════════════════════════════
-async function dbAdd(col, data) {
-  if (!window._fs || !window._db) throw new Error('Firebase not ready');
-  const { addDoc, collection, serverTimestamp } = window._fs;
-  data.createdAt = serverTimestamp();
-  return await addDoc(collection(window._db, col), data);
-}
-async function dbSet(col, id, data) {
-  if (!window._fs || !window._db) throw new Error('Firebase not ready');
-  const { doc, setDoc, serverTimestamp } = window._fs;
-  if (!data.createdAt) data.createdAt = serverTimestamp();
-  data.updatedAt = serverTimestamp();
-  return await setDoc(doc(window._db, col, id), data, {merge:true});
-}
-async function dbUpdate(col, docId, data) {
-  if (!window._fs || !window._db) throw new Error('Firebase not ready');
-  const { doc, updateDoc, serverTimestamp } = window._fs;
-  data.updatedAt = serverTimestamp();
-  return await updateDoc(doc(window._db, col, docId), data);
-}
-async function dbDelete(col, docId) {
-  if (!window._fs || !window._db) throw new Error('Firebase not ready');
-  const { doc, deleteDoc } = window._fs;
-  return await deleteDoc(doc(window._db, col, docId));
-}
-
-// ══════════════════════════════════════════════════
 //  PANELS
 // ══════════════════════════════════════════════════
 function openCartPanel()  { closePanels(); document.getElementById('cartPanel').classList.add('open'); document.getElementById('panelOverlay').classList.add('show'); renderCart(); }
@@ -1355,7 +1251,7 @@ function closePanels() {
 }
 
 // ══════════════════════════════════════════════════
-//  CART (local only — normal for ecommerce)
+//  CART
 // ══════════════════════════════════════════════════
 function addToCart(product) {
   const ex = cart.find(c => c.id === product.id);
@@ -1382,7 +1278,7 @@ function renderCart() {
 // ══════════════════════════════════════════════════
 function toggleWish(id) {
   const idx = wishlist.findIndex(x => x.id === id);
-  const p   = window._products.find(x => x.id === id);
+  const p   = products.find(x => x.id === id);
   const btn = document.getElementById(`wb-${id}`);
   if (idx === -1) { wishlist.push(p); if (btn) btn.classList.add('active'); showToast('Added to wishlist ❤️'); }
   else            { wishlist.splice(idx,1); if (btn) btn.classList.remove('active'); showToast('Removed from wishlist'); }
@@ -1421,17 +1317,21 @@ function catLabel(c) { return {clothing:'Clothing',shoes:'Footwear',watches:'Wat
 //  BUILD PRODUCT CARD
 // ══════════════════════════════════════════════════
 function buildCard(p) {
-  const soldOut = p.qty <= 0;
-  const inWish  = wishlist.some(x => x.id === p.id);
-  const imgHtml = p.images && p.images[0]
+  const soldOut  = p.qty <= 0;
+  const inWish   = wishlist.some(x => x.id === p.id);
+  const imgHtml  = p.images && p.images[0]
     ? `<img src="${p.images[0]}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;object-position:top center;">`
     : `<div class="product-img-emoji">${p.emoji||'📦'}</div>`;
 
+  // Ribbons — only one at a time; sold-out takes priority
   let ribbon = '';
-  if (soldOut)        ribbon = '<div class="sold-out-ribbon">SOLD OUT</div>';
-  else if (p.bestSeller) ribbon = '<div class="best-seller-ribbon"><i class="fas fa-crown"></i> Best Seller</div>';
+  if (soldOut) {
+    ribbon = '<div class="sold-out-ribbon">SOLD OUT</div>';
+  } else if (p.bestSeller) {
+    ribbon = '<div class="best-seller-ribbon"><i class="fas fa-crown"></i> Best Seller</div>';
+  }
 
-  return `<div class="product-card" onclick="openDetail('${p._docId}')">
+  return `<div class="product-card" onclick="openDetail(${p.id})">
     ${ribbon}
     <div class="product-img-wrap">
       <div class="product-img">${imgHtml}</div>
@@ -1445,10 +1345,10 @@ function buildCard(p) {
       <div class="product-price">PKR ${p.price.toLocaleString()} <span class="currency">incl. tax</span></div>
       <div class="product-rating"><span class="stars-gold">${starsHTML(p.rating||5)}</span><span class="review-ct">(${p.ratingCount||0})</span></div>
       <div class="product-actions" onclick="event.stopPropagation()">
-        <button class="btn-sm btn-sm-primary" onclick="openOrderModal('${p._docId}')" ${soldOut?'disabled':''}>
+        <button class="btn-sm btn-sm-primary" onclick="openOrderModal(${p.id})" ${soldOut?'disabled':''}>
           <i class="fas fa-${soldOut?'ban':'shopping-bag'}"></i> ${soldOut?'Sold Out':'Order Now'}
         </button>
-        <button class="btn-sm btn-sm-outline" onclick="openReviewModal('${p._docId}')">
+        <button class="btn-sm btn-sm-outline" onclick="openReviewModal(${p.id})">
           <i class="fas fa-star"></i> Review
         </button>
       </div>
@@ -1459,12 +1359,12 @@ function buildCard(p) {
 // ══════════════════════════════════════════════════
 //  CATEGORY PAGES
 // ══════════════════════════════════════════════════
-function openMenPage()   { document.getElementById('men-page').classList.add('open');   document.body.style.overflow = 'hidden'; renderMenGrid(); }
-function openWomenPage() { document.getElementById('women-page').classList.add('open'); document.body.style.overflow = 'hidden'; renderWomenGrid(); }
+function openMenPage()   { reloadProducts(); document.getElementById('men-page').classList.add('open');   document.body.style.overflow = 'hidden'; renderMenGrid(); }
+function openWomenPage() { reloadProducts(); document.getElementById('women-page').classList.add('open'); document.body.style.overflow = 'hidden'; renderWomenGrid(); }
 function closeCatPage(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow = ''; }
 
 function renderMenGrid() {
-  let f = window._products.filter(p => p.gender==='men' || p.gender==='both');
+  let f = products.filter(p => p.gender==='men' || p.gender==='both');
   if (menCurrentTab)    f = f.filter(p => p.category === menCurrentTab);
   if (menCurrentFilter) f = f.filter(p => p.fabric && p.fabric.toLowerCase().includes(menCurrentFilter.toLowerCase()));
   document.getElementById('men-grid').innerHTML = f.length
@@ -1472,7 +1372,7 @@ function renderMenGrid() {
     : '<p style="color:var(--gray);padding:20px;grid-column:1/-1;">No products found.</p>';
 }
 function renderWomenGrid() {
-  let f = window._products.filter(p => p.gender==='women' || p.gender==='both');
+  let f = products.filter(p => p.gender==='women' || p.gender==='both');
   if (womenCurrentTab)    f = f.filter(p => p.category === womenCurrentTab);
   if (womenCurrentFilter) f = f.filter(p => p.fabric && p.fabric.toLowerCase().includes(womenCurrentFilter.toLowerCase()));
   document.getElementById('women-grid').innerHTML = f.length
@@ -1515,7 +1415,8 @@ function getCardsPerView() {
 }
 
 function renderHomeProducts() {
-  const bestSellers = window._products.filter(p => p.bestSeller === true);
+  reloadProducts(); // always fresh from localStorage
+  const bestSellers = products.filter(p => p.bestSeller === true);
   const track = document.getElementById('homeProductsTrack');
   if (!bestSellers.length) {
     track.innerHTML = '<div class="no-bs-msg"><i class="fas fa-crown" style="color:var(--gold);margin-right:8px;"></i>No best sellers yet. Mark products as Best Seller in admin panel.</div>';
@@ -1542,7 +1443,7 @@ function setCardWidths() {
 }
 
 function updateCarouselPosition() {
-  const bestSellers = window._products.filter(p => p.bestSeller === true);
+  const bestSellers = products.filter(p => p.bestSeller === true);
   const track   = document.getElementById('homeProductsTrack');
   const total   = bestSellers.length;
   const perView = getCardsPerView();
@@ -1550,7 +1451,7 @@ function updateCarouselPosition() {
   carouselIdx   = Math.max(0, Math.min(carouselIdx, maxIdx));
   const cards   = track.querySelectorAll('.product-card');
   if (!cards.length) { updateArrows(0, 0); return; }
-  const gap   = 20;
+  const gap  = 20;
   const cardW = cards[0].offsetWidth;
   track.style.transform = `translateX(-${carouselIdx*(cardW+gap)}px)`;
   updateArrows(carouselIdx, maxIdx);
@@ -1563,7 +1464,7 @@ function updateArrows(idx, maxIdx) {
 }
 
 function scrollTrack(dir) {
-  const bestSellers = window._products.filter(p => p.bestSeller === true);
+  const bestSellers = products.filter(p => p.bestSeller === true);
   const perView = getCardsPerView();
   const maxIdx  = Math.max(0, bestSellers.length - perView);
   carouselIdx   = Math.max(0, Math.min(carouselIdx + dir, maxIdx));
@@ -1579,9 +1480,10 @@ window.addEventListener('resize', () => {
 // ══════════════════════════════════════════════════
 //  PRODUCT DETAIL
 // ══════════════════════════════════════════════════
-function openDetail(docId) {
-  const p = window._products.find(x => x._docId === docId); if (!p) return;
-  currentDetailId = docId;
+function openDetail(id) {
+  reloadProducts();
+  const p = products.find(x => x.id === id); if (!p) return;
+  currentDetailId = id;
   currentDetailImages = p.images && p.images.length ? [...p.images] : [];
   document.getElementById('detail-header-name').textContent = p.title;
   document.getElementById('detail-cat').textContent   = catLabel(p.category) + (p.fabric ? ' · '+p.fabric : '');
@@ -1662,8 +1564,9 @@ function updatePriceSummary() {
   document.getElementById('opr-total-val').textContent     = `PKR ${total.toLocaleString()}`;
 }
 
-function openOrderModal(docId) {
-  const p = window._products.find(x => x._docId === docId); if (!p) return;
+function openOrderModal(id) {
+  reloadProducts();
+  const p = products.find(x => x.id === id); if (!p) return;
   if (p.qty <= 0) { showToast('Sorry, this product is sold out!'); return; }
   currentProduct = p; currentStitch = 'Stitched';
   document.getElementById('order-product-preview').innerHTML = `
@@ -1699,7 +1602,7 @@ function previewMeasurement(inp) {
     r.readAsDataURL(inp.files[0]);
   }
 }
-async function submitOrder(e) {
+function submitOrder(e) {
   e.preventDefault();
   if (!currentProduct) return;
   const name    = document.getElementById('o-name').value.trim();
@@ -1711,7 +1614,7 @@ async function submitOrder(e) {
   const notes   = document.getElementById('o-notes').value.trim();
   if (!name||!phone||!address||!city||!payment) { showToast('Please fill all required fields'); return; }
   if (qty > currentProduct.qty) { showToast(`Only ${currentProduct.qty} in stock`); return; }
-  orderCounter++; localStorage.setItem('nw_oc', String(orderCounter));
+  orderCounter++; saveOC();
   const isClothing  = currentProduct.category === 'clothing';
   const stitched    = isClothing && currentStitch === 'Stitched';
   const stitchFee   = stitched ? STITCH_PRICE : 0;
@@ -1726,35 +1629,23 @@ async function submitOrder(e) {
     sleeves:   document.getElementById('m-sleeves').value,
     photo:     measurementPhoto
   } : null;
-  const order = {
-    id: orderCounter,
-    date: new Date().toLocaleString('en-PK'),
-    product: currentProduct.title, productId: currentProduct._docId,
-    productEmoji: currentProduct.emoji||'📦', unitPrice: currentProduct.price,
-    stitchFee, qty, total,
-    customer: {name,phone,address,city},
-    payment, notes, stitch: isClothing?currentStitch:'N/A',
-    measurement, status:'new'
-  };
-  try {
-    await dbAdd('orders', order);
-    // Reduce stock in Firebase
-    const newQty = Math.max(0, currentProduct.qty - qty);
-    await dbUpdate('products', currentProduct._docId, {qty: newQty});
-    document.getElementById('order-form-wrap').style.display = 'none';
-    document.getElementById('order-success').style.display   = 'block';
-    showToast('Order placed successfully! ✅');
-  } catch(err) {
-    showToast('Error saving order. Check Firebase connection.');
-    console.error(err);
-  }
+  const order = {id:orderCounter, date:new Date().toLocaleString('en-PK'), product:currentProduct.title, productId:currentProduct.id, productEmoji:currentProduct.emoji||'📦', unitPrice:currentProduct.price, stitchFee, qty, total, customer:{name,phone,address,city}, payment, notes, stitch:isClothing?currentStitch:'N/A', measurement, status:'new'};
+  orders.unshift(order); saveOrders();
+  // Reduce stock
+  const idx = products.findIndex(x => x.id === currentProduct.id);
+  if (idx !== -1) { products[idx].qty = Math.max(0, products[idx].qty - qty); saveProducts(); }
+  renderHomeProducts();
+  document.getElementById('order-form-wrap').style.display = 'none';
+  document.getElementById('order-success').style.display   = 'block';
+  showToast('Order placed successfully! ✅');
 }
 
 // ══════════════════════════════════════════════════
 //  REVIEWS
 // ══════════════════════════════════════════════════
-function openReviewModal(docId) {
-  currentReviewProductId = docId; starCount = 0; setStar(0);
+let currentReviewProductId = null;
+function openReviewModal(id) {
+  currentReviewProductId = id; starCount = 0; setStar(0);
   document.getElementById('r-name').value = ''; document.getElementById('r-text').value = '';
   openModal('reviewModal');
 }
@@ -1762,37 +1653,33 @@ function setStar(n) {
   starCount = n; document.getElementById('r-stars').value = n;
   document.querySelectorAll('#star-input .star').forEach((s,i) => s.classList.toggle('on', i < n));
 }
-async function submitReview(e) {
+function submitReview(e) {
   e.preventDefault();
   const name  = document.getElementById('r-name').value.trim();
   const text  = document.getElementById('r-text').value.trim();
   const stars = parseInt(document.getElementById('r-stars').value);
   if (!stars) { showToast('Please select a rating'); return; }
-  const p = window._products.find(x => x._docId === currentReviewProductId);
-  const review = {
-    name, text, stars,
-    product: p?p.title:'General',
-    productId: currentReviewProductId,
-    date: new Date().toLocaleDateString('en-PK')
-  };
-  try {
-    await dbAdd('reviews', review);
-    // Update product rating
-    if (currentReviewProductId) {
-      const prRevs = [...window._reviews, review].filter(r => r.productId === currentReviewProductId);
-      const newRating = parseFloat((prRevs.reduce((a,b) => a+b.stars, 0) / prRevs.length).toFixed(1));
-      await dbUpdate('products', currentReviewProductId, {rating: newRating, ratingCount: prRevs.length});
+  reloadProducts();
+  const p = products.find(x => x.id === currentReviewProductId);
+  const review = {id:Date.now(), name, text, stars, product:p?p.title:'General', productId:currentReviewProductId, date:new Date().toLocaleDateString('en-PK')};
+  reloadReviews(); reviews.unshift(review); saveReviews();
+  if (currentReviewProductId) {
+    const pi = products.findIndex(x => x.id === currentReviewProductId);
+    if (pi !== -1) {
+      const prRevs = reviews.filter(r => r.productId === currentReviewProductId);
+      products[pi].rating      = parseFloat((prRevs.reduce((a,b) => a+b.stars, 0) / prRevs.length).toFixed(1));
+      products[pi].ratingCount = prRevs.length;
+      saveProducts();
     }
-    showToast('Thank you for your review! ⭐'); closeModal('reviewModal');
-  } catch(err) {
-    showToast('Error saving review. Check Firebase connection.');
-    console.error(err);
   }
+  renderCustomerReviews(); renderHomeProducts();
+  showToast('Thank you for your review! ⭐'); closeModal('reviewModal');
 }
 function renderCustomerReviews() {
+  reloadReviews();
   const grid = document.getElementById('customer-reviews-grid');
-  if (!window._reviews.length) { grid.innerHTML = ''; return; }
-  grid.innerHTML = window._reviews.map(r => `<div class="review-card reveal on">
+  if (!reviews.length) { grid.innerHTML = ''; return; }
+  grid.innerHTML = reviews.map(r => `<div class="review-card reveal on">
     <div class="review-head"><div class="reviewer-avatar">${r.name.substring(0,2).toUpperCase()}</div><div><div class="reviewer-name">${r.name}</div><div class="reviewer-date">${r.date}</div></div></div>
     <div class="stars-gold" style="margin-bottom:10px;">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
     <p class="review-text">"${r.text}"</p>
@@ -1804,9 +1691,10 @@ function renderCustomerReviews() {
 //  LIVE SEARCH
 // ══════════════════════════════════════════════════
 function liveSearch(q) {
+  reloadProducts();
   const track = document.getElementById('homeProductsTrack');
   if (!q.trim()) { renderHomeProducts(); return; }
-  const f = window._products.filter(p =>
+  const f = products.filter(p =>
     p.title.toLowerCase().includes(q.toLowerCase()) ||
     (p.fabric||'').toLowerCase().includes(q.toLowerCase()) ||
     p.category.toLowerCase().includes(q.toLowerCase())
@@ -1850,7 +1738,8 @@ function adminLogin() {
   const p = document.getElementById('admin-p').value;
   if (u === 'abdullah' && p === adminPassword) {
     closeModal('adminLoginModal');
-    document.getElementById('admin-panel').classList.add('open');
+    const panel = document.getElementById('admin-panel');
+    panel.classList.add('open');
     document.body.style.overflow = 'hidden';
     showAdminTab('dashboard');
   } else {
@@ -1864,17 +1753,26 @@ function adminLogout() {
 }
 
 // ══════════════════════════════════════════════════
-//  ADMIN — TAB SWITCHING
+//  ADMIN — TAB SWITCHING (works for both desktop sidebar & mobile nav)
 // ══════════════════════════════════════════════════
 function showAdminTab(tab, mobileEl) {
+  // Hide all content tabs
   document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+  // Deactivate desktop sidebar items
   document.querySelectorAll('.admin-nav').forEach(n => n.classList.remove('active'));
+  // Deactivate mobile nav items
   document.querySelectorAll('.admin-mob-tab').forEach(n => n.classList.remove('active'));
+
+  // Activate content tab
   const tabEl = document.getElementById(`tab-${tab}`);
   if (tabEl) tabEl.classList.add('active');
+
+  // Activate desktop sidebar item
   document.querySelectorAll('.admin-nav').forEach(n => {
     if (n.getAttribute('onclick') && n.getAttribute('onclick').includes(`'${tab}'`)) n.classList.add('active');
   });
+
+  // Activate mobile nav item — use passed element or find by onclick
   if (mobileEl) {
     mobileEl.classList.add('active');
   } else {
@@ -1882,8 +1780,12 @@ function showAdminTab(tab, mobileEl) {
       if (n.getAttribute('onclick') && n.getAttribute('onclick').includes(`'${tab}'`)) n.classList.add('active');
     });
   }
+
+  // Scroll mobile nav to show active tab
   const activeMob = document.querySelector('.admin-mob-tab.active');
   if (activeMob) activeMob.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+
+  // Load data for the tab
   if (tab === 'dashboard')     renderDashboard();
   if (tab === 'orders')        renderAllOrders();
   if (tab === 'products')      renderAdminProducts();
@@ -1896,19 +1798,20 @@ function showAdminTab(tab, mobileEl) {
 //  ADMIN — DASHBOARD
 // ══════════════════════════════════════════════════
 function renderDashboard() {
-  document.getElementById('s-orders').textContent   = window._orders.length;
-  document.getElementById('s-products').textContent = window._products.length;
-  document.getElementById('s-reviews').textContent  = window._reviews.length;
-  document.getElementById('s-revenue').textContent  = window._orders.reduce((a,o) => a+(o.total||0), 0).toLocaleString();
+  reloadOrders(); reloadReviews(); reloadProducts();
+  document.getElementById('s-orders').textContent   = orders.length;
+  document.getElementById('s-products').textContent = products.length;
+  document.getElementById('s-reviews').textContent  = reviews.length;
+  document.getElementById('s-revenue').textContent  = orders.reduce((a,o) => a+(o.total||0), 0).toLocaleString();
   const tb = document.getElementById('dash-orders-tb');
-  tb.innerHTML = window._orders.slice(0,5).map(o => `<tr>
+  tb.innerHTML = orders.slice(0,5).map(o => `<tr>
     <td><strong>#${o.id}</strong></td>
     <td>${o.customer.name}</td>
     <td style="max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${o.product}</td>
     <td>${o.customer.city}</td>
     <td style="color:var(--gold);font-weight:700;">PKR ${(o.total||0).toLocaleString()}</td>
     <td><span class="admin-badge badge-${o.status||'new'}">${(o.status||'new').toUpperCase()}</span></td>
-    <td><button class="action-btn btn-view" onclick="viewOrder('${o._docId}')"><i class="fas fa-eye"></i> View</button></td>
+    <td><button class="action-btn btn-view" onclick="viewOrder(${o.id})"><i class="fas fa-eye"></i> View</button></td>
   </tr>`).join('') || '<tr><td colspan="7" style="text-align:center;padding:28px;color:#9ca3af;">No orders yet</td></tr>';
 }
 
@@ -1916,7 +1819,7 @@ function renderDashboard() {
 //  ADMIN — ORDERS
 // ══════════════════════════════════════════════════
 function renderAllOrders(list) {
-  list = list || window._orders;
+  list = list || orders;
   const tb = document.getElementById('all-orders-tb');
   tb.innerHTML = list.map(o => `<tr>
     <td><strong>#${o.id}</strong></td>
@@ -1929,15 +1832,16 @@ function renderAllOrders(list) {
     <td style="color:#1a472a;font-weight:700;">PKR ${(o.total||0).toLocaleString()}</td>
     <td><span class="admin-badge badge-${o.status||'new'}">${(o.status||'new').toUpperCase()}</span></td>
     <td>
-      <button class="action-btn btn-view" onclick="viewOrder('${o._docId}')" title="View"><i class="fas fa-eye"></i></button>
-      <button class="action-btn btn-edit" onclick="changeOrderStatus('${o._docId}')" title="Change status"><i class="fas fa-sync"></i></button>
-      <button class="action-btn btn-del"  onclick="deleteOrder('${o._docId}')"  title="Delete"><i class="fas fa-trash"></i></button>
+      <button class="action-btn btn-view" onclick="viewOrder(${o.id})" title="View"><i class="fas fa-eye"></i></button>
+      <button class="action-btn btn-edit" onclick="changeOrderStatus(${o.id})" title="Change status"><i class="fas fa-sync"></i></button>
+      <button class="action-btn btn-del"  onclick="deleteOrder(${o.id})"  title="Delete"><i class="fas fa-trash"></i></button>
     </td>
   </tr>`).join('') || '<tr><td colspan="11" style="text-align:center;padding:28px;color:#9ca3af;">No orders yet</td></tr>';
 }
 
-function viewOrder(docId) {
-  const o = window._orders.find(x => x._docId === docId); if (!o) return;
+function viewOrder(id) {
+  reloadOrders();
+  const o = orders.find(x => x.id === id); if (!o) return;
   const stitchBadge = o.stitch==='Stitched'
     ? '<span style="background:#d4edda;color:#155724;padding:3px 10px;border-radius:10px;font-size:12px;font-weight:700;">✂️ Stitched</span>'
     : o.stitch==='Unstitched'
@@ -1981,36 +1885,32 @@ function viewOrder(docId) {
     ${measurementsHTML}
     ${o.notes ? `<div class="od-section"><div class="od-section-title"><i class="fas fa-sticky-note"></i> Notes</div><p style="font-size:14px;color:#6b7280;">${o.notes}</p></div>` : ''}
     <div style="display:flex;gap:10px;margin-top:4px;flex-wrap:wrap;">
-      <button class="admin-save-btn" onclick="changeOrderStatus('${o._docId}');closeModal('orderDetailModal');"><i class="fas fa-sync"></i> Change Status</button>
+      <button class="admin-save-btn" onclick="changeOrderStatus(${o.id});closeModal('orderDetailModal');"><i class="fas fa-sync"></i> Change Status</button>
       <button class="admin-cancel-btn" onclick="closeModal('orderDetailModal')"><i class="fas fa-times"></i> Close</button>
     </div>`;
   openModal('orderDetailModal');
 }
 
-async function changeOrderStatus(docId) {
+function changeOrderStatus(id) {
+  reloadOrders();
   const statuses = ['new','processing','done'];
-  const o = window._orders.find(x => x._docId === docId); if (!o) return;
-  const newStatus = statuses[(statuses.indexOf(o.status||'new')+1) % statuses.length];
-  try {
-    await dbUpdate('orders', docId, {status: newStatus});
-    showToast(`Order #${o.id} → ${newStatus.toUpperCase()}`);
-  } catch(err) { showToast('Error updating order'); }
+  const o = orders.find(x => x.id === id); if (!o) return;
+  o.status = statuses[(statuses.indexOf(o.status||'new')+1) % statuses.length];
+  saveOrders(); renderAllOrders(); renderDashboard(); showToast(`Order #${id} → ${o.status.toUpperCase()}`);
 }
-async function deleteOrder(docId) {
+function deleteOrder(id) {
   if (!confirm('Delete this order?')) return;
-  try {
-    await dbDelete('orders', docId);
-    showToast('Order deleted');
-  } catch(err) { showToast('Error deleting order'); }
+  reloadOrders(); orders = orders.filter(x => x.id !== id); saveOrders(); renderAllOrders(); renderDashboard(); showToast('Order deleted');
 }
 function searchOrders(q) {
+  reloadOrders();
   q = q.toLowerCase();
-  const f = q ? window._orders.filter(o =>
+  const f = q ? orders.filter(o =>
     o.customer.name.toLowerCase().includes(q) ||
     o.customer.phone.includes(q) ||
     o.product.toLowerCase().includes(q) ||
     String(o.id).includes(q)
-  ) : window._orders;
+  ) : orders;
   renderAllOrders(f);
 }
 
@@ -2018,12 +1918,13 @@ function searchOrders(q) {
 //  ADMIN — PRODUCTS TABLE
 // ══════════════════════════════════════════════════
 function renderAdminProducts() {
+  reloadProducts();
   const tb = document.getElementById('products-tb');
-  if (!window._products.length) {
+  if (!products.length) {
     tb.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:28px;color:#9ca3af;">No products yet. Click "Add Product" to get started.</td></tr>';
     return;
   }
-  tb.innerHTML = window._products.map(p => `<tr>
+  tb.innerHTML = products.map(p => `<tr>
     <td>
       <div style="width:52px;height:52px;background:var(--gold-pale);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;overflow:hidden;">
         ${p.images&&p.images[0] ? `<img src="${p.images[0]}" style="width:100%;height:100%;object-fit:cover;" alt="">` : p.emoji||'📦'}
@@ -2042,23 +1943,25 @@ function renderAdminProducts() {
       : '<span style="background:#f3f4f6;color:#9ca3af;padding:3px 10px;border-radius:20px;font-size:11px;">No</span>'
     }</td>
     <td>
-      <button class="action-btn btn-edit" onclick="editProduct('${p._docId}')" title="Edit"><i class="fas fa-pencil-alt"></i> Edit</button>
-      <button class="action-btn btn-del"  onclick="deleteProduct('${p._docId}')" title="Delete"><i class="fas fa-trash"></i></button>
+      <button class="action-btn btn-edit" onclick="editProduct(${p.id})" title="Edit"><i class="fas fa-pencil-alt"></i> Edit</button>
+      <button class="action-btn btn-del"  onclick="deleteProduct(${p.id})" title="Delete"><i class="fas fa-trash"></i></button>
     </td>
   </tr>`).join('');
 }
 
-async function deleteProduct(docId) {
+function deleteProduct(id) {
   if (!confirm('Delete this product?')) return;
-  try {
-    await dbDelete('products', docId);
-    showToast('Product deleted');
-  } catch(err) { showToast('Error deleting product'); }
+  reloadProducts();
+  products = products.filter(x => x.id !== id);
+  saveProducts(); reloadProducts();
+  renderAdminProducts(); renderHomeProducts();
+  showToast('Product deleted');
 }
 
-function editProduct(docId) {
-  const p = window._products.find(x => x._docId === docId); if (!p) return;
-  editProductId = docId;
+function editProduct(id) {
+  reloadProducts();
+  const p = products.find(x => x.id === id); if (!p) return;
+  editProductId = id;
   document.getElementById('add-p-heading').innerHTML = '<i class="fas fa-pencil-alt" style="color:var(--gold);"></i> Edit Product';
   document.getElementById('p-title').value    = p.title || '';
   document.getElementById('p-gender').value   = p.gender || 'men';
@@ -2093,52 +1996,68 @@ function renderImgPreviews() {
   ).join('');
 }
 
-async function saveProduct() {
-  const title      = document.getElementById('p-title').value.trim();
+function saveProduct() {
+  const titleVal   = document.getElementById('p-title').value;
   const gender     = document.getElementById('p-gender').value;
   const category   = document.getElementById('p-category').value;
-  const fabric     = document.getElementById('p-fabric').value.trim();
+  const fabric     = document.getElementById('p-fabric').value;
   const priceRaw   = document.getElementById('p-price').value;
   const qtyRaw     = document.getElementById('p-qty').value;
-  const desc       = document.getElementById('p-desc').value.trim();
-  const bestSeller = document.getElementById('p-bestseller').checked;
-  const price      = parseFloat(priceRaw);
-  const qty        = parseInt(qtyRaw);
+  const desc       = document.getElementById('p-desc').value;
+  const bestSeller = document.getElementById('p-bestseller').checked; // boolean
+
+  const title = titleVal.trim();
+  const descT = desc.trim();
+  const price = parseFloat(priceRaw);
+  const qty   = parseInt(qtyRaw);
 
   if (!title)              { showToast('Please enter a product title'); return; }
-  if (!desc)               { showToast('Please enter a description');   return; }
+  if (!descT)              { showToast('Please enter a description');   return; }
   if (!priceRaw || isNaN(price)) { showToast('Please enter a valid price');    return; }
   if (!qtyRaw   || isNaN(qty))   { showToast('Please enter a valid quantity'); return; }
   if (!pendingImages.length)     { showToast('Please add at least one image'); return; }
 
   const emojis = {clothing:'👔', shoes:'👟', watches:'⌚', accessories:'💎'};
-  const productData = {
-    title, gender, category, fabric, price, qty,
-    description: desc,
-    images: [...pendingImages],
-    emoji: emojis[category] || '📦',
-    bestSeller,
-    rating: 5, ratingCount: 0
-  };
 
-  try {
-    if (editProductId) {
-      await dbUpdate('products', editProductId, productData);
-      showToast('Product updated ✅ — visible on all devices now!');
-    } else {
-      productData.id = Date.now(); // numeric id for cart/wishlist compat
-      await dbAdd('products', productData);
-      showToast('Product added ✅ — visible on all devices now!');
+  reloadProducts();
+
+  if (editProductId) {
+    const idx = products.findIndex(x => x.id === editProductId);
+    if (idx !== -1) {
+      products[idx] = {
+        ...products[idx],
+        title, gender, category,
+        fabric: fabric.trim(),
+        price, qty,
+        description: descT,
+        images: [...pendingImages],
+        bestSeller: bestSeller  // explicitly save boolean
+      };
     }
     editProductId = null;
-    resetProductForm();
-    showAdminTab('products');
-    showFbBanner('✅ Product saved to Firebase — updating all devices in real time!', 'success');
-  } catch(err) {
-    showToast('Error saving product. Check Firebase config.');
-    showFbBanner('⚠️ Firebase error — product NOT saved. Check your config.', 'error');
-    console.error(err);
+    showToast('Product updated ✅');
+  } else {
+    products.push({
+      id:          Date.now(),
+      title, gender, category,
+      fabric:      fabric.trim(),
+      price, qty,
+      description: descT,
+      images:      [...pendingImages],
+      emoji:       emojis[category] || '📦',
+      rating:      5,
+      ratingCount: 0,
+      bestSeller:  bestSeller  // explicitly save boolean
+    });
+    showToast('Product added ✅');
   }
+
+  saveProducts();
+  reloadProducts();     // keep in-memory array synced
+  renderHomeProducts(); // refresh carousel immediately
+  renderAdminProducts();
+  resetProductForm();
+  showAdminTab('products');
 }
 
 function resetProductForm() {
@@ -2159,27 +2078,26 @@ function cancelAddProduct() { resetProductForm(); showAdminTab('products'); }
 //  ADMIN — REVIEWS
 // ══════════════════════════════════════════════════
 function renderAdminReviews() {
+  reloadReviews();
   const tb = document.getElementById('reviews-admin-tb');
-  if (!window._reviews.length) {
+  if (!reviews.length) {
     tb.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:28px;color:#9ca3af;">No reviews yet</td></tr>';
     return;
   }
-  tb.innerHTML = window._reviews.map((r,i) => `<tr>
+  tb.innerHTML = reviews.map((r,i) => `<tr>
     <td>${i+1}</td>
     <td><strong>${r.name}</strong></td>
     <td>${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</td>
     <td style="max-width:180px;font-size:12px;color:#6b7280;">${r.text.substring(0,80)}${r.text.length>80?'...':''}</td>
     <td style="font-size:12px;">${r.product||'—'}</td>
     <td style="font-size:12px;color:#9ca3af;">${r.date}</td>
-    <td><button class="action-btn btn-del" onclick="deleteReview('${r._docId}')" title="Delete"><i class="fas fa-trash"></i></button></td>
+    <td><button class="action-btn btn-del" onclick="deleteReview(${r.id})" title="Delete"><i class="fas fa-trash"></i></button></td>
   </tr>`).join('');
 }
-async function deleteReview(docId) {
+function deleteReview(id) {
   if (!confirm('Delete this review?')) return;
-  try {
-    await dbDelete('reviews', docId);
-    showToast('Review deleted');
-  } catch(err) { showToast('Error deleting review'); }
+  reloadReviews(); reviews = reviews.filter(x => x.id !== id); saveReviews();
+  renderAdminReviews(); renderCustomerReviews(); showToast('Review deleted');
 }
 function openAddAdminReview() {
   starCount = 0; setStar(0);
@@ -2191,23 +2109,19 @@ function openAddAdminReview() {
 //  ADMIN — SETTINGS
 // ══════════════════════════════════════════════════
 function loadSettings() {
-  const s = window._settings || {};
+  const s = adminSettings;
   document.getElementById('set-insta').value    = s.insta    || '';
   document.getElementById('set-tiktok').value   = s.tiktok   || '';
   document.getElementById('set-whatsapp').value = s.whatsapp || '';
   document.getElementById('set-facebook').value = s.facebook || '';
 }
-async function saveSettings() {
-  const newSettings = {
-    insta:    document.getElementById('set-insta').value.trim(),
-    tiktok:   document.getElementById('set-tiktok').value.trim(),
-    whatsapp: document.getElementById('set-whatsapp').value.trim(),
-    facebook: document.getElementById('set-facebook').value.trim()
-  };
-  try {
-    await dbSet('settings', 'main', newSettings);
-    showToast('Settings saved ✅ — updated on all devices!');
-  } catch(err) { showToast('Error saving settings'); }
+function saveSettings() {
+  adminSettings.insta     = document.getElementById('set-insta').value.trim();
+  adminSettings.tiktok    = document.getElementById('set-tiktok').value.trim();
+  adminSettings.whatsapp  = document.getElementById('set-whatsapp').value.trim();
+  adminSettings.facebook  = document.getElementById('set-facebook').value.trim();
+  localStorage.setItem('nw_settings', JSON.stringify(adminSettings));
+  applySettings(); showToast('Settings saved ✅');
 }
 function changeAdminPass() {
   const np = document.getElementById('new-pass').value;
@@ -2218,7 +2132,7 @@ function changeAdminPass() {
   showToast('Password changed ✅');
 }
 function applySettings() {
-  const s = window._settings || {};
+  const s = adminSettings;
   if (s.insta    && s.insta    !== '#') document.getElementById('footer-insta').href    = s.insta;
   if (s.tiktok   && s.tiktok   !== '#') document.getElementById('footer-tiktok').href   = s.tiktok;
   if (s.facebook && s.facebook !== '#') document.getElementById('footer-facebook').href = s.facebook;
@@ -2235,6 +2149,13 @@ const revObs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
 }, {threshold:.1});
 document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => revObs.observe(el));
+
+// ══════════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════════
+renderHomeProducts();
+renderCustomerReviews();
+applySettings();
 </script>
 </body>
 </html>
