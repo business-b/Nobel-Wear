@@ -6,11 +6,6 @@
 <title>NOBEL WEAR — Pakistan's Premium Fashion Destination</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-
 <style>
 :root{
   --gold:#c6a75e;--gold-l:#e2c98a;--gold-pale:#f5edda;
@@ -33,9 +28,12 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--forest);o
 .loader-3d{width:80px;height:80px;position:relative;transform-style:preserve-3d;animation:rotate3d 2s linear infinite;}
 @keyframes rotate3d{0%{transform:rotateY(0) rotateX(15deg);}100%{transform:rotateY(360deg) rotateX(15deg);}}
 .cube-face{position:absolute;width:80px;height:80px;border:2px solid var(--gold);background:rgba(198,167,94,.08);display:flex;align-items:center;justify-content:center;font-size:28px;backface-visibility:visible;}
-.cube-face.front{transform:translateZ(40px);}.cube-face.back{transform:rotateY(180deg) translateZ(40px);}
-.cube-face.right{transform:rotateY(90deg) translateZ(40px);}.cube-face.left{transform:rotateY(-90deg) translateZ(40px);}
-.cube-face.top{transform:rotateX(90deg) translateZ(40px);}.cube-face.bottom{transform:rotateX(-90deg) translateZ(40px);}
+.cube-face.front{transform:translateZ(40px);}
+.cube-face.back{transform:rotateY(180deg) translateZ(40px);}
+.cube-face.right{transform:rotateY(90deg) translateZ(40px);}
+.cube-face.left{transform:rotateY(-90deg) translateZ(40px);}
+.cube-face.top{transform:rotateX(90deg) translateZ(40px);}
+.cube-face.bottom{transform:rotateX(-90deg) translateZ(40px);}
 .loader-bar{width:220px;height:3px;background:rgba(198,167,94,.2);border-radius:2px;overflow:hidden;}
 .loader-bar-fill{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-l));border-radius:2px;animation:loaderFill 2.2s ease forwards;}
 @keyframes loaderFill{0%{width:0}100%{width:100%}}
@@ -203,8 +201,17 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--forest);o
 .btn-sm-outline{background:transparent;color:var(--forest);border:1.5px solid var(--light);}
 .btn-sm-outline:hover{background:var(--forest);color:var(--gold);border-color:var(--forest);}
 
-/* BEST SELLER BADGE */
-.best-seller-ribbon{position:absolute;top:0;left:0;background:linear-gradient(135deg,#c6a75e,#e2c98a);color:var(--forest);font-size:9px;font-weight:800;letter-spacing:1.5px;padding:6px 14px;border-bottom-right-radius:14px;z-index:3;text-transform:uppercase;display:flex;align-items:center;gap:5px;box-shadow:0 4px 12px rgba(198,167,94,.45);}
+/* BEST SELLER BADGE — improved visibility */
+.best-seller-ribbon{
+  position:absolute;top:0;left:0;
+  background:linear-gradient(135deg,#c6a75e,#e2c98a);
+  color:var(--forest);font-size:9px;font-weight:800;
+  letter-spacing:1.5px;padding:6px 14px;
+  border-bottom-right-radius:14px;z-index:3;
+  text-transform:uppercase;
+  display:flex;align-items:center;gap:5px;
+  box-shadow:0 4px 12px rgba(198,167,94,.45);
+}
 
 /* PRODUCT DETAIL */
 #product-detail{display:none;position:fixed;inset:0;background:var(--cream);z-index:6000;overflow-y:auto;animation:slideInRight .4s cubic-bezier(.16,1,.3,1);}
@@ -249,16 +256,23 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--forest);o
 .lb-thumb{width:56px;height:56px;border-radius:8px;object-fit:cover;cursor:pointer;border:2px solid transparent;flex-shrink:0;opacity:.55;transition:all .2s;}
 .lb-thumb.active,.lb-thumb:hover{border-color:var(--gold);opacity:1;}
 
-/* BEST SELLERS CAROUSEL */
+/* ══ BEST SELLERS CAROUSEL ══ */
 .home-products-section{padding:70px 0;background:#fff;overflow:hidden;}
 .home-products-section .section-header{text-align:center;margin-bottom:40px;padding:0 20px;}
 .products-scroll-wrap{position:relative;max-width:100%;overflow:hidden;}
 .products-scroll-outer{overflow:hidden;padding:0 20px;}
-.products-scroll-track{display:flex;gap:20px;transition:transform .45s cubic-bezier(.25,.8,.25,1);will-change:transform;}
-.products-scroll-track .product-card{flex:0 0 calc(25% - 15px);min-width:240px;max-width:320px;}
+.products-scroll-track{
+  display:flex;gap:20px;
+  transition:transform .45s cubic-bezier(.25,.8,.25,1);
+  will-change:transform;
+}
+.products-scroll-track .product-card{
+  flex:0 0 calc(25% - 15px);min-width:240px;max-width:320px;
+}
 .scroll-arrow{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;background:var(--forest);color:var(--gold);border:none;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,.25);transition:all .25s;z-index:5;}
 .scroll-arrow:hover{background:var(--gold);color:var(--forest);transform:translateY(-50%) scale(1.08);}
-.scroll-arrow.left{left:6px;}.scroll-arrow.right{right:6px;}
+.scroll-arrow.left{left:6px;}
+.scroll-arrow.right{right:6px;}
 .no-bs-msg{padding:40px;color:var(--gray);text-align:center;width:100%;font-size:15px;}
 
 /* TRUST */
@@ -344,7 +358,7 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 .order-price-row .label{display:flex;align-items:center;gap:6px;}
 .order-price-row .label i{color:var(--gold);font-size:12px;}
 
-/* ADMIN PANEL */
+/* ══ ADMIN PANEL ══ */
 .admin-login-icon{width:64px;height:64px;background:linear-gradient(135deg,var(--forest),var(--gold));border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:28px;color:#fff;}
 .admin-login-err{color:#e74c3c;font-size:12px;display:none;margin-bottom:8px;}
 
@@ -356,6 +370,7 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 .admin-logout{background:rgba(231,76,60,.15);border:1.5px solid #e74c3c;color:#e74c3c;padding:6px 16px;border-radius:20px;cursor:pointer;font-size:13px;font-weight:600;transition:all .25s;}
 .admin-logout:hover{background:#e74c3c;color:#fff;}
 
+/* Mobile nav bar for admin */
 .admin-mobile-nav{display:none;background:var(--forest);overflow-x:auto;scrollbar-width:none;border-bottom:1px solid rgba(198,167,94,.2);flex-shrink:0;}
 .admin-mobile-nav::-webkit-scrollbar{display:none;}
 .admin-mobile-nav-inner{display:flex;min-width:max-content;padding:0 8px;}
@@ -376,8 +391,12 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 .stat-card{background:#fff;border-radius:14px;padding:18px 20px;display:flex;align-items:center;gap:14px;box-shadow:0 4px 18px rgba(0,0,0,.06);transition:all .3s;}
 .stat-card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,0,0,.1);}
 .stat-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;flex-shrink:0;}
-.si-green{background:linear-gradient(135deg,#1a472a,#2d5a3d);}.si-gold{background:linear-gradient(135deg,#b8960c,#d4af37);}.si-blue{background:linear-gradient(135deg,#1e40af,#3b82f6);}.si-red{background:linear-gradient(135deg,#b91c1c,#ef4444);}
-.stat-num{font-size:24px;font-weight:700;color:var(--forest);}.stat-lbl{font-size:11px;color:var(--gray);margin-top:2px;}
+.si-green{background:linear-gradient(135deg,#1a472a,#2d5a3d);}
+.si-gold{background:linear-gradient(135deg,#b8960c,#d4af37);}
+.si-blue{background:linear-gradient(135deg,#1e40af,#3b82f6);}
+.si-red{background:linear-gradient(135deg,#b91c1c,#ef4444);}
+.stat-num{font-size:24px;font-weight:700;color:var(--forest);}
+.stat-lbl{font-size:11px;color:var(--gray);margin-top:2px;}
 
 .admin-card{background:#fff;border-radius:14px;box-shadow:0 4px 18px rgba(0,0,0,.06);margin-bottom:20px;overflow:hidden;}
 .admin-card-head{padding:14px 20px;border-bottom:2px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center;}
@@ -388,11 +407,16 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 .admin-table tr:hover td{background:#fafafa;}
 .admin-table tr:last-child td{border:none;}
 .admin-badge{padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;}
-.badge-new{background:#d4edda;color:#155724;}.badge-processing{background:#fff3cd;color:#856404;}.badge-done{background:#d1ecf1;color:#0c5460;}
+.badge-new{background:#d4edda;color:#155724;}
+.badge-processing{background:#fff3cd;color:#856404;}
+.badge-done{background:#d1ecf1;color:#0c5460;}
 .action-btn{padding:6px 10px;border:none;border-radius:7px;cursor:pointer;font-size:12px;font-weight:600;transition:all .2s;margin-right:3px;display:inline-flex;align-items:center;gap:4px;}
-.btn-view{background:#dbeafe;color:#1e40af;}.btn-view:hover{background:#1e40af;color:#fff;}
-.btn-edit{background:#fef9c3;color:#854d0e;}.btn-edit:hover{background:#854d0e;color:#fff;}
-.btn-del{background:#fee2e2;color:#b91c1c;border-radius:50px;}.btn-del:hover{background:#b91c1c;color:#fff;}
+.btn-view{background:#dbeafe;color:#1e40af;}
+.btn-view:hover{background:#1e40af;color:#fff;}
+.btn-edit{background:#fef9c3;color:#854d0e;}
+.btn-edit:hover{background:#854d0e;color:#fff;}
+.btn-del{background:#fee2e2;color:#b91c1c;border-radius:50px;}
+.btn-del:hover{background:#b91c1c;color:#fff;}
 
 .admin-input,.admin-select,.admin-textarea{width:100%;padding:10px 12px;border:1.5px solid #e0e0e0;border-radius:9px;font-family:'Jost',sans-serif;font-size:14px;transition:all .25s;outline:none;background:#fafafa;}
 .admin-input:focus,.admin-select:focus,.admin-textarea:focus{border-color:var(--gold);background:#fff;box-shadow:0 0 0 3px rgba(198,167,94,.1);}
@@ -441,12 +465,13 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 .reveal-r{opacity:0;transform:translateX(24px);transition:opacity .7s ease,transform .7s ease;}
 .reveal-r.on{opacity:1;transform:translateX(0);}
 
-/* RESPONSIVE */
+/* ══ RESPONSIVE ══ */
 @media(max-width:1024px){
   .products-scroll-track .product-card{flex:0 0 calc(33.333% - 14px);}
   .detail-grid{grid-template-columns:1fr;}
   .cat-layout{grid-template-columns:1fr;}
   .cat-sidebar{display:none;}
+  /* Admin: hide desktop sidebar, show mobile nav */
   .admin-sidebar{display:none;}
   .admin-mobile-nav{display:block;}
   .admin-body{flex-direction:column;}
@@ -503,7 +528,6 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
   </div>
   <div class="loader-logo">NOBEL WEAR</div>
   <div class="loader-bar"><div class="loader-bar-fill"></div></div>
-  <div id="loader-status" style="color:rgba(198,167,94,.5);font-size:12px;letter-spacing:1px;margin-top:4px;">Connecting to cloud...</div>
 </div>
 
 <div class="side-panel-overlay" id="panelOverlay" onclick="closePanels()"></div>
@@ -590,8 +614,8 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
     </div>
   </div>
   <div class="hero-stats">
-    <div class="hero-stat"><div class="hero-stat-num" id="stat-customers">5,000+</div><div class="hero-stat-lbl">Happy Customers</div></div>
-    <div class="hero-stat"><div class="hero-stat-num" id="stat-products">200+</div><div class="hero-stat-lbl">Products</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">5,000+</div><div class="hero-stat-lbl">Happy Customers</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">200+</div><div class="hero-stat-lbl">Products</div></div>
     <div class="hero-stat"><div class="hero-stat-num">Since 2018</div><div class="hero-stat-lbl">Trusted Brand</div></div>
     <div class="hero-stat"><div class="hero-stat-num">Nationwide</div><div class="hero-stat-lbl">Delivery</div></div>
   </div>
@@ -970,8 +994,12 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
   </div>
 </div>
 
-<!-- ADMIN PANEL -->
+<!-- ═══════════════════════════════════════════════════════════
+     ADMIN PANEL — Fixed layout with mobile navigation
+     ═══════════════════════════════════════════════════════════ -->
 <div id="admin-panel">
+
+  <!-- Top bar -->
   <div class="admin-topbar">
     <div class="admin-brand"><i class="fas fa-crown"></i> NOBEL WEAR — Admin</div>
     <div style="display:flex;align-items:center;gap:14px;">
@@ -979,6 +1007,8 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
       <button class="admin-logout" onclick="adminLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
     </div>
   </div>
+
+  <!-- Mobile horizontal nav (visible ≤1024px) -->
   <div class="admin-mobile-nav" id="adminMobileNav">
     <div class="admin-mobile-nav-inner">
       <div class="admin-mob-tab active" onclick="showAdminTab('dashboard',this)"><i class="fas fa-tachometer-alt"></i> Dashboard</div>
@@ -989,7 +1019,11 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
       <div class="admin-mob-tab" onclick="showAdminTab('settings',this)"><i class="fas fa-cog"></i> Settings</div>
     </div>
   </div>
+
+  <!-- Body -->
   <div class="admin-body">
+
+    <!-- Desktop sidebar -->
     <div class="admin-sidebar" id="adminDesktopSidebar">
       <div class="admin-nav active" onclick="showAdminTab('dashboard')"><i class="fas fa-tachometer-alt"></i> Dashboard</div>
       <div class="admin-nav" onclick="showAdminTab('orders')"><i class="fas fa-clipboard-list"></i> All Orders</div>
@@ -998,7 +1032,10 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
       <div class="admin-nav" onclick="showAdminTab('reviews-admin')"><i class="fas fa-star"></i> Reviews</div>
       <div class="admin-nav" onclick="showAdminTab('settings')"><i class="fas fa-cog"></i> Settings</div>
     </div>
+
+    <!-- Main content -->
     <div class="admin-main">
+
       <!-- DASHBOARD -->
       <div class="admin-tab active" id="tab-dashboard">
         <h2 style="font-family:'Cormorant Garamond',serif;color:var(--forest);font-size:26px;margin-bottom:18px;display:flex;align-items:center;gap:8px;"><i class="fas fa-tachometer-alt" style="color:var(--gold);"></i>Dashboard</h2>
@@ -1013,14 +1050,16 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
           <div style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>#</th><th>Customer</th><th>Product</th><th>City</th><th>Total</th><th>Status</th><th>Action</th></tr></thead><tbody id="dash-orders-tb"></tbody></table></div>
         </div>
       </div>
+
       <!-- ALL ORDERS -->
       <div class="admin-tab" id="tab-orders">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
           <h2 style="font-family:'Cormorant Garamond',serif;color:var(--forest);font-size:26px;display:flex;align-items:center;gap:8px;"><i class="fas fa-clipboard-list" style="color:var(--gold);"></i>All Orders</h2>
-          <input class="admin-input" style="max-width:220px;" placeholder="Search orders..." oninput="searchOrders(this.value)">
+          <input class="admin-input" style="max-width:220px;" placeholder="🔍 Search orders..." oninput="searchOrders(this.value)">
         </div>
         <div class="admin-card"><div style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>#ID</th><th>Date</th><th>Customer</th><th>Phone</th><th>Product</th><th>City</th><th>Qty</th><th>Stitch</th><th>Total</th><th>Status</th><th>Actions</th></tr></thead><tbody id="all-orders-tb"></tbody></table></div></div>
       </div>
+
       <!-- PRODUCTS -->
       <div class="admin-tab" id="tab-products">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
@@ -1029,6 +1068,7 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
         </div>
         <div class="admin-card"><div style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Gender</th><th>Best Seller</th><th>Actions</th></tr></thead><tbody id="products-tb"></tbody></table></div></div>
       </div>
+
       <!-- ADD / EDIT PRODUCT -->
       <div class="admin-tab" id="tab-add-product">
         <h2 style="font-family:'Cormorant Garamond',serif;color:var(--forest);font-size:26px;margin-bottom:18px;display:flex;align-items:center;gap:8px;" id="add-p-heading"><i class="fas fa-plus-circle" style="color:var(--gold);"></i>Add Product</h2>
@@ -1066,6 +1106,7 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
           </div>
         </div>
       </div>
+
       <!-- REVIEWS ADMIN -->
       <div class="admin-tab" id="tab-reviews-admin">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
@@ -1074,9 +1115,11 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
         </div>
         <div class="admin-card"><div style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>#</th><th>Name</th><th>Stars</th><th>Review</th><th>Product</th><th>Date</th><th>Action</th></tr></thead><tbody id="reviews-admin-tb"></tbody></table></div></div>
       </div>
+
       <!-- SETTINGS -->
       <div class="admin-tab" id="tab-settings">
         <h2 style="font-family:'Cormorant Garamond',serif;color:var(--forest);font-size:26px;margin-bottom:18px;display:flex;align-items:center;gap:8px;"><i class="fas fa-cog" style="color:var(--gold);"></i>Settings</h2>
+
         <div class="settings-section">
           <div class="settings-title"><i class="fas fa-share-alt" style="color:var(--gold);"></i>Social Media Links</div>
           <div class="admin-grid-2">
@@ -1087,6 +1130,7 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
           </div>
           <button class="admin-save-btn" onclick="saveSettings()"><i class="fas fa-save"></i> Save Links</button>
         </div>
+
         <div class="settings-section">
           <div class="settings-title"><i class="fas fa-lock" style="color:var(--gold);"></i>Change Admin Password</div>
           <div class="admin-grid-2">
@@ -1095,188 +1139,84 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
           </div>
           <button class="admin-save-btn" onclick="changeAdminPass()"><i class="fas fa-key"></i> Change Password</button>
         </div>
+
         <div class="settings-section">
           <div class="settings-title"><i class="fas fa-address-card" style="color:var(--gold);"></i>Contact Info</div>
           <div class="admin-form-group"><label class="admin-label">WhatsApp / Phone</label><input class="admin-input" value="+92 316 3475925" readonly></div>
           <div class="admin-form-group"><label class="admin-label">Email</label><input class="admin-input" value="nobel.wearofficial@gmail.com" readonly></div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
+
+    </div><!-- /admin-main -->
+  </div><!-- /admin-body -->
+</div><!-- /admin-panel -->
 
 <script>
-// ═══════════════════════════════════════════════════════════════
-//  FIREBASE SETUP — Cloud Database (replaces localStorage)
-// ═══════════════════════════════════════════════════════════════
-//
-//  SETUP INSTRUCTIONS (one-time, 5 minutes):
-//  1. Go to https://firebase.google.com and sign in with Google
-//  2. Click "Create a project" → name it "nobel-wear" → Continue
-//  3. On the project dashboard, click the "</>" (Web) icon
-//  4. Register app as "NobelWear" → copy the firebaseConfig values
-//  5. Replace ONLY the values below (apiKey through appId) with yours
-//  6. In Firebase Console, go to "Realtime Database" → "Create Database"
-//  7. Choose location "asia-southeast1" or "us-central1"
-//  8. Start in "test mode" (allows read/write) → Enable
-//  9. Done! Your products will now sync across all devices.
-//
-//  SECURITY NOTE: After setup, go to Database Rules and set:
-//    {
-//      "rules": {
-//        ".read": true,
-//        ".write": true
-//      }
-//    }
-//  This allows public read/write. For production, add auth rules.
-//
-// ═══════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════
+//  CONSTANTS & STATE
+// ══════════════════════════════════════════════════
+const STITCH_PRICE = 1500;
+let adminPassword = localStorage.getItem('nw_adminpass') || 'nobel01';
 
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY_HERE",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
+// ── Products: load from localStorage; seed defaults only if empty ──
+function loadProducts() {
+  const stored = localStorage.getItem('nw_products');
+  if (stored) {
+    try {
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    } catch(e) {}
+  }
+  const defaults = [
+    {id:1,title:'Premium Lawn Suit',gender:'women',category:'clothing',fabric:'Lawn',price:3500,qty:30,description:'Beautiful printed lawn unstitched suit with embroidered dupatta. Perfect for summer.',images:[],emoji:'👗',rating:4.8,ratingCount:24,bestSeller:true},
+    {id:2,title:'Boski Shalwar Qameez',gender:'men',category:'clothing',fabric:'Boski',price:4200,qty:25,description:'Premium Boski fabric shalwar qameez. Lightweight and comfortable for all seasons.',images:[],emoji:'👔',rating:4.7,ratingCount:18,bestSeller:true},
+    {id:3,title:'Khaddar Winter Suit',gender:'women',category:'clothing',fabric:'Khaddar',price:2800,qty:40,description:'Warm and cozy Khaddar suit perfect for winters. 3-piece unstitched with embroidery.',images:[],emoji:'🧥',rating:4.6,ratingCount:12,bestSeller:false},
+    {id:4,title:'Cotton Casual Kurta',gender:'men',category:'clothing',fabric:'Cotton',price:1800,qty:60,description:'Comfortable everyday cotton kurta. Available in multiple colors.',images:[],emoji:'👕',rating:4.5,ratingCount:31,bestSeller:true},
+    {id:5,title:'Chiffon Party Dress',gender:'women',category:'clothing',fabric:'Chiffon',price:5500,qty:20,description:'Elegant chiffon party dress with heavy embroidery. Perfect for weddings.',images:[],emoji:'💃',rating:4.9,ratingCount:8,bestSeller:true},
+    {id:6,title:'Classic Leather Shoes',gender:'men',category:'shoes',fabric:'',price:3200,qty:15,description:'Handcrafted genuine leather shoes. Comfortable, durable, and stylish.',images:[],emoji:'👞',rating:4.7,ratingCount:22,bestSeller:true},
+    {id:7,title:'Ladies Heels',gender:'women',category:'shoes',fabric:'',price:2400,qty:18,description:'Elegant block heels perfect for formal and casual wear.',images:[],emoji:'👠',rating:4.5,ratingCount:14,bestSeller:false},
+    {id:8,title:'Classic Dress Watch',gender:'men',category:'watches',fabric:'',price:6500,qty:10,description:'Premium dress watch with genuine leather strap. Water resistant.',images:[],emoji:'⌚',rating:4.8,ratingCount:19,bestSeller:true},
+  ];
+  localStorage.setItem('nw_products', JSON.stringify(defaults));
+  return defaults;
+}
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-const dbRef = db.ref('nobelwear');
-
-// Data nodes
-const productsRef = dbRef.child('products');
-const ordersRef   = dbRef.child('orders');
-const reviewsRef  = dbRef.child('reviews');
-const settingsRef = dbRef.child('settings');
-const counterRef  = dbRef.child('orderCounter');
-
-// In-memory state (synced from Firebase)
-let products = [];
-let orders   = [];
-let reviews  = [];
+// Single source of truth: always sync from localStorage on operations that matter
+let products = loadProducts();
+let orders   = JSON.parse(localStorage.getItem('nw_orders')  || '[]');
+let reviews  = JSON.parse(localStorage.getItem('nw_reviews') || '[]');
 let cart = [], wishlist = [];
 let currentProduct = null, currentDetailId = null;
 let pendingImages = [], editProductId = null;
+let orderCounter = parseInt(localStorage.getItem('nw_oc') || '1000');
 let currentStitch = 'Stitched';
 let starCount = 0;
 let menCurrentTab = 'clothing', womenCurrentTab = 'clothing';
 let menCurrentFilter = '', womenCurrentFilter = '';
+let adminSettings = JSON.parse(localStorage.getItem('nw_settings') || '{"insta":"#","tiktok":"#","facebook":"#","whatsapp":"923163475925"}');
 let currentDetailImages = [];
 let lightboxIdx = 0;
 let carouselIdx = 0;
-let dataLoaded = false;
-let adminSettings = {insta:'#',tiktok:'#',facebook:'#',whatsapp:'923163475925'};
 
-const STITCH_PRICE = 1500;
-let adminPassword = localStorage.getItem('nw_adminpass') || 'nobel01';
-
-// ══════════════════════════════════════════════════
-//  DEFAULT PRODUCTS (seeded on first run)
-// ══════════════════════════════════════════════════
-function getDefaultProducts() {
-  return {
-    'prod_1': {id:'prod_1',title:'Premium Lawn Suit',gender:'women',category:'clothing',fabric:'Lawn',price:3500,qty:30,description:'Beautiful printed lawn unstitched suit with embroidered dupatta. Perfect for summer.',images:[],emoji:'👗',rating:4.8,ratingCount:24,bestSeller:true},
-    'prod_2': {id:'prod_2',title:'Boski Shalwar Qameez',gender:'men',category:'clothing',fabric:'Boski',price:4200,qty:25,description:'Premium Boski fabric shalwar qameez. Lightweight and comfortable for all seasons.',images:[],emoji:'👔',rating:4.7,ratingCount:18,bestSeller:true},
-    'prod_3': {id:'prod_3',title:'Khaddar Winter Suit',gender:'women',category:'clothing',fabric:'Khaddar',price:2800,qty:40,description:'Warm and cozy Khaddar suit perfect for winters. 3-piece unstitched with embroidery.',images:[],emoji:'🧥',rating:4.6,ratingCount:12,bestSeller:false},
-    'prod_4': {id:'prod_4',title:'Cotton Casual Kurta',gender:'men',category:'clothing',fabric:'Cotton',price:1800,qty:60,description:'Comfortable everyday cotton kurta. Available in multiple colors.',images:[],emoji:'👕',rating:4.5,ratingCount:31,bestSeller:true},
-    'prod_5': {id:'prod_5',title:'Chiffon Party Dress',gender:'women',category:'clothing',fabric:'Chiffon',price:5500,qty:20,description:'Elegant chiffon party dress with heavy embroidery. Perfect for weddings.',images:[],emoji:'💃',rating:4.9,ratingCount:8,bestSeller:true},
-    'prod_6': {id:'prod_6',title:'Classic Leather Shoes',gender:'men',category:'shoes',fabric:'',price:3200,qty:15,description:'Handcrafted genuine leather shoes. Comfortable, durable, and stylish.',images:[],emoji:'👞',rating:4.7,ratingCount:22,bestSeller:true},
-    'prod_7': {id:'prod_7',title:'Ladies Heels',gender:'women',category:'shoes',fabric:'',price:2400,qty:18,description:'Elegant block heels perfect for formal and casual wear.',images:[],emoji:'👠',rating:4.5,ratingCount:14,bestSeller:false},
-    'prod_8': {id:'prod_8',title:'Classic Dress Watch',gender:'men',category:'watches',fabric:'',price:6500,qty:10,description:'Premium dress watch with genuine leather strap. Water resistant.',images:[],emoji:'⌚',rating:4.8,ratingCount:19,bestSeller:true}
-  };
+// ── Persist helpers ──
+function saveProducts() {
+  localStorage.setItem('nw_products', JSON.stringify(products));
 }
+function saveOrders()  { localStorage.setItem('nw_orders',   JSON.stringify(orders)); }
+function saveReviews() { localStorage.setItem('nw_reviews',  JSON.stringify(reviews)); }
+function saveOC()      { localStorage.setItem('nw_oc', String(orderCounter)); }
 
-// ══════════════════════════════════════════════════
-//  INITIALIZE — Load from Firebase, seed if empty
-// ══════════════════════════════════════════════════
-function initFirebaseData() {
-  document.getElementById('loader-status').textContent = 'Syncing with cloud...';
-
-  // Listen to products (real-time)
-  productsRef.on('value', snap => {
-    const val = snap.val();
-    if (val) {
-      products = Object.values(val);
-    } else {
-      // First run — seed defaults
-      productsRef.set(getDefaultProducts());
-      products = Object.values(getDefaultProducts());
-    }
-    onDataUpdate();
-  });
-
-  // Listen to orders (real-time)
-  ordersRef.on('value', snap => {
-    const val = snap.val();
-    orders = val ? Object.values(val) : [];
-    if (dataLoaded) { renderDashboard(); renderAllOrders(); }
-  });
-
-  // Listen to reviews (real-time)
-  reviewsRef.on('value', snap => {
-    const val = snap.val();
-    reviews = val ? Object.values(val) : [];
-    renderCustomerReviews();
-    if (dataLoaded) renderAdminReviews();
-  });
-
-  // Listen to settings (real-time)
-  settingsRef.on('value', snap => {
-    const val = snap.val();
-    if (val) {
-      adminSettings = {...adminSettings, ...val};
-      applySettings();
-    }
-  });
-
-  // Order counter
-  counterRef.on('value', snap => {
-    if (!snap.exists()) counterRef.set(1000);
-  });
+// ── Reload helpers (keep in-memory array in sync) ──
+function reloadProducts() {
+  try { products = JSON.parse(localStorage.getItem('nw_products') || '[]'); } catch(e){}
 }
-
-function onDataUpdate() {
-  if (!dataLoaded) {
-    dataLoaded = true;
-    document.getElementById('loader-status').textContent = 'Ready!';
-    setTimeout(() => {
-      document.getElementById('loader').classList.add('hidden');
-    }, 600);
-  }
-  // Update all UI
-  const sp = document.getElementById('stat-products');
-  if (sp) sp.textContent = products.length + '+';
-  renderHomeProducts();
-  renderMenGrid();
-  renderWomenGrid();
-  renderAdminProducts();
-}
-
-// ══════════════════════════════════════════════════
-//  FIREBASE HELPERS
-// ══════════════════════════════════════════════════
-function dbSetProduct(id, data) { return productsRef.child(id).set(data); }
-function dbRemoveProduct(id)   { return productsRef.child(id).remove(); }
-function dbPushOrder(data)     { return ordersRef.push(data); }
-function dbUpdateOrder(key, data) { return ordersRef.child(key).update(data); }
-function dbRemoveOrder(key)    { return ordersRef.child(key).remove(); }
-function dbPushReview(data)    { return reviewsRef.push(data); }
-function dbRemoveReview(key)   { return reviewsRef.child(key).remove(); }
-function dbSetSettings(data)   { return settingsRef.set(data); }
-function dbNextOrderId()       { return counterRef.transaction(c => (c || 1000) + 1); }
+function reloadOrders()  { try { orders  = JSON.parse(localStorage.getItem('nw_orders')  || '[]'); } catch(e){} }
+function reloadReviews() { try { reviews = JSON.parse(localStorage.getItem('nw_reviews') || '[]'); } catch(e){} }
 
 // ══════════════════════════════════════════════════
 //  LOADER
 // ══════════════════════════════════════════════════
-setTimeout(() => {
-  if (!dataLoaded) {
-    document.getElementById('loader-status').textContent = 'Loading...';
-  }
-}, 1000);
+setTimeout(() => { document.getElementById('loader').classList.add('hidden'); }, 2600);
 
 // ══════════════════════════════════════════════════
 //  HERO PARTICLES & SHAPES
@@ -1329,7 +1269,7 @@ function renderCart() {
   body.innerHTML = cart.map(c => `<div class="panel-item">
     <div style="width:64px;height:64px;min-width:64px;background:var(--gold-pale);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:28px;">${c.images&&c.images[0]?`<img src="${c.images[0]}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;" alt="">`:c.emoji||'📦'}</div>
     <div class="panel-item-info"><h4>${c.title}</h4><p>PKR ${(c.price*c.qty).toLocaleString()} × ${c.qty}</p></div>
-    <button class="panel-item-remove" onclick="removeFromCart('${c.id}')"><i class="fas fa-trash"></i></button>
+    <button class="panel-item-remove" onclick="removeFromCart(${c.id})"><i class="fas fa-trash"></i></button>
   </div>`).join('');
 }
 
@@ -1340,7 +1280,7 @@ function toggleWish(id) {
   const idx = wishlist.findIndex(x => x.id === id);
   const p   = products.find(x => x.id === id);
   const btn = document.getElementById(`wb-${id}`);
-  if (idx === -1) { if(p) wishlist.push(p); if (btn) btn.classList.add('active'); showToast('Added to wishlist ❤️'); }
+  if (idx === -1) { wishlist.push(p); if (btn) btn.classList.add('active'); showToast('Added to wishlist ❤️'); }
   else            { wishlist.splice(idx,1); if (btn) btn.classList.remove('active'); showToast('Removed from wishlist'); }
   const wb = document.getElementById('wishBadge'); wb.textContent = wishlist.length; wb.style.display = wishlist.length > 0 ? 'flex' : 'none';
   renderWish();
@@ -1355,7 +1295,7 @@ function renderWish() {
   body.innerHTML = wishlist.map(p => `<div class="panel-item">
     <div style="width:64px;height:64px;min-width:64px;background:var(--gold-pale);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:28px;">${p.images&&p.images[0]?`<img src="${p.images[0]}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;" alt="">`:p.emoji||'📦'}</div>
     <div class="panel-item-info"><h4>${p.title}</h4><p>PKR ${p.price.toLocaleString()}</p></div>
-    <button class="panel-item-remove" onclick="removeFromWish('${p.id}')"><i class="fas fa-trash"></i></button>
+    <button class="panel-item-remove" onclick="removeFromWish(${p.id})"><i class="fas fa-trash"></i></button>
   </div>`).join('');
 }
 
@@ -1383,6 +1323,7 @@ function buildCard(p) {
     ? `<img src="${p.images[0]}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;object-position:top center;">`
     : `<div class="product-img-emoji">${p.emoji||'📦'}</div>`;
 
+  // Ribbons — only one at a time; sold-out takes priority
   let ribbon = '';
   if (soldOut) {
     ribbon = '<div class="sold-out-ribbon">SOLD OUT</div>';
@@ -1390,11 +1331,11 @@ function buildCard(p) {
     ribbon = '<div class="best-seller-ribbon"><i class="fas fa-crown"></i> Best Seller</div>';
   }
 
-  return `<div class="product-card" onclick="openDetail('${p.id}')">
+  return `<div class="product-card" onclick="openDetail(${p.id})">
     ${ribbon}
     <div class="product-img-wrap">
       <div class="product-img">${imgHtml}</div>
-      <button class="wishlist-btn-card ${inWish?'active':''}" id="wb-${p.id}" onclick="event.stopPropagation();toggleWish('${p.id}')" title="${inWish?'Remove from wishlist':'Add to wishlist'}">
+      <button class="wishlist-btn-card ${inWish?'active':''}" id="wb-${p.id}" onclick="event.stopPropagation();toggleWish(${p.id})" title="${inWish?'Remove from wishlist':'Add to wishlist'}">
         <i class="fas fa-heart"></i>
       </button>
     </div>
@@ -1404,10 +1345,10 @@ function buildCard(p) {
       <div class="product-price">PKR ${p.price.toLocaleString()} <span class="currency">incl. tax</span></div>
       <div class="product-rating"><span class="stars-gold">${starsHTML(p.rating||5)}</span><span class="review-ct">(${p.ratingCount||0})</span></div>
       <div class="product-actions" onclick="event.stopPropagation()">
-        <button class="btn-sm btn-sm-primary" onclick="openOrderModal('${p.id}')" ${soldOut?'disabled':''}>
+        <button class="btn-sm btn-sm-primary" onclick="openOrderModal(${p.id})" ${soldOut?'disabled':''}>
           <i class="fas fa-${soldOut?'ban':'shopping-bag'}"></i> ${soldOut?'Sold Out':'Order Now'}
         </button>
-        <button class="btn-sm btn-sm-outline" onclick="openReviewModal('${p.id}')">
+        <button class="btn-sm btn-sm-outline" onclick="openReviewModal(${p.id})">
           <i class="fas fa-star"></i> Review
         </button>
       </div>
@@ -1418,8 +1359,8 @@ function buildCard(p) {
 // ══════════════════════════════════════════════════
 //  CATEGORY PAGES
 // ══════════════════════════════════════════════════
-function openMenPage()   { document.getElementById('men-page').classList.add('open');   document.body.style.overflow = 'hidden'; renderMenGrid(); }
-function openWomenPage() { document.getElementById('women-page').classList.add('open'); document.body.style.overflow = 'hidden'; renderWomenGrid(); }
+function openMenPage()   { reloadProducts(); document.getElementById('men-page').classList.add('open');   document.body.style.overflow = 'hidden'; renderMenGrid(); }
+function openWomenPage() { reloadProducts(); document.getElementById('women-page').classList.add('open'); document.body.style.overflow = 'hidden'; renderWomenGrid(); }
 function closeCatPage(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow = ''; }
 
 function renderMenGrid() {
@@ -1474,6 +1415,7 @@ function getCardsPerView() {
 }
 
 function renderHomeProducts() {
+  reloadProducts(); // always fresh from localStorage
   const bestSellers = products.filter(p => p.bestSeller === true);
   const track = document.getElementById('homeProductsTrack');
   if (!bestSellers.length) {
@@ -1539,6 +1481,7 @@ window.addEventListener('resize', () => {
 //  PRODUCT DETAIL
 // ══════════════════════════════════════════════════
 function openDetail(id) {
+  reloadProducts();
   const p = products.find(x => x.id === id); if (!p) return;
   currentDetailId = id;
   currentDetailImages = p.images && p.images.length ? [...p.images] : [];
@@ -1622,6 +1565,7 @@ function updatePriceSummary() {
 }
 
 function openOrderModal(id) {
+  reloadProducts();
   const p = products.find(x => x.id === id); if (!p) return;
   if (p.qty <= 0) { showToast('Sorry, this product is sold out!'); return; }
   currentProduct = p; currentStitch = 'Stitched';
@@ -1658,7 +1602,6 @@ function previewMeasurement(inp) {
     r.readAsDataURL(inp.files[0]);
   }
 }
-
 function submitOrder(e) {
   e.preventDefault();
   if (!currentProduct) return;
@@ -1671,58 +1614,30 @@ function submitOrder(e) {
   const notes   = document.getElementById('o-notes').value.trim();
   if (!name||!phone||!address||!city||!payment) { showToast('Please fill all required fields'); return; }
   if (qty > currentProduct.qty) { showToast(`Only ${currentProduct.qty} in stock`); return; }
-
-  counterRef.transaction(current => {
-    return (current || 1000) + 1;
-  }).then(result => {
-    const newId = result.snapshot.val();
-
-    const isClothing  = currentProduct.category === 'clothing';
-    const stitched    = isClothing && currentStitch === 'Stitched';
-    const stitchFee   = stitched ? STITCH_PRICE : 0;
-    const total       = (currentProduct.price + stitchFee) * qty;
-    let measurementPhoto = null;
-    const mPhotoEl = document.getElementById('m-photo-preview');
-    if (mPhotoEl.style.display !== 'none' && mPhotoEl.src) measurementPhoto = mPhotoEl.src;
-    const measurement = (isClothing && currentStitch === 'Stitched') ? {
-      chest:     document.getElementById('m-chest').value,
-      length:    document.getElementById('m-length').value,
-      shoulders: document.getElementById('m-shoulders').value,
-      sleeves:   document.getElementById('m-sleeves').value,
-      photo:     measurementPhoto
-    } : null;
-
-    const order = {
-      id: newId,
-      date: new Date().toLocaleString('en-PK'),
-      product: currentProduct.title,
-      productId: currentProduct.id,
-      productEmoji: currentProduct.emoji||'📦',
-      unitPrice: currentProduct.price,
-      stitchFee,
-      qty,
-      total,
-      customer: {name, phone, address, city},
-      payment,
-      notes,
-      stitch: isClothing ? currentStitch : 'N/A',
-      measurement,
-      status: 'new'
-    };
-
-    dbPushOrder(order);
-
-    // Reduce stock
-    const pIdx = products.findIndex(x => x.id === currentProduct.id);
-    if (pIdx !== -1) {
-      products[pIdx].qty = Math.max(0, products[pIdx].qty - qty);
-      dbSetProduct(products[pIdx].id, products[pIdx]);
-    }
-
-    document.getElementById('order-form-wrap').style.display = 'none';
-    document.getElementById('order-success').style.display   = 'block';
-    showToast('Order placed successfully! ✅');
-  });
+  orderCounter++; saveOC();
+  const isClothing  = currentProduct.category === 'clothing';
+  const stitched    = isClothing && currentStitch === 'Stitched';
+  const stitchFee   = stitched ? STITCH_PRICE : 0;
+  const total       = (currentProduct.price + stitchFee) * qty;
+  let measurementPhoto = null;
+  const mPhotoEl = document.getElementById('m-photo-preview');
+  if (mPhotoEl.style.display !== 'none' && mPhotoEl.src) measurementPhoto = mPhotoEl.src;
+  const measurement = (isClothing && currentStitch === 'Stitched') ? {
+    chest:     document.getElementById('m-chest').value,
+    length:    document.getElementById('m-length').value,
+    shoulders: document.getElementById('m-shoulders').value,
+    sleeves:   document.getElementById('m-sleeves').value,
+    photo:     measurementPhoto
+  } : null;
+  const order = {id:orderCounter, date:new Date().toLocaleString('en-PK'), product:currentProduct.title, productId:currentProduct.id, productEmoji:currentProduct.emoji||'📦', unitPrice:currentProduct.price, stitchFee, qty, total, customer:{name,phone,address,city}, payment, notes, stitch:isClothing?currentStitch:'N/A', measurement, status:'new'};
+  orders.unshift(order); saveOrders();
+  // Reduce stock
+  const idx = products.findIndex(x => x.id === currentProduct.id);
+  if (idx !== -1) { products[idx].qty = Math.max(0, products[idx].qty - qty); saveProducts(); }
+  renderHomeProducts();
+  document.getElementById('order-form-wrap').style.display = 'none';
+  document.getElementById('order-success').style.display   = 'block';
+  showToast('Order placed successfully! ✅');
 }
 
 // ══════════════════════════════════════════════════
@@ -1744,25 +1659,24 @@ function submitReview(e) {
   const text  = document.getElementById('r-text').value.trim();
   const stars = parseInt(document.getElementById('r-stars').value);
   if (!stars) { showToast('Please select a rating'); return; }
+  reloadProducts();
   const p = products.find(x => x.id === currentReviewProductId);
-  const review = {id: 'rev_'+Date.now(), name, text, stars, product: p?p.title:'General', productId: currentReviewProductId, date: new Date().toLocaleDateString('en-PK')};
-  dbPushReview(review);
-
-  // Update product rating
+  const review = {id:Date.now(), name, text, stars, product:p?p.title:'General', productId:currentReviewProductId, date:new Date().toLocaleDateString('en-PK')};
+  reloadReviews(); reviews.unshift(review); saveReviews();
   if (currentReviewProductId) {
     const pi = products.findIndex(x => x.id === currentReviewProductId);
     if (pi !== -1) {
-      const prRevs = [...reviews.filter(r => r.productId === currentReviewProductId), review];
+      const prRevs = reviews.filter(r => r.productId === currentReviewProductId);
       products[pi].rating      = parseFloat((prRevs.reduce((a,b) => a+b.stars, 0) / prRevs.length).toFixed(1));
       products[pi].ratingCount = prRevs.length;
-      dbSetProduct(products[pi].id, products[pi]);
+      saveProducts();
     }
   }
-
-  renderCustomerReviews();
+  renderCustomerReviews(); renderHomeProducts();
   showToast('Thank you for your review! ⭐'); closeModal('reviewModal');
 }
 function renderCustomerReviews() {
+  reloadReviews();
   const grid = document.getElementById('customer-reviews-grid');
   if (!reviews.length) { grid.innerHTML = ''; return; }
   grid.innerHTML = reviews.map(r => `<div class="review-card reveal on">
@@ -1777,6 +1691,7 @@ function renderCustomerReviews() {
 //  LIVE SEARCH
 // ══════════════════════════════════════════════════
 function liveSearch(q) {
+  reloadProducts();
   const track = document.getElementById('homeProductsTrack');
   if (!q.trim()) { renderHomeProducts(); return; }
   const f = products.filter(p =>
@@ -1838,20 +1753,26 @@ function adminLogout() {
 }
 
 // ══════════════════════════════════════════════════
-//  ADMIN — TAB SWITCHING
+//  ADMIN — TAB SWITCHING (works for both desktop sidebar & mobile nav)
 // ══════════════════════════════════════════════════
 function showAdminTab(tab, mobileEl) {
+  // Hide all content tabs
   document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+  // Deactivate desktop sidebar items
   document.querySelectorAll('.admin-nav').forEach(n => n.classList.remove('active'));
+  // Deactivate mobile nav items
   document.querySelectorAll('.admin-mob-tab').forEach(n => n.classList.remove('active'));
 
+  // Activate content tab
   const tabEl = document.getElementById(`tab-${tab}`);
   if (tabEl) tabEl.classList.add('active');
 
+  // Activate desktop sidebar item
   document.querySelectorAll('.admin-nav').forEach(n => {
     if (n.getAttribute('onclick') && n.getAttribute('onclick').includes(`'${tab}'`)) n.classList.add('active');
   });
 
+  // Activate mobile nav item — use passed element or find by onclick
   if (mobileEl) {
     mobileEl.classList.add('active');
   } else {
@@ -1860,9 +1781,11 @@ function showAdminTab(tab, mobileEl) {
     });
   }
 
+  // Scroll mobile nav to show active tab
   const activeMob = document.querySelector('.admin-mob-tab.active');
   if (activeMob) activeMob.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
 
+  // Load data for the tab
   if (tab === 'dashboard')     renderDashboard();
   if (tab === 'orders')        renderAllOrders();
   if (tab === 'products')      renderAdminProducts();
@@ -1875,6 +1798,7 @@ function showAdminTab(tab, mobileEl) {
 //  ADMIN — DASHBOARD
 // ══════════════════════════════════════════════════
 function renderDashboard() {
+  reloadOrders(); reloadReviews(); reloadProducts();
   document.getElementById('s-orders').textContent   = orders.length;
   document.getElementById('s-products').textContent = products.length;
   document.getElementById('s-reviews').textContent  = reviews.length;
@@ -1916,6 +1840,7 @@ function renderAllOrders(list) {
 }
 
 function viewOrder(id) {
+  reloadOrders();
   const o = orders.find(x => x.id === id); if (!o) return;
   const stitchBadge = o.stitch==='Stitched'
     ? '<span style="background:#d4edda;color:#155724;padding:3px 10px;border-radius:10px;font-size:12px;font-weight:700;">✂️ Stitched</span>'
@@ -1967,33 +1892,18 @@ function viewOrder(id) {
 }
 
 function changeOrderStatus(id) {
+  reloadOrders();
   const statuses = ['new','processing','done'];
   const o = orders.find(x => x.id === id); if (!o) return;
   o.status = statuses[(statuses.indexOf(o.status||'new')+1) % statuses.length];
-  // Find Firebase key and update
-  ordersRef.once('value', snap => {
-    const val = snap.val();
-    if (val) {
-      Object.entries(val).forEach(([key, order]) => {
-        if (order.id === id) dbUpdateOrder(key, {status: o.status});
-      });
-    }
-  });
-  renderAllOrders(); renderDashboard(); showToast(`Order #${id} → ${o.status.toUpperCase()}`);
+  saveOrders(); renderAllOrders(); renderDashboard(); showToast(`Order #${id} → ${o.status.toUpperCase()}`);
 }
 function deleteOrder(id) {
   if (!confirm('Delete this order?')) return;
-  ordersRef.once('value', snap => {
-    const val = snap.val();
-    if (val) {
-      Object.entries(val).forEach(([key, order]) => {
-        if (order.id === id) dbRemoveOrder(key);
-      });
-    }
-  });
-  showToast('Order deleted');
+  reloadOrders(); orders = orders.filter(x => x.id !== id); saveOrders(); renderAllOrders(); renderDashboard(); showToast('Order deleted');
 }
 function searchOrders(q) {
+  reloadOrders();
   q = q.toLowerCase();
   const f = q ? orders.filter(o =>
     o.customer.name.toLowerCase().includes(q) ||
@@ -2008,6 +1918,7 @@ function searchOrders(q) {
 //  ADMIN — PRODUCTS TABLE
 // ══════════════════════════════════════════════════
 function renderAdminProducts() {
+  reloadProducts();
   const tb = document.getElementById('products-tb');
   if (!products.length) {
     tb.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:28px;color:#9ca3af;">No products yet. Click "Add Product" to get started.</td></tr>';
@@ -2032,19 +1943,23 @@ function renderAdminProducts() {
       : '<span style="background:#f3f4f6;color:#9ca3af;padding:3px 10px;border-radius:20px;font-size:11px;">No</span>'
     }</td>
     <td>
-      <button class="action-btn btn-edit" onclick="editProduct('${p.id}')" title="Edit"><i class="fas fa-pencil-alt"></i> Edit</button>
-      <button class="action-btn btn-del"  onclick="deleteProduct('${p.id}')" title="Delete"><i class="fas fa-trash"></i></button>
+      <button class="action-btn btn-edit" onclick="editProduct(${p.id})" title="Edit"><i class="fas fa-pencil-alt"></i> Edit</button>
+      <button class="action-btn btn-del"  onclick="deleteProduct(${p.id})" title="Delete"><i class="fas fa-trash"></i></button>
     </td>
   </tr>`).join('');
 }
 
 function deleteProduct(id) {
   if (!confirm('Delete this product?')) return;
-  dbRemoveProduct(id);
+  reloadProducts();
+  products = products.filter(x => x.id !== id);
+  saveProducts(); reloadProducts();
+  renderAdminProducts(); renderHomeProducts();
   showToast('Product deleted');
 }
 
 function editProduct(id) {
+  reloadProducts();
   const p = products.find(x => x.id === id); if (!p) return;
   editProductId = id;
   document.getElementById('add-p-heading').innerHTML = '<i class="fas fa-pencil-alt" style="color:var(--gold);"></i> Edit Product';
@@ -2089,7 +2004,7 @@ function saveProduct() {
   const priceRaw   = document.getElementById('p-price').value;
   const qtyRaw     = document.getElementById('p-qty').value;
   const desc       = document.getElementById('p-desc').value;
-  const bestSeller = document.getElementById('p-bestseller').checked;
+  const bestSeller = document.getElementById('p-bestseller').checked; // boolean
 
   const title = titleVal.trim();
   const descT = desc.trim();
@@ -2104,40 +2019,43 @@ function saveProduct() {
 
   const emojis = {clothing:'👔', shoes:'👟', watches:'⌚', accessories:'💎'};
 
+  reloadProducts();
+
   if (editProductId) {
     const idx = products.findIndex(x => x.id === editProductId);
     if (idx !== -1) {
-      const updated = {
+      products[idx] = {
         ...products[idx],
         title, gender, category,
         fabric: fabric.trim(),
         price, qty,
         description: descT,
         images: [...pendingImages],
-        bestSeller: bestSeller
+        bestSeller: bestSeller  // explicitly save boolean
       };
-      dbSetProduct(editProductId, updated);
     }
     editProductId = null;
     showToast('Product updated ✅');
   } else {
-    const newId = 'prod_' + Date.now();
-    const newProduct = {
-      id: newId,
+    products.push({
+      id:          Date.now(),
       title, gender, category,
-      fabric: fabric.trim(),
+      fabric:      fabric.trim(),
       price, qty,
       description: descT,
-      images: [...pendingImages],
-      emoji: emojis[category] || '📦',
-      rating: 5,
+      images:      [...pendingImages],
+      emoji:       emojis[category] || '📦',
+      rating:      5,
       ratingCount: 0,
-      bestSeller: bestSeller
-    };
-    dbSetProduct(newId, newProduct);
+      bestSeller:  bestSeller  // explicitly save boolean
+    });
     showToast('Product added ✅');
   }
 
+  saveProducts();
+  reloadProducts();     // keep in-memory array synced
+  renderHomeProducts(); // refresh carousel immediately
+  renderAdminProducts();
   resetProductForm();
   showAdminTab('products');
 }
@@ -2160,6 +2078,7 @@ function cancelAddProduct() { resetProductForm(); showAdminTab('products'); }
 //  ADMIN — REVIEWS
 // ══════════════════════════════════════════════════
 function renderAdminReviews() {
+  reloadReviews();
   const tb = document.getElementById('reviews-admin-tb');
   if (!reviews.length) {
     tb.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:28px;color:#9ca3af;">No reviews yet</td></tr>';
@@ -2172,20 +2091,13 @@ function renderAdminReviews() {
     <td style="max-width:180px;font-size:12px;color:#6b7280;">${r.text.substring(0,80)}${r.text.length>80?'...':''}</td>
     <td style="font-size:12px;">${r.product||'—'}</td>
     <td style="font-size:12px;color:#9ca3af;">${r.date}</td>
-    <td><button class="action-btn btn-del" onclick="deleteReview('${r.id}')" title="Delete"><i class="fas fa-trash"></i></button></td>
+    <td><button class="action-btn btn-del" onclick="deleteReview(${r.id})" title="Delete"><i class="fas fa-trash"></i></button></td>
   </tr>`).join('');
 }
 function deleteReview(id) {
   if (!confirm('Delete this review?')) return;
-  reviewsRef.once('value', snap => {
-    const val = snap.val();
-    if (val) {
-      Object.entries(val).forEach(([key, rev]) => {
-        if (rev.id === id) dbRemoveReview(key);
-      });
-    }
-  });
-  showToast('Review deleted');
+  reloadReviews(); reviews = reviews.filter(x => x.id !== id); saveReviews();
+  renderAdminReviews(); renderCustomerReviews(); showToast('Review deleted');
 }
 function openAddAdminReview() {
   starCount = 0; setStar(0);
@@ -2197,17 +2109,18 @@ function openAddAdminReview() {
 //  ADMIN — SETTINGS
 // ══════════════════════════════════════════════════
 function loadSettings() {
-  document.getElementById('set-insta').value    = adminSettings.insta    || '';
-  document.getElementById('set-tiktok').value   = adminSettings.tiktok   || '';
-  document.getElementById('set-whatsapp').value = adminSettings.whatsapp || '';
-  document.getElementById('set-facebook').value = adminSettings.facebook || '';
+  const s = adminSettings;
+  document.getElementById('set-insta').value    = s.insta    || '';
+  document.getElementById('set-tiktok').value   = s.tiktok   || '';
+  document.getElementById('set-whatsapp').value = s.whatsapp || '';
+  document.getElementById('set-facebook').value = s.facebook || '';
 }
 function saveSettings() {
   adminSettings.insta     = document.getElementById('set-insta').value.trim();
   adminSettings.tiktok    = document.getElementById('set-tiktok').value.trim();
   adminSettings.whatsapp  = document.getElementById('set-whatsapp').value.trim();
   adminSettings.facebook  = document.getElementById('set-facebook').value.trim();
-  dbSetSettings(adminSettings);
+  localStorage.setItem('nw_settings', JSON.stringify(adminSettings));
   applySettings(); showToast('Settings saved ✅');
 }
 function changeAdminPass() {
@@ -2240,7 +2153,9 @@ document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => revObs.ob
 // ══════════════════════════════════════════════════
 //  INIT
 // ══════════════════════════════════════════════════
-initFirebaseData();
+renderHomeProducts();
+renderCustomerReviews();
+applySettings();
 </script>
 </body>
 </html>
