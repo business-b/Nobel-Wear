@@ -20,6 +20,13 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--forest);o
 ::-webkit-scrollbar-track{background:var(--forest);}
 ::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px;}
 
+/* SYNC STATUS BAR */
+#sync-bar{position:fixed;top:0;left:0;right:0;height:3px;background:transparent;z-index:999999;pointer-events:none;}
+#sync-bar.syncing{background:linear-gradient(90deg,var(--gold),var(--gold-l),var(--gold));background-size:200% 100%;animation:syncPulse .8s linear infinite;}
+#sync-bar.done{background:var(--gold);opacity:1;animation:syncDone .5s ease forwards;}
+@keyframes syncPulse{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
+@keyframes syncDone{0%{opacity:1;}100%{opacity:0;}}
+
 /* LOADER */
 #loader{position:fixed;inset:0;background:var(--forest);z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:24px;transition:opacity .6s ease,visibility .6s ease;}
 #loader.hidden{opacity:0;visibility:hidden;pointer-events:none;}
@@ -35,8 +42,9 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--forest);o
 .cube-face.top{transform:rotateX(90deg) translateZ(40px);}
 .cube-face.bottom{transform:rotateX(-90deg) translateZ(40px);}
 .loader-bar{width:220px;height:3px;background:rgba(198,167,94,.2);border-radius:2px;overflow:hidden;}
-.loader-bar-fill{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-l));border-radius:2px;animation:loaderFill 2.2s ease forwards;}
+.loader-bar-fill{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-l));border-radius:2px;animation:loaderFill 2.8s ease forwards;}
 @keyframes loaderFill{0%{width:0}100%{width:100%}}
+.loader-status{font-size:12px;letter-spacing:2px;color:rgba(198,167,94,.6);text-transform:uppercase;}
 
 /* NAVBAR */
 .navbar{position:fixed;top:0;width:100%;z-index:1000;padding:0 24px;height:74px;display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(15,26,20,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(198,167,94,.18);transition:all .3s;}
@@ -107,7 +115,6 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--forest);o
 .hero-stat:last-child{border-right:none;}
 .hero-stat-num{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--gold);}
 .hero-stat-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:2px;}
-
 .btn-gold{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:linear-gradient(135deg,var(--gold),var(--gold-l));color:var(--forest);border:none;border-radius:50px;font-family:'Jost',sans-serif;font-size:14px;font-weight:600;letter-spacing:.5px;cursor:pointer;text-decoration:none;box-shadow:0 8px 30px rgba(198,167,94,.4);transition:all .3s;}
 .btn-gold:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 14px 40px rgba(198,167,94,.5);}
 .btn-outline{display:inline-flex;align-items:center;gap:10px;padding:13px 30px;background:transparent;color:var(--gold);border:1.5px solid rgba(198,167,94,.5);border-radius:50px;font-family:'Jost',sans-serif;font-size:14px;font-weight:400;cursor:pointer;text-decoration:none;transition:all .3s;}
@@ -200,18 +207,7 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--forest);o
 .btn-sm-primary:disabled{background:#ccc;color:#888;cursor:not-allowed;}
 .btn-sm-outline{background:transparent;color:var(--forest);border:1.5px solid var(--light);}
 .btn-sm-outline:hover{background:var(--forest);color:var(--gold);border-color:var(--forest);}
-
-/* BEST SELLER BADGE — improved visibility */
-.best-seller-ribbon{
-  position:absolute;top:0;left:0;
-  background:linear-gradient(135deg,#c6a75e,#e2c98a);
-  color:var(--forest);font-size:9px;font-weight:800;
-  letter-spacing:1.5px;padding:6px 14px;
-  border-bottom-right-radius:14px;z-index:3;
-  text-transform:uppercase;
-  display:flex;align-items:center;gap:5px;
-  box-shadow:0 4px 12px rgba(198,167,94,.45);
-}
+.best-seller-ribbon{position:absolute;top:0;left:0;background:linear-gradient(135deg,#c6a75e,#e2c98a);color:var(--forest);font-size:9px;font-weight:800;letter-spacing:1.5px;padding:6px 14px;border-bottom-right-radius:14px;z-index:3;text-transform:uppercase;display:flex;align-items:center;gap:5px;box-shadow:0 4px 12px rgba(198,167,94,.45);}
 
 /* PRODUCT DETAIL */
 #product-detail{display:none;position:fixed;inset:0;background:var(--cream);z-index:6000;overflow-y:auto;animation:slideInRight .4s cubic-bezier(.16,1,.3,1);}
@@ -256,19 +252,13 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--forest);o
 .lb-thumb{width:56px;height:56px;border-radius:8px;object-fit:cover;cursor:pointer;border:2px solid transparent;flex-shrink:0;opacity:.55;transition:all .2s;}
 .lb-thumb.active,.lb-thumb:hover{border-color:var(--gold);opacity:1;}
 
-/* ══ BEST SELLERS CAROUSEL ══ */
+/* BEST SELLERS CAROUSEL */
 .home-products-section{padding:70px 0;background:#fff;overflow:hidden;}
 .home-products-section .section-header{text-align:center;margin-bottom:40px;padding:0 20px;}
 .products-scroll-wrap{position:relative;max-width:100%;overflow:hidden;}
 .products-scroll-outer{overflow:hidden;padding:0 20px;}
-.products-scroll-track{
-  display:flex;gap:20px;
-  transition:transform .45s cubic-bezier(.25,.8,.25,1);
-  will-change:transform;
-}
-.products-scroll-track .product-card{
-  flex:0 0 calc(25% - 15px);min-width:240px;max-width:320px;
-}
+.products-scroll-track{display:flex;gap:20px;transition:transform .45s cubic-bezier(.25,.8,.25,1);will-change:transform;}
+.products-scroll-track .product-card{flex:0 0 calc(25% - 15px);min-width:240px;max-width:320px;}
 .scroll-arrow{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;background:var(--forest);color:var(--gold);border:none;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,.25);transition:all .25s;z-index:5;}
 .scroll-arrow:hover{background:var(--gold);color:var(--forest);transform:translateY(-50%) scale(1.08);}
 .scroll-arrow.left{left:6px;}
@@ -338,7 +328,7 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 .form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--gold);background:#fff;box-shadow:0 0 0 3px rgba(198,167,94,.1);}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 .stitch-tabs{display:flex;gap:10px;margin-bottom:4px;}
-.stitch-tab{flex:1;padding:10px;border-radius:8px;border:1.5px solid var(--light);background:transparent;font-family:'Jost',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-align:center;color:var(--forest);transition:all .25px;}
+.stitch-tab{flex:1;padding:10px;border-radius:8px;border:1.5px solid var(--light);background:transparent;font-family:'Jost',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-align:center;color:var(--forest);transition:all .25s;}
 .stitch-tab.active{background:var(--forest);color:var(--gold);border-color:var(--forest);}
 .measurement-box{display:none;background:var(--cream);border-radius:10px;padding:16px;border:1px dashed var(--gold);margin-top:10px;}
 .measurement-box.show{display:block;}
@@ -358,26 +348,21 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 .order-price-row .label{display:flex;align-items:center;gap:6px;}
 .order-price-row .label i{color:var(--gold);font-size:12px;}
 
-/* ══ ADMIN PANEL ══ */
+/* ADMIN PANEL */
 .admin-login-icon{width:64px;height:64px;background:linear-gradient(135deg,var(--forest),var(--gold));border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:28px;color:#fff;}
 .admin-login-err{color:#e74c3c;font-size:12px;display:none;margin-bottom:8px;}
-
 #admin-panel{display:none;position:fixed;inset:0;background:#f4f5f7;z-index:10000;overflow-y:auto;flex-direction:column;}
 #admin-panel.open{display:flex;}
-
 .admin-topbar{background:linear-gradient(135deg,var(--forest),var(--forest-m));padding:0 20px;height:62px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 4px 20px rgba(0,0,0,.3);flex-shrink:0;}
 .admin-brand{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);letter-spacing:2px;font-weight:600;display:flex;align-items:center;gap:8px;}
 .admin-logout{background:rgba(231,76,60,.15);border:1.5px solid #e74c3c;color:#e74c3c;padding:6px 16px;border-radius:20px;cursor:pointer;font-size:13px;font-weight:600;transition:all .25s;}
 .admin-logout:hover{background:#e74c3c;color:#fff;}
-
-/* Mobile nav bar for admin */
 .admin-mobile-nav{display:none;background:var(--forest);overflow-x:auto;scrollbar-width:none;border-bottom:1px solid rgba(198,167,94,.2);flex-shrink:0;}
 .admin-mobile-nav::-webkit-scrollbar{display:none;}
 .admin-mobile-nav-inner{display:flex;min-width:max-content;padding:0 8px;}
 .admin-mob-tab{display:flex;align-items:center;gap:7px;padding:12px 16px;color:rgba(255,255,255,.65);cursor:pointer;font-size:13px;font-weight:500;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;}
 .admin-mob-tab i{color:var(--gold);font-size:14px;}
 .admin-mob-tab.active,.admin-mob-tab:hover{color:#fff;border-bottom-color:var(--gold);}
-
 .admin-body{display:flex;flex:1;min-height:0;}
 .admin-sidebar{background:var(--forest);width:200px;flex-shrink:0;padding:18px 0;overflow-y:auto;}
 .admin-nav{display:flex;align-items:center;gap:12px;padding:12px 20px;color:rgba(255,255,255,.65);cursor:pointer;font-size:13px;transition:all .25s;border-left:3px solid transparent;}
@@ -386,7 +371,6 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 .admin-main{flex:1;padding:24px;overflow-y:auto;}
 .admin-tab{display:none;}
 .admin-tab.active{display:block;}
-
 .admin-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:24px;}
 .stat-card{background:#fff;border-radius:14px;padding:18px 20px;display:flex;align-items:center;gap:14px;box-shadow:0 4px 18px rgba(0,0,0,.06);transition:all .3s;}
 .stat-card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,0,0,.1);}
@@ -397,7 +381,6 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 .si-red{background:linear-gradient(135deg,#b91c1c,#ef4444);}
 .stat-num{font-size:24px;font-weight:700;color:var(--forest);}
 .stat-lbl{font-size:11px;color:var(--gray);margin-top:2px;}
-
 .admin-card{background:#fff;border-radius:14px;box-shadow:0 4px 18px rgba(0,0,0,.06);margin-bottom:20px;overflow:hidden;}
 .admin-card-head{padding:14px 20px;border-bottom:2px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center;}
 .admin-card-title{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--forest);font-weight:600;}
@@ -417,7 +400,6 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 .btn-edit:hover{background:#854d0e;color:#fff;}
 .btn-del{background:#fee2e2;color:#b91c1c;border-radius:50px;}
 .btn-del:hover{background:#b91c1c;color:#fff;}
-
 .admin-input,.admin-select,.admin-textarea{width:100%;padding:10px 12px;border:1.5px solid #e0e0e0;border-radius:9px;font-family:'Jost',sans-serif;font-size:14px;transition:all .25s;outline:none;background:#fafafa;}
 .admin-input:focus,.admin-select:focus,.admin-textarea:focus{border-color:var(--gold);background:#fff;box-shadow:0 0 0 3px rgba(198,167,94,.1);}
 .admin-label{display:block;margin-bottom:6px;font-size:12px;font-weight:600;color:var(--forest);}
@@ -434,10 +416,8 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 .admin-save-btn{background:linear-gradient(135deg,var(--forest),var(--forest-l));color:var(--gold);border:none;padding:10px 22px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:8px;}
 .admin-save-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(15,26,20,.3);}
 .admin-cancel-btn{background:#e5e7eb;color:#374151;border:none;padding:10px 20px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;margin-right:8px;transition:all .25s;}
-
 .settings-section{background:#fff;border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:0 4px 18px rgba(0,0,0,.05);}
 .settings-title{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--forest);margin-bottom:16px;font-weight:600;display:flex;align-items:center;gap:8px;}
-
 .od-section{background:#f9fafb;border-radius:12px;padding:14px;margin-bottom:12px;}
 .od-section-title{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
 .od-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
@@ -450,7 +430,6 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 .od-meas-item strong{color:var(--gold);}
 .od-price-row{display:flex;justify-content:space-between;padding:5px 0;font-size:13px;color:var(--forest);border-bottom:1px solid #f0f0f0;}
 .od-price-row:last-child{border:none;font-weight:700;font-size:15px;color:var(--gold);}
-
 .best-seller-toggle{display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(198,167,94,.06);border:1.5px solid rgba(198,167,94,.2);border-radius:10px;cursor:pointer;transition:all .25s;}
 .best-seller-toggle:hover{background:rgba(198,167,94,.12);border-color:var(--gold);}
 .best-seller-toggle input[type=checkbox]{width:18px;height:18px;accent-color:var(--gold);cursor:pointer;flex-shrink:0;}
@@ -465,13 +444,12 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 .reveal-r{opacity:0;transform:translateX(24px);transition:opacity .7s ease,transform .7s ease;}
 .reveal-r.on{opacity:1;transform:translateX(0);}
 
-/* ══ RESPONSIVE ══ */
+/* RESPONSIVE */
 @media(max-width:1024px){
   .products-scroll-track .product-card{flex:0 0 calc(33.333% - 14px);}
   .detail-grid{grid-template-columns:1fr;}
   .cat-layout{grid-template-columns:1fr;}
   .cat-sidebar{display:none;}
-  /* Admin: hide desktop sidebar, show mobile nav */
   .admin-sidebar{display:none;}
   .admin-mobile-nav{display:block;}
   .admin-body{flex-direction:column;}
@@ -491,7 +469,7 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
   .btn-detail{min-width:unset;}
 }
 @media(max-width:480px){
-  .products-scroll-track .product-card{flex:0 0 calc(100% - 0px);min-width:unset;}
+  .products-scroll-track .product-card{flex:0 0 100%;min-width:unset;}
   .navbar{padding:0 12px;gap:8px;}
   .nav-logo-text{font-size:17px;letter-spacing:2px;}
   .nav-logo-sub{display:none;}
@@ -519,6 +497,8 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 </head>
 <body>
 
+<div id="sync-bar"></div>
+
 <!-- LOADER -->
 <div id="loader">
   <div class="loader-3d">
@@ -528,6 +508,7 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
   </div>
   <div class="loader-logo">NOBEL WEAR</div>
   <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+  <div class="loader-status" id="loader-status">Loading your store...</div>
 </div>
 
 <div class="side-panel-overlay" id="panelOverlay" onclick="closePanels()"></div>
@@ -732,7 +713,7 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
   <div class="detail-content">
     <div class="detail-grid">
       <div class="detail-gallery">
-        <div class="detail-main-img" id="detail-main-img-wrap" onclick="openLightbox()"><span id="detail-main-emoji" style="font-size:110px"></span></div>
+        <div class="detail-main-img" id="detail-main-img-wrap" onclick="openLightbox()"></div>
         <div class="detail-thumbs" id="detail-thumbs"></div>
       </div>
       <div class="detail-info">
@@ -822,7 +803,7 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 <footer>
   <div class="footer-history reveal">
     <h3><i class="fas fa-history"></i> Our Story — Since 2018</h3>
-    <p>Nobel Wear was founded by Abdullah in 2018 with a single vision: to bring premium, affordable fashion to every corner of Pakistan. What started as a small boutique in Lahore has grown into Pakistan's most trusted online fashion destination. Over the years, we have served thousands of satisfied customers across all provinces, delivering quality clothing, footwear, and accessories with exceptional service.</p>
+    <p>Nobel Wear was founded by Abdullah in 2018 with a single vision: to bring premium, affordable fashion to every corner of Pakistan. What started as a small boutique in Lahore has grown into Pakistan's most trusted online fashion destination.</p>
   </div>
   <div class="footer-grid">
     <div class="footer-brand reveal">
@@ -903,7 +884,7 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
             </div>
           </div>
         </div>
-        <div class="order-price-summary" id="order-price-summary">
+        <div class="order-price-summary">
           <div class="order-price-row"><span class="label"><i class="fas fa-tag"></i> Product Price</span><span id="opr-product-val">PKR 0</span></div>
           <div class="order-price-row" id="opr-stitch-row" style="display:none;"><span class="label"><i class="fas fa-cut"></i> Stitching Charges</span><span id="opr-stitch-val">PKR 1,500</span></div>
           <div class="order-price-row" id="opr-qty-row" style="display:none;"><span class="label"><i class="fas fa-layer-group"></i> Quantity</span><span id="opr-qty-val">× 1</span></div>
@@ -994,21 +975,15 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════
-     ADMIN PANEL — Fixed layout with mobile navigation
-     ═══════════════════════════════════════════════════════════ -->
+<!-- ADMIN PANEL -->
 <div id="admin-panel">
-
-  <!-- Top bar -->
   <div class="admin-topbar">
     <div class="admin-brand"><i class="fas fa-crown"></i> NOBEL WEAR — Admin</div>
     <div style="display:flex;align-items:center;gap:14px;">
-      <span style="color:rgba(198,167,94,.7);font-size:13px;display:flex;align-items:center;gap:6px;"><i class="fas fa-user-circle"></i> abdullah</span>
+      <span style="color:rgba(198,167,94,.7);font-size:13px;display:flex;align-items:center;gap:6px;"><i class="fas fa-cloud" style="color:var(--gold);"></i> Cloud Sync ON</span>
       <button class="admin-logout" onclick="adminLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
     </div>
   </div>
-
-  <!-- Mobile horizontal nav (visible ≤1024px) -->
   <div class="admin-mobile-nav" id="adminMobileNav">
     <div class="admin-mobile-nav-inner">
       <div class="admin-mob-tab active" onclick="showAdminTab('dashboard',this)"><i class="fas fa-tachometer-alt"></i> Dashboard</div>
@@ -1019,12 +994,8 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
       <div class="admin-mob-tab" onclick="showAdminTab('settings',this)"><i class="fas fa-cog"></i> Settings</div>
     </div>
   </div>
-
-  <!-- Body -->
   <div class="admin-body">
-
-    <!-- Desktop sidebar -->
-    <div class="admin-sidebar" id="adminDesktopSidebar">
+    <div class="admin-sidebar">
       <div class="admin-nav active" onclick="showAdminTab('dashboard')"><i class="fas fa-tachometer-alt"></i> Dashboard</div>
       <div class="admin-nav" onclick="showAdminTab('orders')"><i class="fas fa-clipboard-list"></i> All Orders</div>
       <div class="admin-nav" onclick="showAdminTab('products')"><i class="fas fa-box-open"></i> Products</div>
@@ -1032,8 +1003,6 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
       <div class="admin-nav" onclick="showAdminTab('reviews-admin')"><i class="fas fa-star"></i> Reviews</div>
       <div class="admin-nav" onclick="showAdminTab('settings')"><i class="fas fa-cog"></i> Settings</div>
     </div>
-
-    <!-- Main content -->
     <div class="admin-main">
 
       <!-- DASHBOARD -->
@@ -1069,7 +1038,7 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
         <div class="admin-card"><div style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Gender</th><th>Best Seller</th><th>Actions</th></tr></thead><tbody id="products-tb"></tbody></table></div></div>
       </div>
 
-      <!-- ADD / EDIT PRODUCT -->
+      <!-- ADD/EDIT PRODUCT -->
       <div class="admin-tab" id="tab-add-product">
         <h2 style="font-family:'Cormorant Garamond',serif;color:var(--forest);font-size:26px;margin-bottom:18px;display:flex;align-items:center;gap:8px;" id="add-p-heading"><i class="fas fa-plus-circle" style="color:var(--gold);"></i>Add Product</h2>
         <div class="admin-card">
@@ -1085,7 +1054,7 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
                 <label class="admin-label"><i class="fas fa-crown" style="color:var(--gold);margin-right:4px;"></i>Best Seller Status</label>
                 <div class="best-seller-toggle">
                   <input type="checkbox" id="p-bestseller">
-                  <label for="p-bestseller"><i class="fas fa-crown"></i> Mark as Best Seller — shows in homepage carousel for all customers</label>
+                  <label for="p-bestseller"><i class="fas fa-crown"></i> Mark as Best Seller — shows in homepage carousel on ALL devices instantly</label>
                 </div>
               </div>
               <div class="admin-form-group" style="grid-column:1/-1"><label class="admin-label">Description *</label><textarea class="admin-textarea" id="p-desc" rows="3" placeholder="Describe the product..." autocomplete="off" spellcheck="false"></textarea></div>
@@ -1101,7 +1070,7 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
             </div>
             <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;">
               <button class="admin-cancel-btn" onclick="cancelAddProduct()"><i class="fas fa-times"></i> Cancel</button>
-              <button class="admin-save-btn" onclick="saveProduct()"><i class="fas fa-save"></i> Save Product</button>
+              <button class="admin-save-btn" onclick="saveProduct()"><i class="fas fa-save"></i> Save & Sync to All Devices</button>
             </div>
           </div>
         </div>
@@ -1119,7 +1088,6 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
       <!-- SETTINGS -->
       <div class="admin-tab" id="tab-settings">
         <h2 style="font-family:'Cormorant Garamond',serif;color:var(--forest);font-size:26px;margin-bottom:18px;display:flex;align-items:center;gap:8px;"><i class="fas fa-cog" style="color:var(--gold);"></i>Settings</h2>
-
         <div class="settings-section">
           <div class="settings-title"><i class="fas fa-share-alt" style="color:var(--gold);"></i>Social Media Links</div>
           <div class="admin-grid-2">
@@ -1128,9 +1096,8 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
             <div class="admin-form-group"><label class="admin-label"><i class="fab fa-whatsapp"></i> WhatsApp Number</label><input class="admin-input" id="set-whatsapp" placeholder="923163475925" autocomplete="off"></div>
             <div class="admin-form-group"><label class="admin-label"><i class="fab fa-facebook"></i> Facebook URL</label><input class="admin-input" id="set-facebook" placeholder="https://facebook.com/nobelwear" autocomplete="off"></div>
           </div>
-          <button class="admin-save-btn" onclick="saveSettings()"><i class="fas fa-save"></i> Save Links</button>
+          <button class="admin-save-btn" onclick="saveSettings()"><i class="fas fa-save"></i> Save & Sync Links</button>
         </div>
-
         <div class="settings-section">
           <div class="settings-title"><i class="fas fa-lock" style="color:var(--gold);"></i>Change Admin Password</div>
           <div class="admin-grid-2">
@@ -1139,7 +1106,6 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
           </div>
           <button class="admin-save-btn" onclick="changeAdminPass()"><i class="fas fa-key"></i> Change Password</button>
         </div>
-
         <div class="settings-section">
           <div class="settings-title"><i class="fas fa-address-card" style="color:var(--gold);"></i>Contact Info</div>
           <div class="admin-form-group"><label class="admin-label">WhatsApp / Phone</label><input class="admin-input" value="+92 316 3475925" readonly></div>
@@ -1147,27 +1113,51 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
         </div>
       </div>
 
-    </div><!-- /admin-main -->
-  </div><!-- /admin-body -->
-</div><!-- /admin-panel -->
+    </div>
+  </div>
+</div>
 
 <script>
 // ══════════════════════════════════════════════════
-//  CONSTANTS & STATE
+//  SHARED CLOUD STORAGE — All data syncs across
+//  every device, phone, tablet, PC automatically.
+//  Uses window.storage with shared:true
 // ══════════════════════════════════════════════════
-const STITCH_PRICE = 1500;
-let adminPassword = localStorage.getItem('nw_adminpass') || 'nobel01';
 
-// ── Products: load from localStorage; seed defaults only if empty ──
-function loadProducts() {
-  const stored = localStorage.getItem('nw_products');
-  if (stored) {
-    try {
-      const parsed = JSON.parse(stored);
-      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-    } catch(e) {}
-  }
-  const defaults = [
+const STITCH_PRICE = 1500;
+let adminPassword = 'nobel01'; // loaded from shared storage on init
+
+// In-memory state
+let products = [];
+let orders   = [];
+let reviews  = [];
+let adminSettings = {insta:'#',tiktok:'#',facebook:'#',whatsapp:'923163475925'};
+let cart = [], wishlist = [];
+let currentProduct = null, currentDetailId = null;
+let pendingImages = [], editProductId = null;
+let orderCounter = 1000;
+let currentStitch = 'Stitched';
+let starCount = 0;
+let menCurrentTab = 'clothing', womenCurrentTab = 'clothing';
+let menCurrentFilter = '', womenCurrentFilter = '';
+let currentDetailImages = [];
+let lightboxIdx = 0;
+let carouselIdx = 0;
+
+// ── Sync bar helper ──
+function showSyncBar() {
+  const b = document.getElementById('sync-bar');
+  b.className = 'syncing';
+}
+function hideSyncBar() {
+  const b = document.getElementById('sync-bar');
+  b.className = 'done';
+  setTimeout(() => { b.className = ''; }, 600);
+}
+
+// ── Default product seed ──
+function getDefaultProducts() {
+  return [
     {id:1,title:'Premium Lawn Suit',gender:'women',category:'clothing',fabric:'Lawn',price:3500,qty:30,description:'Beautiful printed lawn unstitched suit with embroidered dupatta. Perfect for summer.',images:[],emoji:'👗',rating:4.8,ratingCount:24,bestSeller:true},
     {id:2,title:'Boski Shalwar Qameez',gender:'men',category:'clothing',fabric:'Boski',price:4200,qty:25,description:'Premium Boski fabric shalwar qameez. Lightweight and comfortable for all seasons.',images:[],emoji:'👔',rating:4.7,ratingCount:18,bestSeller:true},
     {id:3,title:'Khaddar Winter Suit',gender:'women',category:'clothing',fabric:'Khaddar',price:2800,qty:40,description:'Warm and cozy Khaddar suit perfect for winters. 3-piece unstitched with embroidery.',images:[],emoji:'🧥',rating:4.6,ratingCount:12,bestSeller:false},
@@ -1177,49 +1167,122 @@ function loadProducts() {
     {id:7,title:'Ladies Heels',gender:'women',category:'shoes',fabric:'',price:2400,qty:18,description:'Elegant block heels perfect for formal and casual wear.',images:[],emoji:'👠',rating:4.5,ratingCount:14,bestSeller:false},
     {id:8,title:'Classic Dress Watch',gender:'men',category:'watches',fabric:'',price:6500,qty:10,description:'Premium dress watch with genuine leather strap. Water resistant.',images:[],emoji:'⌚',rating:4.8,ratingCount:19,bestSeller:true},
   ];
-  localStorage.setItem('nw_products', JSON.stringify(defaults));
-  return defaults;
 }
 
-// Single source of truth: always sync from localStorage on operations that matter
-let products = loadProducts();
-let orders   = JSON.parse(localStorage.getItem('nw_orders')  || '[]');
-let reviews  = JSON.parse(localStorage.getItem('nw_reviews') || '[]');
-let cart = [], wishlist = [];
-let currentProduct = null, currentDetailId = null;
-let pendingImages = [], editProductId = null;
-let orderCounter = parseInt(localStorage.getItem('nw_oc') || '1000');
-let currentStitch = 'Stitched';
-let starCount = 0;
-let menCurrentTab = 'clothing', womenCurrentTab = 'clothing';
-let menCurrentFilter = '', womenCurrentFilter = '';
-let adminSettings = JSON.parse(localStorage.getItem('nw_settings') || '{"insta":"#","tiktok":"#","facebook":"#","whatsapp":"923163475925"}');
-let currentDetailImages = [];
-let lightboxIdx = 0;
-let carouselIdx = 0;
+// ══ SHARED STORAGE READ/WRITE ══
+// All keys use shared:true so every device sees the same data
 
-// ── Persist helpers ──
-function saveProducts() {
-  localStorage.setItem('nw_products', JSON.stringify(products));
+async function cloudGet(key) {
+  try {
+    const res = await window.storage.get(key, true);
+    if (res && res.value) return JSON.parse(res.value);
+  } catch(e) {}
+  return null;
 }
-function saveOrders()  { localStorage.setItem('nw_orders',   JSON.stringify(orders)); }
-function saveReviews() { localStorage.setItem('nw_reviews',  JSON.stringify(reviews)); }
-function saveOC()      { localStorage.setItem('nw_oc', String(orderCounter)); }
 
-// ── Reload helpers (keep in-memory array in sync) ──
-function reloadProducts() {
-  try { products = JSON.parse(localStorage.getItem('nw_products') || '[]'); } catch(e){}
+async function cloudSet(key, value) {
+  showSyncBar();
+  try {
+    await window.storage.set(key, JSON.stringify(value), true);
+  } catch(e) { console.error('Cloud save failed', e); }
+  hideSyncBar();
 }
-function reloadOrders()  { try { orders  = JSON.parse(localStorage.getItem('nw_orders')  || '[]'); } catch(e){} }
-function reloadReviews() { try { reviews = JSON.parse(localStorage.getItem('nw_reviews') || '[]'); } catch(e){} }
+
+// ── Save helpers ──
+async function saveProducts() {
+  await cloudSet('nw_products', products);
+}
+async function saveOrders() {
+  await cloudSet('nw_orders', orders);
+}
+async function saveReviews() {
+  await cloudSet('nw_reviews', reviews);
+}
+async function saveSettings_cloud() {
+  await cloudSet('nw_settings', adminSettings);
+}
+async function saveOC() {
+  await cloudSet('nw_oc', orderCounter);
+}
+async function saveAdminPass(p) {
+  await cloudSet('nw_adminpass', p);
+}
+
+// ── Reload helpers ──
+async function reloadProducts() {
+  const d = await cloudGet('nw_products');
+  if (d && Array.isArray(d) && d.length > 0) products = d;
+}
+async function reloadOrders() {
+  const d = await cloudGet('nw_orders');
+  if (d && Array.isArray(d)) orders = d;
+}
+async function reloadReviews() {
+  const d = await cloudGet('nw_reviews');
+  if (d && Array.isArray(d)) reviews = d;
+}
+
+// ── INIT: load all shared data, seed defaults if empty ──
+async function initApp() {
+  document.getElementById('loader-status').textContent = 'Syncing from cloud...';
+
+  // Load products
+  const storedProds = await cloudGet('nw_products');
+  if (storedProds && Array.isArray(storedProds) && storedProds.length > 0) {
+    products = storedProds;
+  } else {
+    products = getDefaultProducts();
+    await cloudSet('nw_products', products);
+  }
+
+  // Load orders
+  const storedOrders = await cloudGet('nw_orders');
+  orders = (storedOrders && Array.isArray(storedOrders)) ? storedOrders : [];
+
+  // Load reviews
+  const storedRevs = await cloudGet('nw_reviews');
+  reviews = (storedRevs && Array.isArray(storedRevs)) ? storedRevs : [];
+
+  // Load settings
+  const storedSettings = await cloudGet('nw_settings');
+  if (storedSettings) adminSettings = storedSettings;
+
+  // Load order counter
+  const storedOC = await cloudGet('nw_oc');
+  if (storedOC) orderCounter = parseInt(storedOC) || 1000;
+
+  // Load admin password
+  const storedPass = await cloudGet('nw_adminpass');
+  if (storedPass) adminPassword = storedPass;
+
+  document.getElementById('loader-status').textContent = 'Ready!';
+
+  // Hide loader and render
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+    renderHomeProducts();
+    renderCustomerReviews();
+    applySettings();
+    startAutoRefresh(); // poll for changes every 30s
+  }, 400);
+}
+
+// ── Auto-refresh: poll shared storage every 30 seconds so other devices
+//    see changes even without reloading the page ──
+function startAutoRefresh() {
+  setInterval(async () => {
+    const prev = JSON.stringify(products);
+    await reloadProducts();
+    await reloadReviews();
+    if (JSON.stringify(products) !== prev) {
+      renderHomeProducts();
+      renderCustomerReviews();
+    }
+  }, 30000);
+}
 
 // ══════════════════════════════════════════════════
-//  LOADER
-// ══════════════════════════════════════════════════
-setTimeout(() => { document.getElementById('loader').classList.add('hidden'); }, 2600);
-
-// ══════════════════════════════════════════════════
-//  HERO PARTICLES & SHAPES
+//  LOADER & ANIMATIONS
 // ══════════════════════════════════════════════════
 const particlesCont = document.getElementById('heroParticles');
 for (let i = 0; i < 28; i++) {
@@ -1234,7 +1297,6 @@ const shapesCont = document.getElementById('heroShapes');
   sh.style.cssText = `width:${s}px;height:${s}px;left:${pos[i][0]}%;top:${pos[i][1]}%;border-radius:${i%2===0?'50%':'8px'};animation-duration:${4+i*2}s;animation-delay:${-i}s;`;
   shapesCont.appendChild(sh);
 });
-
 window.addEventListener('scroll', () => {
   document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 80);
 });
@@ -1255,7 +1317,7 @@ function closePanels() {
 // ══════════════════════════════════════════════════
 function addToCart(product) {
   const ex = cart.find(c => c.id === product.id);
-  if (ex) { ex.qty++; } else { cart.push({...product, qty:1}); }
+  if (ex) ex.qty++; else cart.push({...product, qty:1});
   updateCartBadge(); showToast('Added to cart!');
 }
 function removeFromCart(id) { cart = cart.filter(c => c.id !== id); updateCartBadge(); renderCart(); }
@@ -1278,10 +1340,10 @@ function renderCart() {
 // ══════════════════════════════════════════════════
 function toggleWish(id) {
   const idx = wishlist.findIndex(x => x.id === id);
-  const p   = products.find(x => x.id === id);
+  const p = products.find(x => x.id === id);
   const btn = document.getElementById(`wb-${id}`);
-  if (idx === -1) { wishlist.push(p); if (btn) btn.classList.add('active'); showToast('Added to wishlist ❤️'); }
-  else            { wishlist.splice(idx,1); if (btn) btn.classList.remove('active'); showToast('Removed from wishlist'); }
+  if (idx === -1) { wishlist.push(p); if(btn) btn.classList.add('active'); showToast('Added to wishlist ❤️'); }
+  else { wishlist.splice(idx,1); if(btn) btn.classList.remove('active'); showToast('Removed from wishlist'); }
   const wb = document.getElementById('wishBadge'); wb.textContent = wishlist.length; wb.style.display = wishlist.length > 0 ? 'flex' : 'none';
   renderWish();
 }
@@ -1304,40 +1366,32 @@ function renderWish() {
 // ══════════════════════════════════════════════════
 function starsHTML(r) {
   let s = '';
-  for (let i = 1; i <= 5; i++) {
-    if (i <= Math.floor(r)) s += '<i class="fas fa-star"></i>';
-    else if (i-r < 1)       s += '<i class="fas fa-star-half-alt"></i>';
-    else                    s += '<i class="far fa-star"></i>';
+  for (let i=1;i<=5;i++) {
+    if (i<=Math.floor(r)) s+='<i class="fas fa-star"></i>';
+    else if (i-r<1) s+='<i class="fas fa-star-half-alt"></i>';
+    else s+='<i class="far fa-star"></i>';
   }
   return s;
 }
-function catLabel(c) { return {clothing:'Clothing',shoes:'Footwear',watches:'Watches',accessories:'Accessories'}[c] || c; }
+function catLabel(c) { return {clothing:'Clothing',shoes:'Footwear',watches:'Watches',accessories:'Accessories'}[c]||c; }
 
 // ══════════════════════════════════════════════════
 //  BUILD PRODUCT CARD
 // ══════════════════════════════════════════════════
 function buildCard(p) {
-  const soldOut  = p.qty <= 0;
-  const inWish   = wishlist.some(x => x.id === p.id);
-  const imgHtml  = p.images && p.images[0]
+  const soldOut = p.qty <= 0;
+  const inWish  = wishlist.some(x => x.id === p.id);
+  const imgHtml = p.images && p.images[0]
     ? `<img src="${p.images[0]}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;object-position:top center;">`
     : `<div class="product-img-emoji">${p.emoji||'📦'}</div>`;
-
-  // Ribbons — only one at a time; sold-out takes priority
   let ribbon = '';
-  if (soldOut) {
-    ribbon = '<div class="sold-out-ribbon">SOLD OUT</div>';
-  } else if (p.bestSeller) {
-    ribbon = '<div class="best-seller-ribbon"><i class="fas fa-crown"></i> Best Seller</div>';
-  }
-
+  if (soldOut) ribbon = '<div class="sold-out-ribbon">SOLD OUT</div>';
+  else if (p.bestSeller) ribbon = '<div class="best-seller-ribbon"><i class="fas fa-crown"></i> Best Seller</div>';
   return `<div class="product-card" onclick="openDetail(${p.id})">
     ${ribbon}
     <div class="product-img-wrap">
       <div class="product-img">${imgHtml}</div>
-      <button class="wishlist-btn-card ${inWish?'active':''}" id="wb-${p.id}" onclick="event.stopPropagation();toggleWish(${p.id})" title="${inWish?'Remove from wishlist':'Add to wishlist'}">
-        <i class="fas fa-heart"></i>
-      </button>
+      <button class="wishlist-btn-card ${inWish?'active':''}" id="wb-${p.id}" onclick="event.stopPropagation();toggleWish(${p.id})"><i class="fas fa-heart"></i></button>
     </div>
     <div class="product-info">
       <div class="product-cat-label">${catLabel(p.category)}${p.fabric?' · '+p.fabric:''}</div>
@@ -1348,9 +1402,7 @@ function buildCard(p) {
         <button class="btn-sm btn-sm-primary" onclick="openOrderModal(${p.id})" ${soldOut?'disabled':''}>
           <i class="fas fa-${soldOut?'ban':'shopping-bag'}"></i> ${soldOut?'Sold Out':'Order Now'}
         </button>
-        <button class="btn-sm btn-sm-outline" onclick="openReviewModal(${p.id})">
-          <i class="fas fa-star"></i> Review
-        </button>
+        <button class="btn-sm btn-sm-outline" onclick="openReviewModal(${p.id})"><i class="fas fa-star"></i> Review</button>
       </div>
     </div>
   </div>`;
@@ -1359,47 +1411,56 @@ function buildCard(p) {
 // ══════════════════════════════════════════════════
 //  CATEGORY PAGES
 // ══════════════════════════════════════════════════
-function openMenPage()   { reloadProducts(); document.getElementById('men-page').classList.add('open');   document.body.style.overflow = 'hidden'; renderMenGrid(); }
-function openWomenPage() { reloadProducts(); document.getElementById('women-page').classList.add('open'); document.body.style.overflow = 'hidden'; renderWomenGrid(); }
+async function openMenPage() {
+  await reloadProducts();
+  document.getElementById('men-page').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderMenGrid();
+}
+async function openWomenPage() {
+  await reloadProducts();
+  document.getElementById('women-page').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderWomenGrid();
+}
 function closeCatPage(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow = ''; }
 
 function renderMenGrid() {
-  let f = products.filter(p => p.gender==='men' || p.gender==='both');
-  if (menCurrentTab)    f = f.filter(p => p.category === menCurrentTab);
-  if (menCurrentFilter) f = f.filter(p => p.fabric && p.fabric.toLowerCase().includes(menCurrentFilter.toLowerCase()));
+  let f = products.filter(p => p.gender==='men'||p.gender==='both');
+  if (menCurrentTab)    f = f.filter(p => p.category===menCurrentTab);
+  if (menCurrentFilter) f = f.filter(p => p.fabric&&p.fabric.toLowerCase().includes(menCurrentFilter.toLowerCase()));
   document.getElementById('men-grid').innerHTML = f.length
-    ? f.map(p => buildCard(p)).join('')
+    ? f.map(p=>buildCard(p)).join('')
     : '<p style="color:var(--gray);padding:20px;grid-column:1/-1;">No products found.</p>';
 }
 function renderWomenGrid() {
-  let f = products.filter(p => p.gender==='women' || p.gender==='both');
-  if (womenCurrentTab)    f = f.filter(p => p.category === womenCurrentTab);
-  if (womenCurrentFilter) f = f.filter(p => p.fabric && p.fabric.toLowerCase().includes(womenCurrentFilter.toLowerCase()));
+  let f = products.filter(p => p.gender==='women'||p.gender==='both');
+  if (womenCurrentTab)    f = f.filter(p => p.category===womenCurrentTab);
+  if (womenCurrentFilter) f = f.filter(p => p.fabric&&p.fabric.toLowerCase().includes(womenCurrentFilter.toLowerCase()));
   document.getElementById('women-grid').innerHTML = f.length
-    ? f.map(p => buildCard(p)).join('')
+    ? f.map(p=>buildCard(p)).join('')
     : '<p style="color:var(--gray);padding:20px;grid-column:1/-1;">No products found.</p>';
 }
-
-function switchMenTab(tab, el) {
-  menCurrentTab = tab; menCurrentFilter = '';
-  el.closest('.cat-sub-tabs').querySelectorAll('.cat-sub-tab').forEach(b => b.classList.remove('active')); el.classList.add('active');
-  document.getElementById('men-sidebar').style.display = tab === 'clothing' ? 'block' : 'none';
+function switchMenTab(tab,el) {
+  menCurrentTab=tab; menCurrentFilter='';
+  el.closest('.cat-sub-tabs').querySelectorAll('.cat-sub-tab').forEach(b=>b.classList.remove('active')); el.classList.add('active');
+  document.getElementById('men-sidebar').style.display = tab==='clothing'?'block':'none';
   renderMenGrid();
 }
-function switchWomenTab(tab, el) {
-  womenCurrentTab = tab; womenCurrentFilter = '';
-  el.closest('.cat-sub-tabs').querySelectorAll('.cat-sub-tab').forEach(b => b.classList.remove('active')); el.classList.add('active');
-  document.getElementById('women-sidebar').style.display = tab === 'clothing' ? 'block' : 'none';
+function switchWomenTab(tab,el) {
+  womenCurrentTab=tab; womenCurrentFilter='';
+  el.closest('.cat-sub-tabs').querySelectorAll('.cat-sub-tab').forEach(b=>b.classList.remove('active')); el.classList.add('active');
+  document.getElementById('women-sidebar').style.display = tab==='clothing'?'block':'none';
   renderWomenGrid();
 }
-function filterMen(fabric, el) {
-  menCurrentFilter = fabric;
-  el.closest('div').querySelectorAll('.cat-filter-btn').forEach(b => b.classList.remove('active')); el.classList.add('active');
+function filterMen(fabric,el) {
+  menCurrentFilter=fabric;
+  el.closest('div').querySelectorAll('.cat-filter-btn').forEach(b=>b.classList.remove('active')); el.classList.add('active');
   renderMenGrid();
 }
-function filterWomen(fabric, el) {
-  womenCurrentFilter = fabric;
-  el.closest('div').querySelectorAll('.cat-filter-btn').forEach(b => b.classList.remove('active')); el.classList.add('active');
+function filterWomen(fabric,el) {
+  womenCurrentFilter=fabric;
+  el.closest('div').querySelectorAll('.cat-filter-btn').forEach(b=>b.classList.remove('active')); el.classList.add('active');
   renderWomenGrid();
 }
 
@@ -1408,282 +1469,246 @@ function filterWomen(fabric, el) {
 // ══════════════════════════════════════════════════
 function getCardsPerView() {
   const w = window.innerWidth;
-  if (w <= 480)  return 1;
-  if (w <= 768)  return 2;
-  if (w <= 1024) return 3;
+  if (w<=480) return 1;
+  if (w<=768) return 2;
+  if (w<=1024) return 3;
   return 4;
 }
-
 function renderHomeProducts() {
-  reloadProducts(); // always fresh from localStorage
-  const bestSellers = products.filter(p => p.bestSeller === true);
+  const bestSellers = products.filter(p => p.bestSeller===true);
   const track = document.getElementById('homeProductsTrack');
   if (!bestSellers.length) {
     track.innerHTML = '<div class="no-bs-msg"><i class="fas fa-crown" style="color:var(--gold);margin-right:8px;"></i>No best sellers yet. Mark products as Best Seller in admin panel.</div>';
-    carouselIdx = 0; updateArrows(0, 0); return;
+    carouselIdx=0; updateArrows(0,0); return;
   }
-  track.innerHTML = bestSellers.map(p => buildCard(p)).join('');
-  carouselIdx = 0;
-  setCardWidths();
-  updateCarouselPosition();
+  track.innerHTML = bestSellers.map(p=>buildCard(p)).join('');
+  carouselIdx=0; setCardWidths(); updateCarouselPosition();
 }
-
 function setCardWidths() {
-  const track   = document.getElementById('homeProductsTrack');
-  const outer   = document.querySelector('.products-scroll-outer');
-  const perView = getCardsPerView();
-  const gap     = 20;
-  const outerW  = outer.offsetWidth;
-  const cardW   = Math.floor((outerW - gap*(perView-1)) / perView);
-  track.querySelectorAll('.product-card').forEach(c => {
-    c.style.flex     = `0 0 ${cardW}px`;
-    c.style.minWidth = `${cardW}px`;
-    c.style.maxWidth = `${cardW}px`;
-  });
+  const track=document.getElementById('homeProductsTrack');
+  const outer=document.querySelector('.products-scroll-outer');
+  const perView=getCardsPerView(), gap=20;
+  const cardW=Math.floor((outer.offsetWidth-gap*(perView-1))/perView);
+  track.querySelectorAll('.product-card').forEach(c=>{c.style.flex=`0 0 ${cardW}px`;c.style.minWidth=`${cardW}px`;c.style.maxWidth=`${cardW}px`;});
 }
-
 function updateCarouselPosition() {
-  const bestSellers = products.filter(p => p.bestSeller === true);
-  const track   = document.getElementById('homeProductsTrack');
-  const total   = bestSellers.length;
-  const perView = getCardsPerView();
-  const maxIdx  = Math.max(0, total - perView);
-  carouselIdx   = Math.max(0, Math.min(carouselIdx, maxIdx));
-  const cards   = track.querySelectorAll('.product-card');
-  if (!cards.length) { updateArrows(0, 0); return; }
-  const gap  = 20;
-  const cardW = cards[0].offsetWidth;
-  track.style.transform = `translateX(-${carouselIdx*(cardW+gap)}px)`;
-  updateArrows(carouselIdx, maxIdx);
+  const bs=products.filter(p=>p.bestSeller===true);
+  const track=document.getElementById('homeProductsTrack');
+  const perView=getCardsPerView(), maxIdx=Math.max(0,bs.length-perView);
+  carouselIdx=Math.max(0,Math.min(carouselIdx,maxIdx));
+  const cards=track.querySelectorAll('.product-card');
+  if (!cards.length){updateArrows(0,0);return;}
+  const cardW=cards[0].offsetWidth;
+  track.style.transform=`translateX(-${carouselIdx*(cardW+20)}px)`;
+  updateArrows(carouselIdx,maxIdx);
 }
-
-function updateArrows(idx, maxIdx) {
-  const L = document.getElementById('arrowLeft'), R = document.getElementById('arrowRight');
-  if (L) L.style.opacity = idx <= 0     ? '0.3' : '1';
-  if (R) R.style.opacity = idx >= maxIdx ? '0.3' : '1';
+function updateArrows(idx,maxIdx) {
+  const L=document.getElementById('arrowLeft'),R=document.getElementById('arrowRight');
+  if(L) L.style.opacity=idx<=0?'0.3':'1';
+  if(R) R.style.opacity=idx>=maxIdx?'0.3':'1';
 }
-
 function scrollTrack(dir) {
-  const bestSellers = products.filter(p => p.bestSeller === true);
-  const perView = getCardsPerView();
-  const maxIdx  = Math.max(0, bestSellers.length - perView);
-  carouselIdx   = Math.max(0, Math.min(carouselIdx + dir, maxIdx));
+  const bs=products.filter(p=>p.bestSeller===true);
+  const perView=getCardsPerView(), maxIdx=Math.max(0,bs.length-perView);
+  carouselIdx=Math.max(0,Math.min(carouselIdx+dir,maxIdx));
   updateCarouselPosition();
 }
-
 let resizeTimer;
-window.addEventListener('resize', () => {
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(() => { setCardWidths(); updateCarouselPosition(); }, 100);
-});
+window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{setCardWidths();updateCarouselPosition();},100);});
 
 // ══════════════════════════════════════════════════
 //  PRODUCT DETAIL
 // ══════════════════════════════════════════════════
 function openDetail(id) {
-  reloadProducts();
-  const p = products.find(x => x.id === id); if (!p) return;
-  currentDetailId = id;
-  currentDetailImages = p.images && p.images.length ? [...p.images] : [];
-  document.getElementById('detail-header-name').textContent = p.title;
-  document.getElementById('detail-cat').textContent   = catLabel(p.category) + (p.fabric ? ' · '+p.fabric : '');
-  document.getElementById('detail-title').textContent  = p.title;
-  document.getElementById('detail-price').innerHTML   = `PKR ${p.price.toLocaleString()} <small>incl. tax</small>`;
-  document.getElementById('detail-rating').innerHTML  = `<span class="stars-gold" style="font-size:13px;">${starsHTML(p.rating||5)}</span><span class="review-ct">(${p.ratingCount||0} reviews)</span>`;
-  document.getElementById('detail-desc').textContent  = p.description || '';
-  const wrap = document.getElementById('detail-main-img-wrap');
-  if (currentDetailImages.length) {
-    wrap.innerHTML = `<img src="${currentDetailImages[0]}" style="width:100%;height:100%;object-fit:cover;object-position:top center;" alt="${p.title}">`;
-  } else {
-    wrap.innerHTML = `<span style="font-size:110px">${p.emoji||'📦'}</span>`;
-  }
-  lightboxIdx = 0;
-  const thumbsEl = document.getElementById('detail-thumbs');
-  if (currentDetailImages.length) {
-    thumbsEl.innerHTML = currentDetailImages.map((src,i) => `
-      <div class="detail-thumb ${i===0?'active':''}" onclick="switchDetailImg(this,'${src}',${i})">
-        <img src="${src}" alt="img${i+1}">
-      </div>`).join('');
-  } else {
-    thumbsEl.innerHTML = '';
-  }
-  const soldOut = p.qty <= 0;
-  const btn = document.getElementById('detail-order-btn');
-  btn.disabled = soldOut;
-  btn.innerHTML = soldOut ? '<i class="fas fa-ban"></i> Sold Out' : '<i class="fas fa-shopping-bag"></i> Order Now';
+  const p=products.find(x=>x.id===id); if(!p) return;
+  currentDetailId=id;
+  currentDetailImages=p.images&&p.images.length?[...p.images]:[];
+  document.getElementById('detail-header-name').textContent=p.title;
+  document.getElementById('detail-cat').textContent=catLabel(p.category)+(p.fabric?' · '+p.fabric:'');
+  document.getElementById('detail-title').textContent=p.title;
+  document.getElementById('detail-price').innerHTML=`PKR ${p.price.toLocaleString()} <small>incl. tax</small>`;
+  document.getElementById('detail-rating').innerHTML=`<span class="stars-gold" style="font-size:13px;">${starsHTML(p.rating||5)}</span><span class="review-ct">(${p.ratingCount||0} reviews)</span>`;
+  document.getElementById('detail-desc').textContent=p.description||'';
+  const wrap=document.getElementById('detail-main-img-wrap');
+  wrap.innerHTML=currentDetailImages.length
+    ?`<img src="${currentDetailImages[0]}" style="width:100%;height:100%;object-fit:cover;object-position:top center;" alt="${p.title}">`
+    :`<span style="font-size:110px">${p.emoji||'📦'}</span>`;
+  lightboxIdx=0;
+  const thumbsEl=document.getElementById('detail-thumbs');
+  thumbsEl.innerHTML=currentDetailImages.map((src,i)=>`<div class="detail-thumb ${i===0?'active':''}" onclick="switchDetailImg(this,'${src}',${i})"><img src="${src}" alt="img${i+1}"></div>`).join('');
+  const soldOut=p.qty<=0;
+  const btn=document.getElementById('detail-order-btn');
+  btn.disabled=soldOut;
+  btn.innerHTML=soldOut?'<i class="fas fa-ban"></i> Sold Out':'<i class="fas fa-shopping-bag"></i> Order Now';
   document.getElementById('product-detail').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  document.getElementById('product-detail').scrollTop = 0;
+  document.body.style.overflow='hidden';
+  document.getElementById('product-detail').scrollTop=0;
 }
-function switchDetailImg(el, src, idx) {
-  lightboxIdx = idx || 0;
-  document.getElementById('detail-main-img-wrap').innerHTML = `<img src="${src}" style="width:100%;height:100%;object-fit:cover;object-position:top center;" alt="product">`;
-  document.querySelectorAll('.detail-thumb').forEach(t => t.classList.remove('active')); el.classList.add('active');
+function switchDetailImg(el,src,idx) {
+  lightboxIdx=idx||0;
+  document.getElementById('detail-main-img-wrap').innerHTML=`<img src="${src}" style="width:100%;height:100%;object-fit:cover;object-position:top center;" alt="product">`;
+  document.querySelectorAll('.detail-thumb').forEach(t=>t.classList.remove('active')); el.classList.add('active');
 }
-function closeDetail()            { document.getElementById('product-detail').classList.remove('open'); document.body.style.overflow = ''; }
-function openOrderFromDetail()    { if (currentDetailId) openOrderModal(currentDetailId); }
-function openReviewFromDetail()   { if (currentDetailId) openReviewModal(currentDetailId); }
+function closeDetail(){document.getElementById('product-detail').classList.remove('open');document.body.style.overflow='';}
+function openOrderFromDetail(){if(currentDetailId) openOrderModal(currentDetailId);}
+function openReviewFromDetail(){if(currentDetailId) openReviewModal(currentDetailId);}
 
 // ══════════════════════════════════════════════════
 //  LIGHTBOX
 // ══════════════════════════════════════════════════
-function openLightbox()  { if (!currentDetailImages.length) return; document.getElementById('lightbox').classList.add('open'); renderLightbox(lightboxIdx); }
-function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
-function renderLightbox(idx) {
-  lightboxIdx = Math.max(0, Math.min(idx, currentDetailImages.length-1));
-  const img = document.getElementById('lightbox-img');
-  img.style.opacity = '0';
-  setTimeout(() => { img.src = currentDetailImages[lightboxIdx]; img.style.opacity = '1'; }, 80);
-  document.getElementById('lightbox-counter').textContent = `${lightboxIdx+1} / ${currentDetailImages.length}`;
-  document.getElementById('lightbox-thumbs').innerHTML = currentDetailImages.map((src,i) =>
-    `<img class="lb-thumb ${i===lightboxIdx?'active':''}" src="${src}" onclick="renderLightbox(${i})" alt="img${i}">`
-  ).join('');
+function openLightbox(){if(!currentDetailImages.length) return; document.getElementById('lightbox').classList.add('open'); renderLightbox(lightboxIdx);}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('open');}
+function renderLightbox(idx){
+  lightboxIdx=Math.max(0,Math.min(idx,currentDetailImages.length-1));
+  const img=document.getElementById('lightbox-img'); img.style.opacity='0';
+  setTimeout(()=>{img.src=currentDetailImages[lightboxIdx];img.style.opacity='1';},80);
+  document.getElementById('lightbox-counter').textContent=`${lightboxIdx+1} / ${currentDetailImages.length}`;
+  document.getElementById('lightbox-thumbs').innerHTML=currentDetailImages.map((src,i)=>`<img class="lb-thumb ${i===lightboxIdx?'active':''}" src="${src}" onclick="renderLightbox(${i})" alt="img${i}">`).join('');
 }
-function lbNav(dir) { renderLightbox(lightboxIdx+dir); }
-document.getElementById('lightbox').addEventListener('click', e => { if (e.target === document.getElementById('lightbox')) closeLightbox(); });
-document.addEventListener('keydown', e => {
-  if (!document.getElementById('lightbox').classList.contains('open')) return;
-  if (e.key==='ArrowRight') lbNav(1);
-  if (e.key==='ArrowLeft')  lbNav(-1);
-  if (e.key==='Escape')     closeLightbox();
+function lbNav(dir){renderLightbox(lightboxIdx+dir);}
+document.getElementById('lightbox').addEventListener('click',e=>{if(e.target===document.getElementById('lightbox')) closeLightbox();});
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('lightbox').classList.contains('open')) return;
+  if(e.key==='ArrowRight') lbNav(1);
+  if(e.key==='ArrowLeft') lbNav(-1);
+  if(e.key==='Escape') closeLightbox();
 });
 
 // ══════════════════════════════════════════════════
 //  ORDER MODAL
 // ══════════════════════════════════════════════════
 function updatePriceSummary() {
-  if (!currentProduct) return;
-  const qty       = parseInt(document.getElementById('o-qty').value) || 1;
-  const isClothing = currentProduct.category === 'clothing';
-  const stitched  = isClothing && currentStitch === 'Stitched';
-  const total     = (currentProduct.price + (stitched ? STITCH_PRICE : 0)) * qty;
-  document.getElementById('opr-product-val').textContent   = `PKR ${currentProduct.price.toLocaleString()}`;
-  document.getElementById('opr-stitch-row').style.display  = stitched ? 'flex' : 'none';
-  document.getElementById('opr-qty-row').style.display     = qty > 1  ? 'flex' : 'none';
-  document.getElementById('opr-qty-val').textContent       = `× ${qty}`;
-  document.getElementById('opr-total-val').textContent     = `PKR ${total.toLocaleString()}`;
+  if(!currentProduct) return;
+  const qty=parseInt(document.getElementById('o-qty').value)||1;
+  const isClothing=currentProduct.category==='clothing';
+  const stitched=isClothing&&currentStitch==='Stitched';
+  const total=(currentProduct.price+(stitched?STITCH_PRICE:0))*qty;
+  document.getElementById('opr-product-val').textContent=`PKR ${currentProduct.price.toLocaleString()}`;
+  document.getElementById('opr-stitch-row').style.display=stitched?'flex':'none';
+  document.getElementById('opr-qty-row').style.display=qty>1?'flex':'none';
+  document.getElementById('opr-qty-val').textContent=`× ${qty}`;
+  document.getElementById('opr-total-val').textContent=`PKR ${total.toLocaleString()}`;
 }
-
 function openOrderModal(id) {
-  reloadProducts();
-  const p = products.find(x => x.id === id); if (!p) return;
-  if (p.qty <= 0) { showToast('Sorry, this product is sold out!'); return; }
-  currentProduct = p; currentStitch = 'Stitched';
-  document.getElementById('order-product-preview').innerHTML = `
+  const p=products.find(x=>x.id===id); if(!p) return;
+  if(p.qty<=0){showToast('Sorry, this product is sold out!');return;}
+  currentProduct=p; currentStitch='Stitched';
+  document.getElementById('order-product-preview').innerHTML=`
     <div style="width:64px;height:64px;min-width:64px;background:var(--gold-pale);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:32px;">${p.images&&p.images[0]?`<img src="${p.images[0]}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;" alt="">`:p.emoji||'📦'}</div>
     <div><div style="font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--forest);font-weight:700;">${p.title}</div><div style="color:var(--gray);font-size:13px;margin-top:2px;">${catLabel(p.category)}${p.fabric?' · '+p.fabric:''}</div></div>`;
-  const sg = document.getElementById('stitch-group');
-  if (p.category === 'clothing') {
-    sg.style.display = 'block';
-    document.querySelectorAll('.stitch-tab').forEach(t => t.classList.remove('active'));
+  const sg=document.getElementById('stitch-group');
+  if(p.category==='clothing'){
+    sg.style.display='block';
+    document.querySelectorAll('.stitch-tab').forEach(t=>t.classList.remove('active'));
     document.querySelectorAll('.stitch-tab')[1].classList.add('active');
     document.getElementById('measurement-box').classList.add('show');
-  } else { sg.style.display = 'none'; currentStitch = 'N/A'; }
-  document.getElementById('order-form-wrap').style.display = 'block';
-  document.getElementById('order-success').style.display   = 'none';
-  ['o-name','o-phone','o-address','o-city','o-notes'].forEach(id => { document.getElementById(id).value = ''; });
-  document.getElementById('o-qty').value     = '1';
-  document.getElementById('o-payment').value = '';
-  document.getElementById('m-photo-preview').style.display = 'none';
-  ['m-chest','m-length','m-shoulders','m-sleeves'].forEach(id => { document.getElementById(id).value = ''; });
+  } else { sg.style.display='none'; currentStitch='N/A'; }
+  document.getElementById('order-form-wrap').style.display='block';
+  document.getElementById('order-success').style.display='none';
+  ['o-name','o-phone','o-address','o-city','o-notes'].forEach(id=>{document.getElementById(id).value='';});
+  document.getElementById('o-qty').value='1';
+  document.getElementById('o-payment').value='';
+  document.getElementById('m-photo-preview').style.display='none';
+  ['m-chest','m-length','m-shoulders','m-sleeves'].forEach(id=>{document.getElementById(id).value='';});
   updatePriceSummary();
   openModal('orderModal');
 }
-function selectStitch(el, val) {
-  currentStitch = val;
-  el.closest('.stitch-tabs').querySelectorAll('.stitch-tab').forEach(t => t.classList.remove('active')); el.classList.add('active');
-  document.getElementById('measurement-box').classList.toggle('show', val === 'Stitched');
+function selectStitch(el,val) {
+  currentStitch=val;
+  el.closest('.stitch-tabs').querySelectorAll('.stitch-tab').forEach(t=>t.classList.remove('active')); el.classList.add('active');
+  document.getElementById('measurement-box').classList.toggle('show',val==='Stitched');
   updatePriceSummary();
 }
 function previewMeasurement(inp) {
-  if (inp.files && inp.files[0]) {
-    const r = new FileReader();
-    r.onload = e => { const img = document.getElementById('m-photo-preview'); img.src = e.target.result; img.style.display = 'block'; };
+  if(inp.files&&inp.files[0]){
+    const r=new FileReader();
+    r.onload=e=>{const img=document.getElementById('m-photo-preview');img.src=e.target.result;img.style.display='block';};
     r.readAsDataURL(inp.files[0]);
   }
 }
-function submitOrder(e) {
+async function submitOrder(e) {
   e.preventDefault();
-  if (!currentProduct) return;
-  const name    = document.getElementById('o-name').value.trim();
-  const phone   = document.getElementById('o-phone').value.trim();
-  const address = document.getElementById('o-address').value.trim();
-  const city    = document.getElementById('o-city').value.trim();
-  const qty     = parseInt(document.getElementById('o-qty').value) || 1;
-  const payment = document.getElementById('o-payment').value;
-  const notes   = document.getElementById('o-notes').value.trim();
-  if (!name||!phone||!address||!city||!payment) { showToast('Please fill all required fields'); return; }
-  if (qty > currentProduct.qty) { showToast(`Only ${currentProduct.qty} in stock`); return; }
-  orderCounter++; saveOC();
-  const isClothing  = currentProduct.category === 'clothing';
-  const stitched    = isClothing && currentStitch === 'Stitched';
-  const stitchFee   = stitched ? STITCH_PRICE : 0;
-  const total       = (currentProduct.price + stitchFee) * qty;
-  let measurementPhoto = null;
-  const mPhotoEl = document.getElementById('m-photo-preview');
-  if (mPhotoEl.style.display !== 'none' && mPhotoEl.src) measurementPhoto = mPhotoEl.src;
-  const measurement = (isClothing && currentStitch === 'Stitched') ? {
-    chest:     document.getElementById('m-chest').value,
-    length:    document.getElementById('m-length').value,
-    shoulders: document.getElementById('m-shoulders').value,
-    sleeves:   document.getElementById('m-sleeves').value,
-    photo:     measurementPhoto
-  } : null;
-  const order = {id:orderCounter, date:new Date().toLocaleString('en-PK'), product:currentProduct.title, productId:currentProduct.id, productEmoji:currentProduct.emoji||'📦', unitPrice:currentProduct.price, stitchFee, qty, total, customer:{name,phone,address,city}, payment, notes, stitch:isClothing?currentStitch:'N/A', measurement, status:'new'};
-  orders.unshift(order); saveOrders();
+  if(!currentProduct) return;
+  const name=document.getElementById('o-name').value.trim();
+  const phone=document.getElementById('o-phone').value.trim();
+  const address=document.getElementById('o-address').value.trim();
+  const city=document.getElementById('o-city').value.trim();
+  const qty=parseInt(document.getElementById('o-qty').value)||1;
+  const payment=document.getElementById('o-payment').value;
+  const notes=document.getElementById('o-notes').value.trim();
+  if(!name||!phone||!address||!city||!payment){showToast('Please fill all required fields');return;}
+  if(qty>currentProduct.qty){showToast(`Only ${currentProduct.qty} in stock`);return;}
+
+  // Reload latest from cloud before modifying
+  await reloadProducts();
+  await reloadOrders();
+
+  orderCounter++; await saveOC();
+  const isClothing=currentProduct.category==='clothing';
+  const stitched=isClothing&&currentStitch==='Stitched';
+  const stitchFee=stitched?STITCH_PRICE:0;
+  const total=(currentProduct.price+stitchFee)*qty;
+  let measurementPhoto=null;
+  const mPhotoEl=document.getElementById('m-photo-preview');
+  if(mPhotoEl.style.display!=='none'&&mPhotoEl.src) measurementPhoto=mPhotoEl.src;
+  const measurement=(isClothing&&currentStitch==='Stitched')?{
+    chest:document.getElementById('m-chest').value,
+    length:document.getElementById('m-length').value,
+    shoulders:document.getElementById('m-shoulders').value,
+    sleeves:document.getElementById('m-sleeves').value,
+    photo:measurementPhoto
+  }:null;
+  const order={id:orderCounter,date:new Date().toLocaleString('en-PK'),product:currentProduct.title,productId:currentProduct.id,productEmoji:currentProduct.emoji||'📦',unitPrice:currentProduct.price,stitchFee,qty,total,customer:{name,phone,address,city},payment,notes,stitch:isClothing?currentStitch:'N/A',measurement,status:'new'};
+  orders.unshift(order);
+  await saveOrders();
+
   // Reduce stock
-  const idx = products.findIndex(x => x.id === currentProduct.id);
-  if (idx !== -1) { products[idx].qty = Math.max(0, products[idx].qty - qty); saveProducts(); }
+  const idx=products.findIndex(x=>x.id===currentProduct.id);
+  if(idx!==-1){products[idx].qty=Math.max(0,products[idx].qty-qty); await saveProducts();}
+
   renderHomeProducts();
-  document.getElementById('order-form-wrap').style.display = 'none';
-  document.getElementById('order-success').style.display   = 'block';
+  document.getElementById('order-form-wrap').style.display='none';
+  document.getElementById('order-success').style.display='block';
   showToast('Order placed successfully! ✅');
 }
 
 // ══════════════════════════════════════════════════
 //  REVIEWS
 // ══════════════════════════════════════════════════
-let currentReviewProductId = null;
-function openReviewModal(id) {
-  currentReviewProductId = id; starCount = 0; setStar(0);
-  document.getElementById('r-name').value = ''; document.getElementById('r-text').value = '';
-  openModal('reviewModal');
-}
-function setStar(n) {
-  starCount = n; document.getElementById('r-stars').value = n;
-  document.querySelectorAll('#star-input .star').forEach((s,i) => s.classList.toggle('on', i < n));
-}
-function submitReview(e) {
+let currentReviewProductId=null;
+function openReviewModal(id){currentReviewProductId=id;starCount=0;setStar(0);document.getElementById('r-name').value='';document.getElementById('r-text').value='';openModal('reviewModal');}
+function setStar(n){starCount=n;document.getElementById('r-stars').value=n;document.querySelectorAll('#star-input .star').forEach((s,i)=>s.classList.toggle('on',i<n));}
+async function submitReview(e) {
   e.preventDefault();
-  const name  = document.getElementById('r-name').value.trim();
-  const text  = document.getElementById('r-text').value.trim();
-  const stars = parseInt(document.getElementById('r-stars').value);
-  if (!stars) { showToast('Please select a rating'); return; }
-  reloadProducts();
-  const p = products.find(x => x.id === currentReviewProductId);
-  const review = {id:Date.now(), name, text, stars, product:p?p.title:'General', productId:currentReviewProductId, date:new Date().toLocaleDateString('en-PK')};
-  reloadReviews(); reviews.unshift(review); saveReviews();
-  if (currentReviewProductId) {
-    const pi = products.findIndex(x => x.id === currentReviewProductId);
-    if (pi !== -1) {
-      const prRevs = reviews.filter(r => r.productId === currentReviewProductId);
-      products[pi].rating      = parseFloat((prRevs.reduce((a,b) => a+b.stars, 0) / prRevs.length).toFixed(1));
-      products[pi].ratingCount = prRevs.length;
-      saveProducts();
+  const name=document.getElementById('r-name').value.trim();
+  const text=document.getElementById('r-text').value.trim();
+  const stars=parseInt(document.getElementById('r-stars').value);
+  if(!stars){showToast('Please select a rating');return;}
+  await reloadProducts(); await reloadReviews();
+  const p=products.find(x=>x.id===currentReviewProductId);
+  const review={id:Date.now(),name,text,stars,product:p?p.title:'General',productId:currentReviewProductId,date:new Date().toLocaleDateString('en-PK')};
+  reviews.unshift(review);
+  await saveReviews();
+  if(currentReviewProductId){
+    const pi=products.findIndex(x=>x.id===currentReviewProductId);
+    if(pi!==-1){
+      const prRevs=reviews.filter(r=>r.productId===currentReviewProductId);
+      products[pi].rating=parseFloat((prRevs.reduce((a,b)=>a+b.stars,0)/prRevs.length).toFixed(1));
+      products[pi].ratingCount=prRevs.length;
+      await saveProducts();
     }
   }
   renderCustomerReviews(); renderHomeProducts();
   showToast('Thank you for your review! ⭐'); closeModal('reviewModal');
 }
 function renderCustomerReviews() {
-  reloadReviews();
-  const grid = document.getElementById('customer-reviews-grid');
-  if (!reviews.length) { grid.innerHTML = ''; return; }
-  grid.innerHTML = reviews.map(r => `<div class="review-card reveal on">
+  const grid=document.getElementById('customer-reviews-grid');
+  if(!reviews.length){grid.innerHTML='';return;}
+  grid.innerHTML=reviews.map(r=>`<div class="review-card reveal on">
     <div class="review-head"><div class="reviewer-avatar">${r.name.substring(0,2).toUpperCase()}</div><div><div class="reviewer-name">${r.name}</div><div class="reviewer-date">${r.date}</div></div></div>
     <div class="stars-gold" style="margin-bottom:10px;">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
     <p class="review-text">"${r.text}"</p>
-    ${r.product ? `<div style="font-size:11px;color:var(--gold);margin-top:8px;letter-spacing:1px;text-transform:uppercase;">${r.product}</div>` : ''}
+    ${r.product?`<div style="font-size:11px;color:var(--gold);margin-top:8px;letter-spacing:1px;text-transform:uppercase;">${r.product}</div>`:''}
   </div>`).join('');
 }
 
@@ -1691,172 +1716,137 @@ function renderCustomerReviews() {
 //  LIVE SEARCH
 // ══════════════════════════════════════════════════
 function liveSearch(q) {
-  reloadProducts();
-  const track = document.getElementById('homeProductsTrack');
-  if (!q.trim()) { renderHomeProducts(); return; }
-  const f = products.filter(p =>
-    p.title.toLowerCase().includes(q.toLowerCase()) ||
-    (p.fabric||'').toLowerCase().includes(q.toLowerCase()) ||
-    p.category.toLowerCase().includes(q.toLowerCase())
-  );
-  track.style.transform = 'translateX(0)';
-  if (f.length) { track.innerHTML = f.map(p => buildCard(p)).join(''); setCardWidths(); }
-  else          { track.innerHTML = `<div class="no-bs-msg">No products found for "<strong>${q}</strong>"</div>`; }
+  const track=document.getElementById('homeProductsTrack');
+  if(!q.trim()){renderHomeProducts();return;}
+  const f=products.filter(p=>p.title.toLowerCase().includes(q.toLowerCase())||(p.fabric||'').toLowerCase().includes(q.toLowerCase())||p.category.toLowerCase().includes(q.toLowerCase()));
+  track.style.transform='translateX(0)';
+  if(f.length){track.innerHTML=f.map(p=>buildCard(p)).join('');setCardWidths();}
+  else track.innerHTML=`<div class="no-bs-msg">No products found for "<strong>${q}</strong>"</div>`;
   document.getElementById('products-home').scrollIntoView({behavior:'smooth'});
 }
 
 // ══════════════════════════════════════════════════
 //  MODALS
 // ══════════════════════════════════════════════════
-function openModal(id)  { document.getElementById(id).classList.add('open'); }
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-document.querySelectorAll('.modal-overlay').forEach(o => {
-  o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
-});
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.modal-overlay').forEach(o=>{o.addEventListener('click',e=>{if(e.target===o) o.classList.remove('open');});});
 
 // ══════════════════════════════════════════════════
 //  TOAST
 // ══════════════════════════════════════════════════
 function showToast(msg) {
-  const t = document.createElement('div');
-  t.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--forest);color:var(--gold);padding:11px 24px;border-radius:50px;font-size:13px;font-weight:500;z-index:99999;box-shadow:0 8px 24px rgba(0,0,0,.3);border:1px solid rgba(198,167,94,.2);white-space:nowrap;max-width:90vw;text-overflow:ellipsis;overflow:hidden;transition:opacity .3s;';
-  t.textContent = msg; document.body.appendChild(t);
-  setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 2600);
+  const t=document.createElement('div');
+  t.style.cssText='position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--forest);color:var(--gold);padding:11px 24px;border-radius:50px;font-size:13px;font-weight:500;z-index:99999;box-shadow:0 8px 24px rgba(0,0,0,.3);border:1px solid rgba(198,167,94,.2);white-space:nowrap;max-width:90vw;text-overflow:ellipsis;overflow:hidden;transition:opacity .3s;';
+  t.textContent=msg; document.body.appendChild(t);
+  setTimeout(()=>{t.style.opacity='0';setTimeout(()=>t.remove(),300);},2600);
 }
 
 // ══════════════════════════════════════════════════
-//  ADMIN — AUTH
+//  ADMIN AUTH
 // ══════════════════════════════════════════════════
 function openAdminLogin() {
   openModal('adminLoginModal');
-  document.getElementById('admin-u').value = '';
-  document.getElementById('admin-p').value = '';
-  document.getElementById('admin-err').style.display = 'none';
+  document.getElementById('admin-u').value='';
+  document.getElementById('admin-p').value='';
+  document.getElementById('admin-err').style.display='none';
 }
 function adminLogin() {
-  const u = document.getElementById('admin-u').value.trim();
-  const p = document.getElementById('admin-p').value;
-  if (u === 'abdullah' && p === adminPassword) {
+  const u=document.getElementById('admin-u').value.trim();
+  const p=document.getElementById('admin-p').value;
+  if(u==='abdullah'&&p===adminPassword){
     closeModal('adminLoginModal');
-    const panel = document.getElementById('admin-panel');
-    panel.classList.add('open');
-    document.body.style.overflow = 'hidden';
+    document.getElementById('admin-panel').classList.add('open');
+    document.body.style.overflow='hidden';
     showAdminTab('dashboard');
   } else {
-    document.getElementById('admin-err').style.display = 'block';
-    document.getElementById('admin-p').value = '';
+    document.getElementById('admin-err').style.display='block';
+    document.getElementById('admin-p').value='';
   }
 }
-function adminLogout() {
-  document.getElementById('admin-panel').classList.remove('open');
-  document.body.style.overflow = '';
+function adminLogout(){document.getElementById('admin-panel').classList.remove('open');document.body.style.overflow='';}
+
+// ══════════════════════════════════════════════════
+//  ADMIN TAB SWITCHING
+// ══════════════════════════════════════════════════
+function showAdminTab(tab,mobileEl) {
+  document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.admin-nav').forEach(n=>n.classList.remove('active'));
+  document.querySelectorAll('.admin-mob-tab').forEach(n=>n.classList.remove('active'));
+  const tabEl=document.getElementById(`tab-${tab}`); if(tabEl) tabEl.classList.add('active');
+  document.querySelectorAll('.admin-nav').forEach(n=>{if(n.getAttribute('onclick')&&n.getAttribute('onclick').includes(`'${tab}'`)) n.classList.add('active');});
+  if(mobileEl) mobileEl.classList.add('active');
+  else document.querySelectorAll('.admin-mob-tab').forEach(n=>{if(n.getAttribute('onclick')&&n.getAttribute('onclick').includes(`'${tab}'`)) n.classList.add('active');});
+  const activeMob=document.querySelector('.admin-mob-tab.active');
+  if(activeMob) activeMob.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  if(tab==='dashboard') renderDashboard();
+  if(tab==='orders') renderAllOrders();
+  if(tab==='products') renderAdminProducts();
+  if(tab==='add-product'&&!editProductId) resetProductForm();
+  if(tab==='reviews-admin') renderAdminReviews();
+  if(tab==='settings') loadSettings();
 }
 
 // ══════════════════════════════════════════════════
-//  ADMIN — TAB SWITCHING (works for both desktop sidebar & mobile nav)
+//  ADMIN DASHBOARD
 // ══════════════════════════════════════════════════
-function showAdminTab(tab, mobileEl) {
-  // Hide all content tabs
-  document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-  // Deactivate desktop sidebar items
-  document.querySelectorAll('.admin-nav').forEach(n => n.classList.remove('active'));
-  // Deactivate mobile nav items
-  document.querySelectorAll('.admin-mob-tab').forEach(n => n.classList.remove('active'));
-
-  // Activate content tab
-  const tabEl = document.getElementById(`tab-${tab}`);
-  if (tabEl) tabEl.classList.add('active');
-
-  // Activate desktop sidebar item
-  document.querySelectorAll('.admin-nav').forEach(n => {
-    if (n.getAttribute('onclick') && n.getAttribute('onclick').includes(`'${tab}'`)) n.classList.add('active');
-  });
-
-  // Activate mobile nav item — use passed element or find by onclick
-  if (mobileEl) {
-    mobileEl.classList.add('active');
-  } else {
-    document.querySelectorAll('.admin-mob-tab').forEach(n => {
-      if (n.getAttribute('onclick') && n.getAttribute('onclick').includes(`'${tab}'`)) n.classList.add('active');
-    });
-  }
-
-  // Scroll mobile nav to show active tab
-  const activeMob = document.querySelector('.admin-mob-tab.active');
-  if (activeMob) activeMob.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
-
-  // Load data for the tab
-  if (tab === 'dashboard')     renderDashboard();
-  if (tab === 'orders')        renderAllOrders();
-  if (tab === 'products')      renderAdminProducts();
-  if (tab === 'add-product' && !editProductId) resetProductForm();
-  if (tab === 'reviews-admin') renderAdminReviews();
-  if (tab === 'settings')      loadSettings();
-}
-
-// ══════════════════════════════════════════════════
-//  ADMIN — DASHBOARD
-// ══════════════════════════════════════════════════
-function renderDashboard() {
-  reloadOrders(); reloadReviews(); reloadProducts();
-  document.getElementById('s-orders').textContent   = orders.length;
-  document.getElementById('s-products').textContent = products.length;
-  document.getElementById('s-reviews').textContent  = reviews.length;
-  document.getElementById('s-revenue').textContent  = orders.reduce((a,o) => a+(o.total||0), 0).toLocaleString();
-  const tb = document.getElementById('dash-orders-tb');
-  tb.innerHTML = orders.slice(0,5).map(o => `<tr>
-    <td><strong>#${o.id}</strong></td>
-    <td>${o.customer.name}</td>
+async function renderDashboard() {
+  await reloadOrders(); await reloadReviews(); await reloadProducts();
+  document.getElementById('s-orders').textContent=orders.length;
+  document.getElementById('s-products').textContent=products.length;
+  document.getElementById('s-reviews').textContent=reviews.length;
+  document.getElementById('s-revenue').textContent=orders.reduce((a,o)=>a+(o.total||0),0).toLocaleString();
+  const tb=document.getElementById('dash-orders-tb');
+  tb.innerHTML=orders.slice(0,5).map(o=>`<tr>
+    <td><strong>#${o.id}</strong></td><td>${o.customer.name}</td>
     <td style="max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${o.product}</td>
     <td>${o.customer.city}</td>
     <td style="color:var(--gold);font-weight:700;">PKR ${(o.total||0).toLocaleString()}</td>
     <td><span class="admin-badge badge-${o.status||'new'}">${(o.status||'new').toUpperCase()}</span></td>
     <td><button class="action-btn btn-view" onclick="viewOrder(${o.id})"><i class="fas fa-eye"></i> View</button></td>
-  </tr>`).join('') || '<tr><td colspan="7" style="text-align:center;padding:28px;color:#9ca3af;">No orders yet</td></tr>';
+  </tr>`).join('')||'<tr><td colspan="7" style="text-align:center;padding:28px;color:#9ca3af;">No orders yet</td></tr>';
 }
 
 // ══════════════════════════════════════════════════
-//  ADMIN — ORDERS
+//  ADMIN ORDERS
 // ══════════════════════════════════════════════════
 function renderAllOrders(list) {
-  list = list || orders;
-  const tb = document.getElementById('all-orders-tb');
-  tb.innerHTML = list.map(o => `<tr>
+  list=list||orders;
+  const tb=document.getElementById('all-orders-tb');
+  tb.innerHTML=list.map(o=>`<tr>
     <td><strong>#${o.id}</strong></td>
     <td style="font-size:11px;color:#6b7280;">${o.date}</td>
-    <td><strong>${o.customer.name}</strong></td>
-    <td>${o.customer.phone}</td>
+    <td><strong>${o.customer.name}</strong></td><td>${o.customer.phone}</td>
     <td style="max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;">${o.product}</td>
     <td>${o.customer.city}</td><td>${o.qty}</td>
     <td><span style="font-size:12px;background:${o.stitch==='Stitched'?'#d4edda':'#fff3cd'};padding:2px 8px;border-radius:10px;">${o.stitch||'N/A'}</span></td>
     <td style="color:#1a472a;font-weight:700;">PKR ${(o.total||0).toLocaleString()}</td>
     <td><span class="admin-badge badge-${o.status||'new'}">${(o.status||'new').toUpperCase()}</span></td>
     <td>
-      <button class="action-btn btn-view" onclick="viewOrder(${o.id})" title="View"><i class="fas fa-eye"></i></button>
-      <button class="action-btn btn-edit" onclick="changeOrderStatus(${o.id})" title="Change status"><i class="fas fa-sync"></i></button>
-      <button class="action-btn btn-del"  onclick="deleteOrder(${o.id})"  title="Delete"><i class="fas fa-trash"></i></button>
+      <button class="action-btn btn-view" onclick="viewOrder(${o.id})"><i class="fas fa-eye"></i></button>
+      <button class="action-btn btn-edit" onclick="changeOrderStatus(${o.id})"><i class="fas fa-sync"></i></button>
+      <button class="action-btn btn-del" onclick="deleteOrder(${o.id})"><i class="fas fa-trash"></i></button>
     </td>
-  </tr>`).join('') || '<tr><td colspan="11" style="text-align:center;padding:28px;color:#9ca3af;">No orders yet</td></tr>';
+  </tr>`).join('')||'<tr><td colspan="11" style="text-align:center;padding:28px;color:#9ca3af;">No orders yet</td></tr>';
 }
-
-function viewOrder(id) {
-  reloadOrders();
-  const o = orders.find(x => x.id === id); if (!o) return;
-  const stitchBadge = o.stitch==='Stitched'
-    ? '<span style="background:#d4edda;color:#155724;padding:3px 10px;border-radius:10px;font-size:12px;font-weight:700;">✂️ Stitched</span>'
-    : o.stitch==='Unstitched'
-    ? '<span style="background:#fff3cd;color:#856404;padding:3px 10px;border-radius:10px;font-size:12px;font-weight:700;">📦 Unstitched</span>'
-    : '<span style="background:#e5e7eb;color:#374151;padding:3px 10px;border-radius:10px;font-size:12px;">N/A</span>';
-  const measurementsHTML = o.measurement ? `<div class="od-section"><div class="od-section-title"><i class="fas fa-ruler"></i> Measurements</div>
+async function viewOrder(id) {
+  await reloadOrders();
+  const o=orders.find(x=>x.id===id); if(!o) return;
+  const stitchBadge=o.stitch==='Stitched'
+    ?'<span style="background:#d4edda;color:#155724;padding:3px 10px;border-radius:10px;font-size:12px;font-weight:700;">✂️ Stitched</span>'
+    :o.stitch==='Unstitched'
+    ?'<span style="background:#fff3cd;color:#856404;padding:3px 10px;border-radius:10px;font-size:12px;font-weight:700;">📦 Unstitched</span>'
+    :'<span style="background:#e5e7eb;color:#374151;padding:3px 10px;border-radius:10px;font-size:12px;">N/A</span>';
+  const measurementsHTML=o.measurement?`<div class="od-section"><div class="od-section-title"><i class="fas fa-ruler"></i> Measurements</div>
     <div class="od-measurements">
-      ${o.measurement.chest     ? `<div class="od-meas-item">Chest <strong>${o.measurement.chest}"</strong></div>` : ''}
-      ${o.measurement.length    ? `<div class="od-meas-item">Length <strong>${o.measurement.length}"</strong></div>` : ''}
-      ${o.measurement.shoulders ? `<div class="od-meas-item">Shoulders <strong>${o.measurement.shoulders}"</strong></div>` : ''}
-      ${o.measurement.sleeves   ? `<div class="od-meas-item">Sleeves <strong>${o.measurement.sleeves}"</strong></div>` : ''}
+      ${o.measurement.chest?`<div class="od-meas-item">Chest <strong>${o.measurement.chest}"</strong></div>`:''}
+      ${o.measurement.length?`<div class="od-meas-item">Length <strong>${o.measurement.length}"</strong></div>`:''}
+      ${o.measurement.shoulders?`<div class="od-meas-item">Shoulders <strong>${o.measurement.shoulders}"</strong></div>`:''}
+      ${o.measurement.sleeves?`<div class="od-meas-item">Sleeves <strong>${o.measurement.sleeves}"</strong></div>`:''}
     </div>
-    ${o.measurement.photo ? `<img src="${o.measurement.photo}" style="max-width:100%;border-radius:10px;margin-top:10px;border:1px solid #e5e7eb;" alt="measurement">` : ''}
-  </div>` : '';
-  document.getElementById('orderDetailBody').innerHTML = `
+    ${o.measurement.photo?`<img src="${o.measurement.photo}" style="max-width:100%;border-radius:10px;margin-top:10px;border:1px solid #e5e7eb;" alt="measurement">`:''}
+  </div>`:'';
+  document.getElementById('orderDetailBody').innerHTML=`
     <div style="background:linear-gradient(135deg,var(--forest),var(--forest-m));border-radius:12px;padding:16px 18px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
       <div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);font-weight:600;">Order #${o.id}</div><div style="color:rgba(255,255,255,.55);font-size:12px;margin-top:2px;">${o.date}</div></div>
       <div style="text-align:right;"><div style="font-size:20px;font-weight:800;color:var(--gold);">PKR ${(o.total||0).toLocaleString()}</div><span class="admin-badge badge-${o.status||'new'}" style="margin-top:4px;display:inline-block;">${(o.status||'new').toUpperCase()}</span></div>
@@ -1868,294 +1858,240 @@ function viewOrder(id) {
       <div class="od-field"><div class="od-field-label">Payment</div><div class="od-field-value">${o.payment}</div></div>
       <div class="od-field full"><div class="od-field-label">Address</div><div class="od-field-value">${o.customer.address}</div></div>
     </div></div>
-    <div class="od-section"><div class="od-section-title"><i class="fas fa-box-open"></i> Order</div><div class="od-grid">
-      <div class="od-field"><div class="od-field-label">Product</div><div class="od-field-value">${o.productEmoji||'📦'} ${o.product}</div></div>
-      <div class="od-field"><div class="od-field-label">Quantity</div><div class="od-field-value">${o.qty}</div></div>
-      <div class="od-field"><div class="od-field-label">Stitching</div><div class="od-field-value">${stitchBadge}</div></div>
-      <div class="od-field"><div class="od-field-label">Unit Price</div><div class="od-field-value">PKR ${(o.unitPrice||0).toLocaleString()}</div></div>
-    </div></div>
-    <div class="od-section"><div class="od-section-title"><i class="fas fa-receipt"></i> Price Breakdown</div>
+    <div class="od-section"><div class="od-section-title"><i class="fas fa-receipt"></i> Price</div>
       <div style="background:#fff;border-radius:10px;padding:12px 14px;">
         <div class="od-price-row"><span>Product Price</span><span>PKR ${(o.unitPrice||0).toLocaleString()}</span></div>
-        ${o.stitchFee ? `<div class="od-price-row"><span>Stitching</span><span>PKR ${o.stitchFee.toLocaleString()}</span></div>` : ''}
-        ${o.qty > 1  ? `<div class="od-price-row"><span>Qty</span><span>× ${o.qty}</span></div>` : ''}
+        ${o.stitchFee?`<div class="od-price-row"><span>Stitching</span><span>PKR ${o.stitchFee.toLocaleString()}</span></div>`:''}
+        ${o.qty>1?`<div class="od-price-row"><span>Qty</span><span>× ${o.qty}</span></div>`:''}
         <div class="od-price-row"><span>Total</span><span>PKR ${(o.total||0).toLocaleString()}</span></div>
       </div>
     </div>
     ${measurementsHTML}
-    ${o.notes ? `<div class="od-section"><div class="od-section-title"><i class="fas fa-sticky-note"></i> Notes</div><p style="font-size:14px;color:#6b7280;">${o.notes}</p></div>` : ''}
+    ${o.notes?`<div class="od-section"><div class="od-section-title"><i class="fas fa-sticky-note"></i> Notes</div><p style="font-size:14px;color:#6b7280;">${o.notes}</p></div>`:''}
     <div style="display:flex;gap:10px;margin-top:4px;flex-wrap:wrap;">
       <button class="admin-save-btn" onclick="changeOrderStatus(${o.id});closeModal('orderDetailModal');"><i class="fas fa-sync"></i> Change Status</button>
       <button class="admin-cancel-btn" onclick="closeModal('orderDetailModal')"><i class="fas fa-times"></i> Close</button>
     </div>`;
   openModal('orderDetailModal');
 }
-
-function changeOrderStatus(id) {
-  reloadOrders();
-  const statuses = ['new','processing','done'];
-  const o = orders.find(x => x.id === id); if (!o) return;
-  o.status = statuses[(statuses.indexOf(o.status||'new')+1) % statuses.length];
-  saveOrders(); renderAllOrders(); renderDashboard(); showToast(`Order #${id} → ${o.status.toUpperCase()}`);
+async function changeOrderStatus(id) {
+  await reloadOrders();
+  const statuses=['new','processing','done'];
+  const o=orders.find(x=>x.id===id); if(!o) return;
+  o.status=statuses[(statuses.indexOf(o.status||'new')+1)%statuses.length];
+  await saveOrders(); renderAllOrders(); renderDashboard();
+  showToast(`Order #${id} → ${o.status.toUpperCase()}`);
 }
-function deleteOrder(id) {
-  if (!confirm('Delete this order?')) return;
-  reloadOrders(); orders = orders.filter(x => x.id !== id); saveOrders(); renderAllOrders(); renderDashboard(); showToast('Order deleted');
+async function deleteOrder(id) {
+  if(!confirm('Delete this order?')) return;
+  await reloadOrders();
+  orders=orders.filter(x=>x.id!==id);
+  await saveOrders(); renderAllOrders(); renderDashboard(); showToast('Order deleted');
 }
-function searchOrders(q) {
-  reloadOrders();
-  q = q.toLowerCase();
-  const f = q ? orders.filter(o =>
-    o.customer.name.toLowerCase().includes(q) ||
-    o.customer.phone.includes(q) ||
-    o.product.toLowerCase().includes(q) ||
-    String(o.id).includes(q)
-  ) : orders;
+async function searchOrders(q) {
+  await reloadOrders();
+  q=q.toLowerCase();
+  const f=q?orders.filter(o=>o.customer.name.toLowerCase().includes(q)||o.customer.phone.includes(q)||o.product.toLowerCase().includes(q)||String(o.id).includes(q)):orders;
   renderAllOrders(f);
 }
 
 // ══════════════════════════════════════════════════
-//  ADMIN — PRODUCTS TABLE
+//  ADMIN PRODUCTS TABLE
 // ══════════════════════════════════════════════════
-function renderAdminProducts() {
-  reloadProducts();
-  const tb = document.getElementById('products-tb');
-  if (!products.length) {
-    tb.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:28px;color:#9ca3af;">No products yet. Click "Add Product" to get started.</td></tr>';
-    return;
-  }
-  tb.innerHTML = products.map(p => `<tr>
-    <td>
-      <div style="width:52px;height:52px;background:var(--gold-pale);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;overflow:hidden;">
-        ${p.images&&p.images[0] ? `<img src="${p.images[0]}" style="width:100%;height:100%;object-fit:cover;" alt="">` : p.emoji||'📦'}
-      </div>
-    </td>
+async function renderAdminProducts() {
+  await reloadProducts();
+  const tb=document.getElementById('products-tb');
+  if(!products.length){tb.innerHTML='<tr><td colspan="8" style="text-align:center;padding:28px;color:#9ca3af;">No products yet.</td></tr>';return;}
+  tb.innerHTML=products.map(p=>`<tr>
+    <td><div style="width:52px;height:52px;background:var(--gold-pale);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;overflow:hidden;">
+      ${p.images&&p.images[0]?`<img src="${p.images[0]}" style="width:100%;height:100%;object-fit:cover;" alt="">`:p.emoji||'📦'}
+    </div></td>
     <td><strong>${p.title}</strong></td>
     <td><span style="background:rgba(198,167,94,.1);padding:3px 10px;border-radius:10px;font-size:12px;">${catLabel(p.category)}</span></td>
     <td><strong>PKR ${p.price.toLocaleString()}</strong></td>
-    <td>${p.qty<=0
-      ? '<span style="color:#e74c3c;font-weight:700;">SOLD OUT</span>'
-      : `<span style="${p.qty<=5?'color:#f39c12;':'color:#27ae60;'}font-weight:600;">${p.qty}</span>`
-    }</td>
+    <td>${p.qty<=0?'<span style="color:#e74c3c;font-weight:700;">SOLD OUT</span>':`<span style="${p.qty<=5?'color:#f39c12;':'color:#27ae60;'}font-weight:600;">${p.qty}</span>`}</td>
     <td>${p.gender}</td>
-    <td>${p.bestSeller
-      ? '<span style="background:#d4edda;color:#155724;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;"><i class="fas fa-crown"></i> YES</span>'
-      : '<span style="background:#f3f4f6;color:#9ca3af;padding:3px 10px;border-radius:20px;font-size:11px;">No</span>'
-    }</td>
+    <td>${p.bestSeller?'<span style="background:#d4edda;color:#155724;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;"><i class="fas fa-crown"></i> YES</span>':'<span style="background:#f3f4f6;color:#9ca3af;padding:3px 10px;border-radius:20px;font-size:11px;">No</span>'}</td>
     <td>
-      <button class="action-btn btn-edit" onclick="editProduct(${p.id})" title="Edit"><i class="fas fa-pencil-alt"></i> Edit</button>
-      <button class="action-btn btn-del"  onclick="deleteProduct(${p.id})" title="Delete"><i class="fas fa-trash"></i></button>
+      <button class="action-btn btn-edit" onclick="editProduct(${p.id})"><i class="fas fa-pencil-alt"></i> Edit</button>
+      <button class="action-btn btn-del" onclick="deleteProduct(${p.id})"><i class="fas fa-trash"></i></button>
     </td>
   </tr>`).join('');
 }
-
-function deleteProduct(id) {
-  if (!confirm('Delete this product?')) return;
-  reloadProducts();
-  products = products.filter(x => x.id !== id);
-  saveProducts(); reloadProducts();
+async function deleteProduct(id) {
+  if(!confirm('Delete this product?')) return;
+  await reloadProducts();
+  products=products.filter(x=>x.id!==id);
+  await saveProducts();
+  await reloadProducts();
   renderAdminProducts(); renderHomeProducts();
-  showToast('Product deleted');
+  showToast('Product deleted ✅');
 }
-
-function editProduct(id) {
-  reloadProducts();
-  const p = products.find(x => x.id === id); if (!p) return;
-  editProductId = id;
-  document.getElementById('add-p-heading').innerHTML = '<i class="fas fa-pencil-alt" style="color:var(--gold);"></i> Edit Product';
-  document.getElementById('p-title').value    = p.title || '';
-  document.getElementById('p-gender').value   = p.gender || 'men';
-  document.getElementById('p-category').value = p.category || 'clothing';
-  document.getElementById('p-fabric').value   = p.fabric || '';
-  document.getElementById('p-price').value    = p.price || '';
-  document.getElementById('p-qty').value      = p.qty || '';
-  document.getElementById('p-desc').value     = p.description || '';
-  document.getElementById('p-bestseller').checked = !!p.bestSeller;
-  pendingImages = p.images ? [...p.images] : [];
+async function editProduct(id) {
+  await reloadProducts();
+  const p=products.find(x=>x.id===id); if(!p) return;
+  editProductId=id;
+  document.getElementById('add-p-heading').innerHTML='<i class="fas fa-pencil-alt" style="color:var(--gold);"></i> Edit Product';
+  document.getElementById('p-title').value=p.title||'';
+  document.getElementById('p-gender').value=p.gender||'men';
+  document.getElementById('p-category').value=p.category||'clothing';
+  document.getElementById('p-fabric').value=p.fabric||'';
+  document.getElementById('p-price').value=p.price||'';
+  document.getElementById('p-qty').value=p.qty||'';
+  document.getElementById('p-desc').value=p.description||'';
+  document.getElementById('p-bestseller').checked=!!p.bestSeller;
+  pendingImages=p.images?[...p.images]:[];
   renderImgPreviews();
   showAdminTab('add-product');
 }
 
 // ══════════════════════════════════════════════════
-//  ADMIN — ADD / SAVE PRODUCT
+//  ADD / SAVE PRODUCT
 // ══════════════════════════════════════════════════
 function handleProductImages(event) {
-  const files = Array.from(event.target.files);
-  const rem   = 10 - pendingImages.length;
-  files.slice(0, rem).forEach(file => {
-    const r = new FileReader();
-    r.onload = e => { pendingImages.push(e.target.result); renderImgPreviews(); };
+  const files=Array.from(event.target.files);
+  const rem=10-pendingImages.length;
+  files.slice(0,rem).forEach(file=>{
+    const r=new FileReader();
+    r.onload=e=>{pendingImages.push(e.target.result);renderImgPreviews();};
     r.readAsDataURL(file);
   });
-  event.target.value = '';
+  event.target.value='';
 }
-function removeImg(i) { pendingImages.splice(i, 1); renderImgPreviews(); }
-function renderImgPreviews() {
-  document.getElementById('img-prev-grid').innerHTML = pendingImages.map((src,i) =>
-    `<div class="img-prev-item"><img src="${src}" alt=""><button class="img-prev-remove" onclick="removeImg(${i})" title="Remove">×</button></div>`
+function removeImg(i){pendingImages.splice(i,1);renderImgPreviews();}
+function renderImgPreviews(){
+  document.getElementById('img-prev-grid').innerHTML=pendingImages.map((src,i)=>
+    `<div class="img-prev-item"><img src="${src}" alt=""><button class="img-prev-remove" onclick="removeImg(${i})">×</button></div>`
   ).join('');
 }
 
-function saveProduct() {
-  const titleVal   = document.getElementById('p-title').value;
-  const gender     = document.getElementById('p-gender').value;
-  const category   = document.getElementById('p-category').value;
-  const fabric     = document.getElementById('p-fabric').value;
-  const priceRaw   = document.getElementById('p-price').value;
-  const qtyRaw     = document.getElementById('p-qty').value;
-  const desc       = document.getElementById('p-desc').value;
-  const bestSeller = document.getElementById('p-bestseller').checked; // boolean
+async function saveProduct() {
+  const title=document.getElementById('p-title').value.trim();
+  const gender=document.getElementById('p-gender').value;
+  const category=document.getElementById('p-category').value;
+  const fabric=document.getElementById('p-fabric').value.trim();
+  const priceRaw=document.getElementById('p-price').value;
+  const qtyRaw=document.getElementById('p-qty').value;
+  const descT=document.getElementById('p-desc').value.trim();
+  const bestSeller=document.getElementById('p-bestseller').checked;
+  const price=parseFloat(priceRaw);
+  const qty=parseInt(qtyRaw);
+  if(!title){showToast('Please enter a product title');return;}
+  if(!descT){showToast('Please enter a description');return;}
+  if(!priceRaw||isNaN(price)){showToast('Please enter a valid price');return;}
+  if(!qtyRaw||isNaN(qty)){showToast('Please enter a valid quantity');return;}
+  if(!pendingImages.length){showToast('Please add at least one image');return;}
+  const emojis={clothing:'👔',shoes:'👟',watches:'⌚',accessories:'💎'};
 
-  const title = titleVal.trim();
-  const descT = desc.trim();
-  const price = parseFloat(priceRaw);
-  const qty   = parseInt(qtyRaw);
+  // Always get latest from cloud before saving
+  await reloadProducts();
 
-  if (!title)              { showToast('Please enter a product title'); return; }
-  if (!descT)              { showToast('Please enter a description');   return; }
-  if (!priceRaw || isNaN(price)) { showToast('Please enter a valid price');    return; }
-  if (!qtyRaw   || isNaN(qty))   { showToast('Please enter a valid quantity'); return; }
-  if (!pendingImages.length)     { showToast('Please add at least one image'); return; }
-
-  const emojis = {clothing:'👔', shoes:'👟', watches:'⌚', accessories:'💎'};
-
-  reloadProducts();
-
-  if (editProductId) {
-    const idx = products.findIndex(x => x.id === editProductId);
-    if (idx !== -1) {
-      products[idx] = {
-        ...products[idx],
-        title, gender, category,
-        fabric: fabric.trim(),
-        price, qty,
-        description: descT,
-        images: [...pendingImages],
-        bestSeller: bestSeller  // explicitly save boolean
-      };
+  if(editProductId){
+    const idx=products.findIndex(x=>x.id===editProductId);
+    if(idx!==-1){
+      products[idx]={...products[idx],title,gender,category,fabric,price,qty,description:descT,images:[...pendingImages],bestSeller};
     }
-    editProductId = null;
-    showToast('Product updated ✅');
+    editProductId=null;
+    showToast('Product updated ✅ — syncing to all devices...');
   } else {
-    products.push({
-      id:          Date.now(),
-      title, gender, category,
-      fabric:      fabric.trim(),
-      price, qty,
-      description: descT,
-      images:      [...pendingImages],
-      emoji:       emojis[category] || '📦',
-      rating:      5,
-      ratingCount: 0,
-      bestSeller:  bestSeller  // explicitly save boolean
-    });
-    showToast('Product added ✅');
+    products.push({id:Date.now(),title,gender,category,fabric,price,qty,description:descT,images:[...pendingImages],emoji:emojis[category]||'📦',rating:5,ratingCount:0,bestSeller});
+    showToast('Product added ✅ — syncing to all devices...');
   }
 
-  saveProducts();
-  reloadProducts();     // keep in-memory array synced
-  renderHomeProducts(); // refresh carousel immediately
+  // Save to shared cloud — ALL devices will see this
+  await saveProducts();
+  await reloadProducts();
+  renderHomeProducts();
   renderAdminProducts();
   resetProductForm();
   showAdminTab('products');
 }
-
-function resetProductForm() {
-  document.getElementById('p-title').value    = '';
-  document.getElementById('p-gender').value   = 'men';
-  document.getElementById('p-category').value = 'clothing';
-  document.getElementById('p-fabric').value   = '';
-  document.getElementById('p-price').value    = '';
-  document.getElementById('p-qty').value      = '';
-  document.getElementById('p-desc').value     = '';
-  document.getElementById('p-bestseller').checked = false;
-  pendingImages = []; renderImgPreviews(); editProductId = null;
-  document.getElementById('add-p-heading').innerHTML = '<i class="fas fa-plus-circle" style="color:var(--gold);"></i> Add Product';
+function resetProductForm(){
+  document.getElementById('p-title').value='';
+  document.getElementById('p-gender').value='men';
+  document.getElementById('p-category').value='clothing';
+  document.getElementById('p-fabric').value='';
+  document.getElementById('p-price').value='';
+  document.getElementById('p-qty').value='';
+  document.getElementById('p-desc').value='';
+  document.getElementById('p-bestseller').checked=false;
+  pendingImages=[];renderImgPreviews();editProductId=null;
+  document.getElementById('add-p-heading').innerHTML='<i class="fas fa-plus-circle" style="color:var(--gold);"></i> Add Product';
 }
-function cancelAddProduct() { resetProductForm(); showAdminTab('products'); }
+function cancelAddProduct(){resetProductForm();showAdminTab('products');}
 
 // ══════════════════════════════════════════════════
-//  ADMIN — REVIEWS
+//  ADMIN REVIEWS
 // ══════════════════════════════════════════════════
-function renderAdminReviews() {
-  reloadReviews();
-  const tb = document.getElementById('reviews-admin-tb');
-  if (!reviews.length) {
-    tb.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:28px;color:#9ca3af;">No reviews yet</td></tr>';
-    return;
-  }
-  tb.innerHTML = reviews.map((r,i) => `<tr>
-    <td>${i+1}</td>
-    <td><strong>${r.name}</strong></td>
+async function renderAdminReviews(){
+  await reloadReviews();
+  const tb=document.getElementById('reviews-admin-tb');
+  if(!reviews.length){tb.innerHTML='<tr><td colspan="7" style="text-align:center;padding:28px;color:#9ca3af;">No reviews yet</td></tr>';return;}
+  tb.innerHTML=reviews.map((r,i)=>`<tr>
+    <td>${i+1}</td><td><strong>${r.name}</strong></td>
     <td>${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</td>
     <td style="max-width:180px;font-size:12px;color:#6b7280;">${r.text.substring(0,80)}${r.text.length>80?'...':''}</td>
     <td style="font-size:12px;">${r.product||'—'}</td>
     <td style="font-size:12px;color:#9ca3af;">${r.date}</td>
-    <td><button class="action-btn btn-del" onclick="deleteReview(${r.id})" title="Delete"><i class="fas fa-trash"></i></button></td>
+    <td><button class="action-btn btn-del" onclick="deleteReview(${r.id})"><i class="fas fa-trash"></i></button></td>
   </tr>`).join('');
 }
-function deleteReview(id) {
-  if (!confirm('Delete this review?')) return;
-  reloadReviews(); reviews = reviews.filter(x => x.id !== id); saveReviews();
+async function deleteReview(id){
+  if(!confirm('Delete this review?')) return;
+  await reloadReviews();
+  reviews=reviews.filter(x=>x.id!==id);
+  await saveReviews();
   renderAdminReviews(); renderCustomerReviews(); showToast('Review deleted');
 }
-function openAddAdminReview() {
-  starCount = 0; setStar(0);
-  document.getElementById('r-name').value = ''; document.getElementById('r-text').value = '';
-  currentReviewProductId = null; openModal('reviewModal');
-}
+function openAddAdminReview(){starCount=0;setStar(0);document.getElementById('r-name').value='';document.getElementById('r-text').value='';currentReviewProductId=null;openModal('reviewModal');}
 
 // ══════════════════════════════════════════════════
-//  ADMIN — SETTINGS
+//  ADMIN SETTINGS
 // ══════════════════════════════════════════════════
-function loadSettings() {
-  const s = adminSettings;
-  document.getElementById('set-insta').value    = s.insta    || '';
-  document.getElementById('set-tiktok').value   = s.tiktok   || '';
-  document.getElementById('set-whatsapp').value = s.whatsapp || '';
-  document.getElementById('set-facebook').value = s.facebook || '';
+function loadSettings(){
+  document.getElementById('set-insta').value=adminSettings.insta||'';
+  document.getElementById('set-tiktok').value=adminSettings.tiktok||'';
+  document.getElementById('set-whatsapp').value=adminSettings.whatsapp||'';
+  document.getElementById('set-facebook').value=adminSettings.facebook||'';
 }
-function saveSettings() {
-  adminSettings.insta     = document.getElementById('set-insta').value.trim();
-  adminSettings.tiktok    = document.getElementById('set-tiktok').value.trim();
-  adminSettings.whatsapp  = document.getElementById('set-whatsapp').value.trim();
-  adminSettings.facebook  = document.getElementById('set-facebook').value.trim();
-  localStorage.setItem('nw_settings', JSON.stringify(adminSettings));
-  applySettings(); showToast('Settings saved ✅');
+async function saveSettings(){
+  adminSettings.insta=document.getElementById('set-insta').value.trim();
+  adminSettings.tiktok=document.getElementById('set-tiktok').value.trim();
+  adminSettings.whatsapp=document.getElementById('set-whatsapp').value.trim();
+  adminSettings.facebook=document.getElementById('set-facebook').value.trim();
+  await saveSettings_cloud();
+  applySettings(); showToast('Settings saved & synced ✅');
 }
-function changeAdminPass() {
-  const np = document.getElementById('new-pass').value;
-  const cp = document.getElementById('conf-pass').value;
-  if (!np || np !== cp) { showToast('Passwords do not match'); return; }
-  adminPassword = np; localStorage.setItem('nw_adminpass', np);
-  document.getElementById('new-pass').value = ''; document.getElementById('conf-pass').value = '';
+async function changeAdminPass(){
+  const np=document.getElementById('new-pass').value;
+  const cp=document.getElementById('conf-pass').value;
+  if(!np||np!==cp){showToast('Passwords do not match');return;}
+  adminPassword=np;
+  await saveAdminPass(np);
+  document.getElementById('new-pass').value='';document.getElementById('conf-pass').value='';
   showToast('Password changed ✅');
 }
-function applySettings() {
-  const s = adminSettings;
-  if (s.insta    && s.insta    !== '#') document.getElementById('footer-insta').href    = s.insta;
-  if (s.tiktok   && s.tiktok   !== '#') document.getElementById('footer-tiktok').href   = s.tiktok;
-  if (s.facebook && s.facebook !== '#') document.getElementById('footer-facebook').href = s.facebook;
-  if (s.whatsapp) {
-    document.getElementById('footer-whatsapp').href = `https://wa.me/${s.whatsapp}`;
-    document.querySelector('.whatsapp-float').href  = `https://wa.me/${s.whatsapp}`;
+function applySettings(){
+  const s=adminSettings;
+  if(s.insta&&s.insta!=='#') document.getElementById('footer-insta').href=s.insta;
+  if(s.tiktok&&s.tiktok!=='#') document.getElementById('footer-tiktok').href=s.tiktok;
+  if(s.facebook&&s.facebook!=='#') document.getElementById('footer-facebook').href=s.facebook;
+  if(s.whatsapp){
+    document.getElementById('footer-whatsapp').href=`https://wa.me/${s.whatsapp}`;
+    document.querySelector('.whatsapp-float').href=`https://wa.me/${s.whatsapp}`;
   }
 }
 
 // ══════════════════════════════════════════════════
 //  REVEAL ANIMATION
 // ══════════════════════════════════════════════════
-const revObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
-}, {threshold:.1});
-document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => revObs.observe(el));
+const revObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting) e.target.classList.add('on');});},{threshold:.1});
+document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>revObs.observe(el));
 
 // ══════════════════════════════════════════════════
-//  INIT
+//  START — Load from shared cloud storage
 // ══════════════════════════════════════════════════
-renderHomeProducts();
-renderCustomerReviews();
-applySettings();
+initApp();
 </script>
 </body>
 </html>
