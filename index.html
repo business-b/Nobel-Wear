@@ -6,11 +6,6 @@
 <title>NOBEL WEAR — Pakistan's Premium Fashion Destination</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-
 <style>
 :root{
   --gold:#c6a75e;--gold-l:#e2c98a;--gold-pale:#f5edda;
@@ -33,9 +28,12 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--forest);o
 .loader-3d{width:80px;height:80px;position:relative;transform-style:preserve-3d;animation:rotate3d 2s linear infinite;}
 @keyframes rotate3d{0%{transform:rotateY(0) rotateX(15deg);}100%{transform:rotateY(360deg) rotateX(15deg);}}
 .cube-face{position:absolute;width:80px;height:80px;border:2px solid var(--gold);background:rgba(198,167,94,.08);display:flex;align-items:center;justify-content:center;font-size:28px;backface-visibility:visible;}
-.cube-face.front{transform:translateZ(40px);}.cube-face.back{transform:rotateY(180deg) translateZ(40px);}
-.cube-face.right{transform:rotateY(90deg) translateZ(40px);}.cube-face.left{transform:rotateY(-90deg) translateZ(40px);}
-.cube-face.top{transform:rotateX(90deg) translateZ(40px);}.cube-face.bottom{transform:rotateX(-90deg) translateZ(40px);}
+.cube-face.front{transform:translateZ(40px);}
+.cube-face.back{transform:rotateY(180deg) translateZ(40px);}
+.cube-face.right{transform:rotateY(90deg) translateZ(40px);}
+.cube-face.left{transform:rotateY(-90deg) translateZ(40px);}
+.cube-face.top{transform:rotateX(90deg) translateZ(40px);}
+.cube-face.bottom{transform:rotateX(-90deg) translateZ(40px);}
 .loader-bar{width:220px;height:3px;background:rgba(198,167,94,.2);border-radius:2px;overflow:hidden;}
 .loader-bar-fill{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-l));border-radius:2px;animation:loaderFill 2.2s ease forwards;}
 @keyframes loaderFill{0%{width:0}100%{width:100%}}
@@ -258,7 +256,8 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--forest);o
 .products-scroll-track .product-card{flex:0 0 calc(25% - 15px);min-width:240px;max-width:320px;}
 .scroll-arrow{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;background:var(--forest);color:var(--gold);border:none;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,.25);transition:all .25s;z-index:5;}
 .scroll-arrow:hover{background:var(--gold);color:var(--forest);transform:translateY(-50%) scale(1.08);}
-.scroll-arrow.left{left:6px;}.scroll-arrow.right{right:6px;}
+.scroll-arrow.left{left:6px;}
+.scroll-arrow.right{right:6px;}
 .no-bs-msg{padding:40px;color:var(--gray);text-align:center;width:100%;font-size:15px;}
 
 /* TRUST */
@@ -324,7 +323,7 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 .form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--gold);background:#fff;box-shadow:0 0 0 3px rgba(198,167,94,.1);}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 .stitch-tabs{display:flex;gap:10px;margin-bottom:4px;}
-.stitch-tab{flex:1;padding:10px;border-radius:8px;border:1.5px solid var(--light);background:transparent;font-family:'Jost',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-align:center;color:var(--forest);transition:all .25px;}
+.stitch-tab{flex:1;padding:10px;border-radius:8px;border:1.5px solid var(--light);background:transparent;font-family:'Jost',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-align:center;color:var(--forest);transition:all .25s;}
 .stitch-tab.active{background:var(--forest);color:var(--gold);border-color:var(--forest);}
 .measurement-box{display:none;background:var(--cream);border-radius:10px;padding:16px;border:1px dashed var(--gold);margin-top:10px;}
 .measurement-box.show{display:block;}
@@ -376,8 +375,12 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 .stat-card{background:#fff;border-radius:14px;padding:18px 20px;display:flex;align-items:center;gap:14px;box-shadow:0 4px 18px rgba(0,0,0,.06);transition:all .3s;}
 .stat-card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,0,0,.1);}
 .stat-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;flex-shrink:0;}
-.si-green{background:linear-gradient(135deg,#1a472a,#2d5a3d);}.si-gold{background:linear-gradient(135deg,#b8960c,#d4af37);}.si-blue{background:linear-gradient(135deg,#1e40af,#3b82f6);}.si-red{background:linear-gradient(135deg,#b91c1c,#ef4444);}
-.stat-num{font-size:24px;font-weight:700;color:var(--forest);}.stat-lbl{font-size:11px;color:var(--gray);margin-top:2px;}
+.si-green{background:linear-gradient(135deg,#1a472a,#2d5a3d);}
+.si-gold{background:linear-gradient(135deg,#b8960c,#d4af37);}
+.si-blue{background:linear-gradient(135deg,#1e40af,#3b82f6);}
+.si-red{background:linear-gradient(135deg,#b91c1c,#ef4444);}
+.stat-num{font-size:24px;font-weight:700;color:var(--forest);}
+.stat-lbl{font-size:11px;color:var(--gray);margin-top:2px;}
 
 .admin-card{background:#fff;border-radius:14px;box-shadow:0 4px 18px rgba(0,0,0,.06);margin-bottom:20px;overflow:hidden;}
 .admin-card-head{padding:14px 20px;border-bottom:2px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center;}
@@ -388,11 +391,16 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 .admin-table tr:hover td{background:#fafafa;}
 .admin-table tr:last-child td{border:none;}
 .admin-badge{padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;}
-.badge-new{background:#d4edda;color:#155724;}.badge-processing{background:#fff3cd;color:#856404;}.badge-done{background:#d1ecf1;color:#0c5460;}
+.badge-new{background:#d4edda;color:#155724;}
+.badge-processing{background:#fff3cd;color:#856404;}
+.badge-done{background:#d1ecf1;color:#0c5460;}
 .action-btn{padding:6px 10px;border:none;border-radius:7px;cursor:pointer;font-size:12px;font-weight:600;transition:all .2s;margin-right:3px;display:inline-flex;align-items:center;gap:4px;}
-.btn-view{background:#dbeafe;color:#1e40af;}.btn-view:hover{background:#1e40af;color:#fff;}
-.btn-edit{background:#fef9c3;color:#854d0e;}.btn-edit:hover{background:#854d0e;color:#fff;}
-.btn-del{background:#fee2e2;color:#b91c1c;border-radius:50px;}.btn-del:hover{background:#b91c1c;color:#fff;}
+.btn-view{background:#dbeafe;color:#1e40af;}
+.btn-view:hover{background:#1e40af;color:#fff;}
+.btn-edit{background:#fef9c3;color:#854d0e;}
+.btn-edit:hover{background:#854d0e;color:#fff;}
+.btn-del{background:#fee2e2;color:#b91c1c;border-radius:50px;}
+.btn-del:hover{background:#b91c1c;color:#fff;}
 
 .admin-input,.admin-select,.admin-textarea{width:100%;padding:10px 12px;border:1.5px solid #e0e0e0;border-radius:9px;font-family:'Jost',sans-serif;font-size:14px;transition:all .25s;outline:none;background:#fafafa;}
 .admin-input:focus,.admin-select:focus,.admin-textarea:focus{border-color:var(--gold);background:#fff;box-shadow:0 0 0 3px rgba(198,167,94,.1);}
@@ -432,6 +440,14 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 .best-seller-toggle input[type=checkbox]{width:18px;height:18px;accent-color:var(--gold);cursor:pointer;flex-shrink:0;}
 .best-seller-toggle label{font-size:13px;font-weight:600;color:var(--forest);cursor:pointer;display:flex;align-items:center;gap:8px;}
 .best-seller-toggle label i{color:var(--gold);}
+
+/* SYNC STATUS */
+.sync-status{position:fixed;top:80px;right:16px;z-index:9999;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:600;display:none;align-items:center;gap:6px;box-shadow:0 4px 12px rgba(0,0,0,.15);animation:slideIn .3s ease;}
+.sync-status.show{display:flex;}
+.sync-status.online{background:#d4edda;color:#155724;}
+.sync-status.offline{background:#fff3cd;color:#856404;}
+.sync-status.error{background:#fee2e2;color:#b91c1c;}
+@keyframes slideIn{from{transform:translateX(100px);opacity:0;}to{transform:translateX(0);opacity:1;}}
 
 /* REVEAL */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
@@ -494,6 +510,9 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 </head>
 <body>
 
+<!-- SYNC STATUS INDICATOR -->
+<div class="sync-status" id="syncStatus"><i class="fas fa-circle" style="font-size:8px;"></i><span id="syncText">Syncing...</span></div>
+
 <!-- LOADER -->
 <div id="loader">
   <div class="loader-3d">
@@ -503,7 +522,6 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
   </div>
   <div class="loader-logo">NOBEL WEAR</div>
   <div class="loader-bar"><div class="loader-bar-fill"></div></div>
-  <div id="loader-status" style="color:rgba(198,167,94,.5);font-size:12px;letter-spacing:1px;margin-top:4px;">Connecting to cloud...</div>
 </div>
 
 <div class="side-panel-overlay" id="panelOverlay" onclick="closePanels()"></div>
@@ -590,8 +608,8 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
     </div>
   </div>
   <div class="hero-stats">
-    <div class="hero-stat"><div class="hero-stat-num" id="stat-customers">5,000+</div><div class="hero-stat-lbl">Happy Customers</div></div>
-    <div class="hero-stat"><div class="hero-stat-num" id="stat-products">200+</div><div class="hero-stat-lbl">Products</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">5,000+</div><div class="hero-stat-lbl">Happy Customers</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">200+</div><div class="hero-stat-lbl">Products</div></div>
     <div class="hero-stat"><div class="hero-stat-num">Since 2018</div><div class="hero-stat-lbl">Trusted Brand</div></div>
     <div class="hero-stat"><div class="hero-stat-num">Nationwide</div><div class="hero-stat-lbl">Delivery</div></div>
   </div>
@@ -999,7 +1017,6 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
       <div class="admin-nav" onclick="showAdminTab('settings')"><i class="fas fa-cog"></i> Settings</div>
     </div>
     <div class="admin-main">
-      <!-- DASHBOARD -->
       <div class="admin-tab active" id="tab-dashboard">
         <h2 style="font-family:'Cormorant Garamond',serif;color:var(--forest);font-size:26px;margin-bottom:18px;display:flex;align-items:center;gap:8px;"><i class="fas fa-tachometer-alt" style="color:var(--gold);"></i>Dashboard</h2>
         <div class="admin-stats">
@@ -1013,7 +1030,6 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
           <div style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>#</th><th>Customer</th><th>Product</th><th>City</th><th>Total</th><th>Status</th><th>Action</th></tr></thead><tbody id="dash-orders-tb"></tbody></table></div>
         </div>
       </div>
-      <!-- ALL ORDERS -->
       <div class="admin-tab" id="tab-orders">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
           <h2 style="font-family:'Cormorant Garamond',serif;color:var(--forest);font-size:26px;display:flex;align-items:center;gap:8px;"><i class="fas fa-clipboard-list" style="color:var(--gold);"></i>All Orders</h2>
@@ -1021,7 +1037,6 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
         </div>
         <div class="admin-card"><div style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>#ID</th><th>Date</th><th>Customer</th><th>Phone</th><th>Product</th><th>City</th><th>Qty</th><th>Stitch</th><th>Total</th><th>Status</th><th>Actions</th></tr></thead><tbody id="all-orders-tb"></tbody></table></div></div>
       </div>
-      <!-- PRODUCTS -->
       <div class="admin-tab" id="tab-products">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
           <h2 style="font-family:'Cormorant Garamond',serif;color:var(--forest);font-size:26px;display:flex;align-items:center;gap:8px;"><i class="fas fa-box-open" style="color:var(--gold);"></i>Products</h2>
@@ -1029,7 +1044,6 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
         </div>
         <div class="admin-card"><div style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Gender</th><th>Best Seller</th><th>Actions</th></tr></thead><tbody id="products-tb"></tbody></table></div></div>
       </div>
-      <!-- ADD / EDIT PRODUCT -->
       <div class="admin-tab" id="tab-add-product">
         <h2 style="font-family:'Cormorant Garamond',serif;color:var(--forest);font-size:26px;margin-bottom:18px;display:flex;align-items:center;gap:8px;" id="add-p-heading"><i class="fas fa-plus-circle" style="color:var(--gold);"></i>Add Product</h2>
         <div class="admin-card">
@@ -1045,7 +1059,7 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
                 <label class="admin-label"><i class="fas fa-crown" style="color:var(--gold);margin-right:4px;"></i>Best Seller Status</label>
                 <div class="best-seller-toggle">
                   <input type="checkbox" id="p-bestseller">
-                  <label for="p-bestseller"><i class="fas fa-crown"></i> Mark as Best Seller — shows in homepage carousel for all customers</label>
+                  <label for="p-bestseller"><i class="fas fa-crown"></i> Mark as Best Seller — shows in homepage carousel</label>
                 </div>
               </div>
               <div class="admin-form-group" style="grid-column:1/-1"><label class="admin-label">Description *</label><textarea class="admin-textarea" id="p-desc" rows="3" placeholder="Describe the product..." autocomplete="off" spellcheck="false"></textarea></div>
@@ -1066,7 +1080,6 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
           </div>
         </div>
       </div>
-      <!-- REVIEWS ADMIN -->
       <div class="admin-tab" id="tab-reviews-admin">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
           <h2 style="font-family:'Cormorant Garamond',serif;color:var(--forest);font-size:26px;display:flex;align-items:center;gap:8px;"><i class="fas fa-star" style="color:var(--gold);"></i>Reviews</h2>
@@ -1074,7 +1087,6 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
         </div>
         <div class="admin-card"><div style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>#</th><th>Name</th><th>Stars</th><th>Review</th><th>Product</th><th>Date</th><th>Action</th></tr></thead><tbody id="reviews-admin-tb"></tbody></table></div></div>
       </div>
-      <!-- SETTINGS -->
       <div class="admin-tab" id="tab-settings">
         <h2 style="font-family:'Cormorant Garamond',serif;color:var(--forest);font-size:26px;margin-bottom:18px;display:flex;align-items:center;gap:8px;"><i class="fas fa-cog" style="color:var(--gold);"></i>Settings</h2>
         <div class="settings-section">
@@ -1096,6 +1108,22 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
           <button class="admin-save-btn" onclick="changeAdminPass()"><i class="fas fa-key"></i> Change Password</button>
         </div>
         <div class="settings-section">
+          <div class="settings-title"><i class="fas fa-cloud" style="color:var(--gold);"></i>Cloud Database Setup</div>
+          <p style="font-size:13px;color:var(--gray);line-height:1.7;margin-bottom:12px;">Your products, orders, and reviews are stored in Firebase Realtime Database so they sync across all devices. To set up your own database:</p>
+          <ol style="font-size:13px;color:var(--forest);line-height:2;margin-left:18px;margin-bottom:14px;">
+            <li>Go to <a href="https://console.firebase.google.com" target="_blank" style="color:var(--gold);">firebase.google.com</a> and create a free account</li>
+            <li>Create a new project called "Nobel Wear"</li>
+            <li>Go to "Build" → "Realtime Database" → "Create Database"</li>
+            <li>Choose location <strong>asia-southeast1</strong> (Singapore) for best Pakistan speed</li>
+            <li>Set rules to: <code style="background:#f3f4f6;padding:2px 6px;border-radius:4px;">"read": true, "write": true</code> (for now)</li>
+            <li>Copy your database URL and paste it in the code at the top of &lt;script&gt; tag</li>
+          </ol>
+          <div style="background:var(--cream);border:1.5px solid var(--gold);border-radius:10px;padding:12px 14px;">
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--gold);font-weight:700;margin-bottom:6px;">Your Current Database URL</div>
+            <div id="current-firebase-url" style="font-family:monospace;font-size:13px;color:var(--forest);word-break:break-all;"></div>
+          </div>
+        </div>
+        <div class="settings-section">
           <div class="settings-title"><i class="fas fa-address-card" style="color:var(--gold);"></i>Contact Info</div>
           <div class="admin-form-group"><label class="admin-label">WhatsApp / Phone</label><input class="admin-input" value="+92 316 3475925" readonly></div>
           <div class="admin-form-group"><label class="admin-label">Email</label><input class="admin-input" value="nobel.wearofficial@gmail.com" readonly></div>
@@ -1106,181 +1134,226 @@ footer{background:var(--forest-m);color:#fff;padding:60px 20px 24px;border-top:1
 </div>
 
 <script>
-// ═══════════════════════════════════════════════════════════════
-//  FIREBASE SETUP — Cloud Database (replaces localStorage)
-// ═══════════════════════════════════════════════════════════════
-//
-//  SETUP INSTRUCTIONS (one-time, 5 minutes):
-//  1. Go to https://firebase.google.com and sign in with Google
-//  2. Click "Create a project" → name it "nobel-wear" → Continue
-//  3. On the project dashboard, click the "</>" (Web) icon
-//  4. Register app as "NobelWear" → copy the firebaseConfig values
-//  5. Replace ONLY the values below (apiKey through appId) with yours
-//  6. In Firebase Console, go to "Realtime Database" → "Create Database"
-//  7. Choose location "asia-southeast1" or "us-central1"
-//  8. Start in "test mode" (allows read/write) → Enable
-//  9. Done! Your products will now sync across all devices.
-//
-//  SECURITY NOTE: After setup, go to Database Rules and set:
-//    {
-//      "rules": {
-//        ".read": true,
-//        ".write": true
-//      }
-//    }
-//  This allows public read/write. For production, add auth rules.
-//
-// ═══════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
+//  STEP 1: PASTE YOUR FIREBASE DATABASE URL BELOW
+//  Get it from: Firebase Console → Realtime Database → Copy URL
+//  Example:  const FIREBASE_URL = 'https://nobel-wear-default-rtdb.asia-southeast1.firebasedatabase.app';
+// ════════════════════════════════════════════════════════════════
+const FIREBASE_URL = '';  // <-- PASTE YOUR URL HERE (inside the quotes)
 
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY_HERE",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
+const USE_FIREBASE = FIREBASE_URL.length > 10;
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-const dbRef = db.ref('nobelwear');
+// ════════════════════════════════════════════════════════════════
+//  CLOUD API LAYER — All data goes through Firebase
+// ════════════════════════════════════════════════════════════════
+async function apiGet(path) {
+  if (!USE_FIREBASE) {
+    const raw = localStorage.getItem('nw_' + path.replace(/\//g, '_'));
+    return raw ? JSON.parse(raw) : null;
+  }
+  try {
+    const res = await fetch(`${FIREBASE_URL}/${path}.json`);
+    if (!res.ok) throw new Error('Network');
+    return await res.json();
+  } catch (e) {
+    showSyncStatus('error', 'Cloud sync failed — using offline data');
+    const raw = localStorage.getItem('nw_' + path.replace(/\//g, '_'));
+    return raw ? JSON.parse(raw) : null;
+  }
+}
 
-// Data nodes
-const productsRef = dbRef.child('products');
-const ordersRef   = dbRef.child('orders');
-const reviewsRef  = dbRef.child('reviews');
-const settingsRef = dbRef.child('settings');
-const counterRef  = dbRef.child('orderCounter');
+async function apiPut(path, data) {
+  if (!USE_FIREBASE) {
+    localStorage.setItem('nw_' + path.replace(/\//g, '_'), JSON.stringify(data));
+    return;
+  }
+  try {
+    await fetch(`${FIREBASE_URL}/${path}.json`, {
+      method: 'PUT',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(data)
+    });
+    localStorage.setItem('nw_' + path.replace(/\//g, '_'), JSON.stringify(data));
+    showSyncStatus('online', 'Synced to cloud');
+  } catch (e) {
+    localStorage.setItem('nw_' + path.replace(/\//g, '_'), JSON.stringify(data));
+    showSyncStatus('offline', 'Saved locally — will sync later');
+  }
+}
 
-// In-memory state (synced from Firebase)
-let products = [];
-let orders   = [];
-let reviews  = [];
+async function apiPatch(path, data) {
+  if (!USE_FIREBASE) {
+    const key = 'nw_' + path.replace(/\//g, '_');
+    const existing = JSON.parse(localStorage.getItem(key) || '{}');
+    const merged = {...existing, ...data};
+    localStorage.setItem(key, JSON.stringify(merged));
+    return;
+  }
+  try {
+    await fetch(`${FIREBASE_URL}/${path}.json`, {
+      method: 'PATCH',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(data)
+    });
+    showSyncStatus('online', 'Synced to cloud');
+  } catch (e) {
+    showSyncStatus('offline', 'Saved locally');
+  }
+}
+
+async function apiDelete(path) {
+  if (!USE_FIREBASE) {
+    localStorage.removeItem('nw_' + path.replace(/\//g, '_'));
+    return;
+  }
+  try {
+    await fetch(`${FIREBASE_URL}/${path}.json`, {method: 'DELETE'});
+    localStorage.removeItem('nw_' + path.replace(/\//g, '_'));
+  } catch (e) {}
+}
+
+// ════════════════════════════════════════════════════════════════
+//  SYNC STATUS INDICATOR
+// ════════════════════════════════════════════════════════════════
+let syncTimeout;
+function showSyncStatus(type, text) {
+  const el = document.getElementById('syncStatus');
+  const txt = document.getElementById('syncText');
+  el.className = 'sync-status show ' + type;
+  txt.textContent = text;
+  clearTimeout(syncTimeout);
+  syncTimeout = setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+// ════════════════════════════════════════════════════════════════
+//  STATE
+// ════════════════════════════════════════════════════════════════
+const STITCH_PRICE = 1500;
+let adminPassword = localStorage.getItem('nw_adminpass') || 'nobel01';
+let products = [], orders = [], reviews = [];
 let cart = [], wishlist = [];
 let currentProduct = null, currentDetailId = null;
 let pendingImages = [], editProductId = null;
+let orderCounter = 1000;
 let currentStitch = 'Stitched';
 let starCount = 0;
 let menCurrentTab = 'clothing', womenCurrentTab = 'clothing';
 let menCurrentFilter = '', womenCurrentFilter = '';
+let adminSettings = {insta:'#', tiktok:'#', facebook:'#', whatsapp:'923163475925'};
 let currentDetailImages = [];
 let lightboxIdx = 0;
 let carouselIdx = 0;
 let dataLoaded = false;
-let adminSettings = {insta:'#',tiktok:'#',facebook:'#',whatsapp:'923163475925'};
 
-const STITCH_PRICE = 1500;
-let adminPassword = localStorage.getItem('nw_adminpass') || 'nobel01';
+// ════════════════════════════════════════════════════════════════
+//  DATA LOADING — Load from Firebase on startup
+// ════════════════════════════════════════════════════════════════
+async function loadAllData() {
+  showSyncStatus('offline', 'Loading data...');
 
-// ══════════════════════════════════════════════════
-//  DEFAULT PRODUCTS (seeded on first run)
-// ══════════════════════════════════════════════════
-function getDefaultProducts() {
-  return {
-    'prod_1': {id:'prod_1',title:'Premium Lawn Suit',gender:'women',category:'clothing',fabric:'Lawn',price:3500,qty:30,description:'Beautiful printed lawn unstitched suit with embroidered dupatta. Perfect for summer.',images:[],emoji:'👗',rating:4.8,ratingCount:24,bestSeller:true},
-    'prod_2': {id:'prod_2',title:'Boski Shalwar Qameez',gender:'men',category:'clothing',fabric:'Boski',price:4200,qty:25,description:'Premium Boski fabric shalwar qameez. Lightweight and comfortable for all seasons.',images:[],emoji:'👔',rating:4.7,ratingCount:18,bestSeller:true},
-    'prod_3': {id:'prod_3',title:'Khaddar Winter Suit',gender:'women',category:'clothing',fabric:'Khaddar',price:2800,qty:40,description:'Warm and cozy Khaddar suit perfect for winters. 3-piece unstitched with embroidery.',images:[],emoji:'🧥',rating:4.6,ratingCount:12,bestSeller:false},
-    'prod_4': {id:'prod_4',title:'Cotton Casual Kurta',gender:'men',category:'clothing',fabric:'Cotton',price:1800,qty:60,description:'Comfortable everyday cotton kurta. Available in multiple colors.',images:[],emoji:'👕',rating:4.5,ratingCount:31,bestSeller:true},
-    'prod_5': {id:'prod_5',title:'Chiffon Party Dress',gender:'women',category:'clothing',fabric:'Chiffon',price:5500,qty:20,description:'Elegant chiffon party dress with heavy embroidery. Perfect for weddings.',images:[],emoji:'💃',rating:4.9,ratingCount:8,bestSeller:true},
-    'prod_6': {id:'prod_6',title:'Classic Leather Shoes',gender:'men',category:'shoes',fabric:'',price:3200,qty:15,description:'Handcrafted genuine leather shoes. Comfortable, durable, and stylish.',images:[],emoji:'👞',rating:4.7,ratingCount:22,bestSeller:true},
-    'prod_7': {id:'prod_7',title:'Ladies Heels',gender:'women',category:'shoes',fabric:'',price:2400,qty:18,description:'Elegant block heels perfect for formal and casual wear.',images:[],emoji:'👠',rating:4.5,ratingCount:14,bestSeller:false},
-    'prod_8': {id:'prod_8',title:'Classic Dress Watch',gender:'men',category:'watches',fabric:'',price:6500,qty:10,description:'Premium dress watch with genuine leather strap. Water resistant.',images:[],emoji:'⌚',rating:4.8,ratingCount:19,bestSeller:true}
-  };
-}
+  const [prodsObj, ordsObj, revsObj, settingsObj, ocVal] = await Promise.all([
+    apiGet('products'),
+    apiGet('orders'),
+    apiGet('reviews'),
+    apiGet('settings'),
+    apiGet('orderCounter')
+  ]);
 
-// ══════════════════════════════════════════════════
-//  INITIALIZE — Load from Firebase, seed if empty
-// ══════════════════════════════════════════════════
-function initFirebaseData() {
-  document.getElementById('loader-status').textContent = 'Syncing with cloud...';
-
-  // Listen to products (real-time)
-  productsRef.on('value', snap => {
-    const val = snap.val();
-    if (val) {
-      products = Object.values(val);
-    } else {
-      // First run — seed defaults
-      productsRef.set(getDefaultProducts());
-      products = Object.values(getDefaultProducts());
-    }
-    onDataUpdate();
-  });
-
-  // Listen to orders (real-time)
-  ordersRef.on('value', snap => {
-    const val = snap.val();
-    orders = val ? Object.values(val) : [];
-    if (dataLoaded) { renderDashboard(); renderAllOrders(); }
-  });
-
-  // Listen to reviews (real-time)
-  reviewsRef.on('value', snap => {
-    const val = snap.val();
-    reviews = val ? Object.values(val) : [];
-    renderCustomerReviews();
-    if (dataLoaded) renderAdminReviews();
-  });
-
-  // Listen to settings (real-time)
-  settingsRef.on('value', snap => {
-    const val = snap.val();
-    if (val) {
-      adminSettings = {...adminSettings, ...val};
-      applySettings();
-    }
-  });
-
-  // Order counter
-  counterRef.on('value', snap => {
-    if (!snap.exists()) counterRef.set(1000);
-  });
-}
-
-function onDataUpdate() {
-  if (!dataLoaded) {
-    dataLoaded = true;
-    document.getElementById('loader-status').textContent = 'Ready!';
-    setTimeout(() => {
-      document.getElementById('loader').classList.add('hidden');
-    }, 600);
+  // Convert Firebase objects to arrays
+  if (prodsObj) {
+    products = Object.entries(prodsObj).map(([key, val]) => ({...val, _key: key}));
+  } else {
+    products = getDefaultProducts();
+    await saveAllProducts();
   }
-  // Update all UI
-  const sp = document.getElementById('stat-products');
-  if (sp) sp.textContent = products.length + '+';
+
+  if (ordsObj) {
+    orders = Object.entries(ordsObj).map(([key, val]) => ({...val, _key: key})).reverse();
+    orderCounter = Math.max(...orders.map(o => o.id), 999) + 1;
+  } else {
+    orders = [];
+  }
+
+  if (revsObj) {
+    reviews = Object.entries(revsObj).map(([key, val]) => ({...val, _key: key}));
+  } else {
+    reviews = [];
+  }
+
+  if (settingsObj) {
+    adminSettings = {...adminSettings, ...settingsObj};
+  }
+
+  if (ocVal) orderCounter = ocVal;
+
+  dataLoaded = true;
+  showSyncStatus('online', 'All data loaded');
+
+  // Render everything
   renderHomeProducts();
+  renderCustomerReviews();
   renderMenGrid();
   renderWomenGrid();
-  renderAdminProducts();
+  applySettings();
 }
 
-// ══════════════════════════════════════════════════
-//  FIREBASE HELPERS
-// ══════════════════════════════════════════════════
-function dbSetProduct(id, data) { return productsRef.child(id).set(data); }
-function dbRemoveProduct(id)   { return productsRef.child(id).remove(); }
-function dbPushOrder(data)     { return ordersRef.push(data); }
-function dbUpdateOrder(key, data) { return ordersRef.child(key).update(data); }
-function dbRemoveOrder(key)    { return ordersRef.child(key).remove(); }
-function dbPushReview(data)    { return reviewsRef.push(data); }
-function dbRemoveReview(key)   { return reviewsRef.child(key).remove(); }
-function dbSetSettings(data)   { return settingsRef.set(data); }
-function dbNextOrderId()       { return counterRef.transaction(c => (c || 1000) + 1); }
+function getDefaultProducts() {
+  return [
+    {id:1,title:'Premium Lawn Suit',gender:'women',category:'clothing',fabric:'Lawn',price:3500,qty:30,description:'Beautiful printed lawn unstitched suit with embroidered dupatta. Perfect for summer.',images:[],emoji:'👗',rating:4.8,ratingCount:24,bestSeller:true},
+    {id:2,title:'Boski Shalwar Qameez',gender:'men',category:'clothing',fabric:'Boski',price:4200,qty:25,description:'Premium Boski fabric shalwar qameez. Lightweight and comfortable for all seasons.',images:[],emoji:'👔',rating:4.7,ratingCount:18,bestSeller:true},
+    {id:3,title:'Khaddar Winter Suit',gender:'women',category:'clothing',fabric:'Khaddar',price:2800,qty:40,description:'Warm and cozy Khaddar suit perfect for winters. 3-piece unstitched with embroidery.',images:[],emoji:'🧥',rating:4.6,ratingCount:12,bestSeller:false},
+    {id:4,title:'Cotton Casual Kurta',gender:'men',category:'clothing',fabric:'Cotton',price:1800,qty:60,description:'Comfortable everyday cotton kurta. Available in multiple colors.',images:[],emoji:'👕',rating:4.5,ratingCount:31,bestSeller:true},
+    {id:5,title:'Chiffon Party Dress',gender:'women',category:'clothing',fabric:'Chiffon',price:5500,qty:20,description:'Elegant chiffon party dress with heavy embroidery. Perfect for weddings.',images:[],emoji:'💃',rating:4.9,ratingCount:8,bestSeller:true},
+    {id:6,title:'Classic Leather Shoes',gender:'men',category:'shoes',fabric:'',price:3200,qty:15,description:'Handcrafted genuine leather shoes. Comfortable, durable, and stylish.',images:[],emoji:'👞',rating:4.7,ratingCount:22,bestSeller:true},
+    {id:7,title:'Ladies Heels',gender:'women',category:'shoes',fabric:'',price:2400,qty:18,description:'Elegant block heels perfect for formal and casual wear.',images:[],emoji:'👠',rating:4.5,ratingCount:14,bestSeller:false},
+    {id:8,title:'Classic Dress Watch',gender:'men',category:'watches',fabric:'',price:6500,qty:10,description:'Premium dress watch with genuine leather strap. Water resistant.',images:[],emoji:'⌚',rating:4.8,ratingCount:19,bestSeller:true},
+  ];
+}
 
-// ══════════════════════════════════════════════════
+async function saveAllProducts() {
+  const obj = {};
+  products.forEach(p => { obj['p' + p.id] = p; });
+  await apiPut('products', obj);
+}
+
+async function saveProductToCloud(product) {
+  await apiPatch('products', {['p' + product.id]: product});
+}
+
+async function deleteProductFromCloud(id) {
+  await apiDelete('products/p' + id);
+}
+
+async function saveOrderToCloud(order) {
+  await apiPatch('orders', {['o' + order.id]: order});
+  await apiPut('orderCounter', orderCounter);
+}
+
+async function saveReviewToCloud(review) {
+  await apiPatch('reviews', {['r' + review.id]: review});
+}
+
+async function deleteReviewFromCloud(id) {
+  await apiDelete('reviews/r' + id);
+}
+
+async function saveSettingsToCloud() {
+  await apiPut('settings', adminSettings);
+}
+
+// ════════════════════════════════════════════════════════════════
 //  LOADER
-// ══════════════════════════════════════════════════
-setTimeout(() => {
-  if (!dataLoaded) {
-    document.getElementById('loader-status').textContent = 'Loading...';
-  }
-}, 1000);
+// ════════════════════════════════════════════════════════════════
+window.addEventListener('load', async () => {
+  await loadAllData();
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+  }, 800);
+});
 
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 //  HERO PARTICLES & SHAPES
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 const particlesCont = document.getElementById('heroParticles');
 for (let i = 0; i < 28; i++) {
   const p = document.createElement('div'); p.className = 'hero-particle';
@@ -1299,9 +1372,9 @@ window.addEventListener('scroll', () => {
   document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 80);
 });
 
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 //  PANELS
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 function openCartPanel()  { closePanels(); document.getElementById('cartPanel').classList.add('open'); document.getElementById('panelOverlay').classList.add('show'); renderCart(); }
 function openWishPanel()  { closePanels(); document.getElementById('wishPanel').classList.add('open'); document.getElementById('panelOverlay').classList.add('show'); renderWish(); }
 function openMenuPanel()  { closePanels(); document.getElementById('menuPanel').classList.add('open'); document.getElementById('panelOverlay').classList.add('show'); }
@@ -1310,9 +1383,9 @@ function closePanels() {
   document.getElementById('panelOverlay').classList.remove('show');
 }
 
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 //  CART
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 function addToCart(product) {
   const ex = cart.find(c => c.id === product.id);
   if (ex) { ex.qty++; } else { cart.push({...product, qty:1}); }
@@ -1329,18 +1402,18 @@ function renderCart() {
   body.innerHTML = cart.map(c => `<div class="panel-item">
     <div style="width:64px;height:64px;min-width:64px;background:var(--gold-pale);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:28px;">${c.images&&c.images[0]?`<img src="${c.images[0]}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;" alt="">`:c.emoji||'📦'}</div>
     <div class="panel-item-info"><h4>${c.title}</h4><p>PKR ${(c.price*c.qty).toLocaleString()} × ${c.qty}</p></div>
-    <button class="panel-item-remove" onclick="removeFromCart('${c.id}')"><i class="fas fa-trash"></i></button>
+    <button class="panel-item-remove" onclick="removeFromCart(${c.id})"><i class="fas fa-trash"></i></button>
   </div>`).join('');
 }
 
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 //  WISHLIST
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 function toggleWish(id) {
   const idx = wishlist.findIndex(x => x.id === id);
   const p   = products.find(x => x.id === id);
   const btn = document.getElementById(`wb-${id}`);
-  if (idx === -1) { if(p) wishlist.push(p); if (btn) btn.classList.add('active'); showToast('Added to wishlist ❤️'); }
+  if (idx === -1) { wishlist.push(p); if (btn) btn.classList.add('active'); showToast('Added to wishlist ❤️'); }
   else            { wishlist.splice(idx,1); if (btn) btn.classList.remove('active'); showToast('Removed from wishlist'); }
   const wb = document.getElementById('wishBadge'); wb.textContent = wishlist.length; wb.style.display = wishlist.length > 0 ? 'flex' : 'none';
   renderWish();
@@ -1355,13 +1428,13 @@ function renderWish() {
   body.innerHTML = wishlist.map(p => `<div class="panel-item">
     <div style="width:64px;height:64px;min-width:64px;background:var(--gold-pale);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:28px;">${p.images&&p.images[0]?`<img src="${p.images[0]}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;" alt="">`:p.emoji||'📦'}</div>
     <div class="panel-item-info"><h4>${p.title}</h4><p>PKR ${p.price.toLocaleString()}</p></div>
-    <button class="panel-item-remove" onclick="removeFromWish('${p.id}')"><i class="fas fa-trash"></i></button>
+    <button class="panel-item-remove" onclick="removeFromWish(${p.id})"><i class="fas fa-trash"></i></button>
   </div>`).join('');
 }
 
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 //  HELPERS
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 function starsHTML(r) {
   let s = '';
   for (let i = 1; i <= 5; i++) {
@@ -1373,9 +1446,9 @@ function starsHTML(r) {
 }
 function catLabel(c) { return {clothing:'Clothing',shoes:'Footwear',watches:'Watches',accessories:'Accessories'}[c] || c; }
 
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 //  BUILD PRODUCT CARD
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 function buildCard(p) {
   const soldOut  = p.qty <= 0;
   const inWish   = wishlist.some(x => x.id === p.id);
@@ -1390,11 +1463,11 @@ function buildCard(p) {
     ribbon = '<div class="best-seller-ribbon"><i class="fas fa-crown"></i> Best Seller</div>';
   }
 
-  return `<div class="product-card" onclick="openDetail('${p.id}')">
+  return `<div class="product-card" onclick="openDetail(${p.id})">
     ${ribbon}
     <div class="product-img-wrap">
       <div class="product-img">${imgHtml}</div>
-      <button class="wishlist-btn-card ${inWish?'active':''}" id="wb-${p.id}" onclick="event.stopPropagation();toggleWish('${p.id}')" title="${inWish?'Remove from wishlist':'Add to wishlist'}">
+      <button class="wishlist-btn-card ${inWish?'active':''}" id="wb-${p.id}" onclick="event.stopPropagation();toggleWish(${p.id})" title="${inWish?'Remove from wishlist':'Add to wishlist'}">
         <i class="fas fa-heart"></i>
       </button>
     </div>
@@ -1404,10 +1477,10 @@ function buildCard(p) {
       <div class="product-price">PKR ${p.price.toLocaleString()} <span class="currency">incl. tax</span></div>
       <div class="product-rating"><span class="stars-gold">${starsHTML(p.rating||5)}</span><span class="review-ct">(${p.ratingCount||0})</span></div>
       <div class="product-actions" onclick="event.stopPropagation()">
-        <button class="btn-sm btn-sm-primary" onclick="openOrderModal('${p.id}')" ${soldOut?'disabled':''}>
+        <button class="btn-sm btn-sm-primary" onclick="openOrderModal(${p.id})" ${soldOut?'disabled':''}>
           <i class="fas fa-${soldOut?'ban':'shopping-bag'}"></i> ${soldOut?'Sold Out':'Order Now'}
         </button>
-        <button class="btn-sm btn-sm-outline" onclick="openReviewModal('${p.id}')">
+        <button class="btn-sm btn-sm-outline" onclick="openReviewModal(${p.id})">
           <i class="fas fa-star"></i> Review
         </button>
       </div>
@@ -1415,9 +1488,9 @@ function buildCard(p) {
   </div>`;
 }
 
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 //  CATEGORY PAGES
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 function openMenPage()   { document.getElementById('men-page').classList.add('open');   document.body.style.overflow = 'hidden'; renderMenGrid(); }
 function openWomenPage() { document.getElementById('women-page').classList.add('open'); document.body.style.overflow = 'hidden'; renderWomenGrid(); }
 function closeCatPage(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow = ''; }
@@ -1462,9 +1535,9 @@ function filterWomen(fabric, el) {
   renderWomenGrid();
 }
 
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 //  BEST SELLERS CAROUSEL
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 function getCardsPerView() {
   const w = window.innerWidth;
   if (w <= 480)  return 1;
@@ -1535,9 +1608,9 @@ window.addEventListener('resize', () => {
   resizeTimer = setTimeout(() => { setCardWidths(); updateCarouselPosition(); }, 100);
 });
 
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 //  PRODUCT DETAIL
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 function openDetail(id) {
   const p = products.find(x => x.id === id); if (!p) return;
   currentDetailId = id;
@@ -1581,9 +1654,9 @@ function closeDetail()            { document.getElementById('product-detail').cl
 function openOrderFromDetail()    { if (currentDetailId) openOrderModal(currentDetailId); }
 function openReviewFromDetail()   { if (currentDetailId) openReviewModal(currentDetailId); }
 
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 //  LIGHTBOX
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 function openLightbox()  { if (!currentDetailImages.length) return; document.getElementById('lightbox').classList.add('open'); renderLightbox(lightboxIdx); }
 function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
 function renderLightbox(idx) {
@@ -1605,9 +1678,9 @@ document.addEventListener('keydown', e => {
   if (e.key==='Escape')     closeLightbox();
 });
 
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 //  ORDER MODAL
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 function updatePriceSummary() {
   if (!currentProduct) return;
   const qty       = parseInt(document.getElementById('o-qty').value) || 1;
@@ -1658,8 +1731,7 @@ function previewMeasurement(inp) {
     r.readAsDataURL(inp.files[0]);
   }
 }
-
-function submitOrder(e) {
+async function submitOrder(e) {
   e.preventDefault();
   if (!currentProduct) return;
   const name    = document.getElementById('o-name').value.trim();
@@ -1672,62 +1744,57 @@ function submitOrder(e) {
   if (!name||!phone||!address||!city||!payment) { showToast('Please fill all required fields'); return; }
   if (qty > currentProduct.qty) { showToast(`Only ${currentProduct.qty} in stock`); return; }
 
-  counterRef.transaction(current => {
-    return (current || 1000) + 1;
-  }).then(result => {
-    const newId = result.snapshot.val();
+  orderCounter++;
+  const isClothing  = currentProduct.category === 'clothing';
+  const stitched    = isClothing && currentStitch === 'Stitched';
+  const stitchFee   = stitched ? STITCH_PRICE : 0;
+  const total       = (currentProduct.price + stitchFee) * qty;
+  let measurementPhoto = null;
+  const mPhotoEl = document.getElementById('m-photo-preview');
+  if (mPhotoEl.style.display !== 'none' && mPhotoEl.src) measurementPhoto = mPhotoEl.src;
+  const measurement = (isClothing && currentStitch === 'Stitched') ? {
+    chest:     document.getElementById('m-chest').value,
+    length:    document.getElementById('m-length').value,
+    shoulders: document.getElementById('m-shoulders').value,
+    sleeves:   document.getElementById('m-sleeves').value,
+    photo:     measurementPhoto
+  } : null;
 
-    const isClothing  = currentProduct.category === 'clothing';
-    const stitched    = isClothing && currentStitch === 'Stitched';
-    const stitchFee   = stitched ? STITCH_PRICE : 0;
-    const total       = (currentProduct.price + stitchFee) * qty;
-    let measurementPhoto = null;
-    const mPhotoEl = document.getElementById('m-photo-preview');
-    if (mPhotoEl.style.display !== 'none' && mPhotoEl.src) measurementPhoto = mPhotoEl.src;
-    const measurement = (isClothing && currentStitch === 'Stitched') ? {
-      chest:     document.getElementById('m-chest').value,
-      length:    document.getElementById('m-length').value,
-      shoulders: document.getElementById('m-shoulders').value,
-      sleeves:   document.getElementById('m-sleeves').value,
-      photo:     measurementPhoto
-    } : null;
+  const order = {
+    id: orderCounter,
+    date: new Date().toLocaleString('en-PK'),
+    product: currentProduct.title,
+    productId: currentProduct.id,
+    productEmoji: currentProduct.emoji||'📦',
+    unitPrice: currentProduct.price,
+    stitchFee, qty, total,
+    customer: {name, phone, address, city},
+    payment, notes,
+    stitch: isClothing ? currentStitch : 'N/A',
+    measurement,
+    status: 'new'
+  };
 
-    const order = {
-      id: newId,
-      date: new Date().toLocaleString('en-PK'),
-      product: currentProduct.title,
-      productId: currentProduct.id,
-      productEmoji: currentProduct.emoji||'📦',
-      unitPrice: currentProduct.price,
-      stitchFee,
-      qty,
-      total,
-      customer: {name, phone, address, city},
-      payment,
-      notes,
-      stitch: isClothing ? currentStitch : 'N/A',
-      measurement,
-      status: 'new'
-    };
+  orders.unshift(order);
+  await saveOrderToCloud(order);
 
-    dbPushOrder(order);
+  // Reduce stock
+  const idx = products.findIndex(x => x.id === currentProduct.id);
+  if (idx !== -1) {
+    products[idx].qty = Math.max(0, products[idx].qty - qty);
+    await saveProductToCloud(products[idx]);
+  }
 
-    // Reduce stock
-    const pIdx = products.findIndex(x => x.id === currentProduct.id);
-    if (pIdx !== -1) {
-      products[pIdx].qty = Math.max(0, products[pIdx].qty - qty);
-      dbSetProduct(products[pIdx].id, products[pIdx]);
-    }
-
-    document.getElementById('order-form-wrap').style.display = 'none';
-    document.getElementById('order-success').style.display   = 'block';
-    showToast('Order placed successfully! ✅');
-  });
+  renderHomeProducts();
+  renderAdminProducts();
+  document.getElementById('order-form-wrap').style.display = 'none';
+  document.getElementById('order-success').style.display   = 'block';
+  showToast('Order placed successfully! ✅');
 }
 
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 //  REVIEWS
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 let currentReviewProductId = null;
 function openReviewModal(id) {
   currentReviewProductId = id; starCount = 0; setStar(0);
@@ -1738,29 +1805,31 @@ function setStar(n) {
   starCount = n; document.getElementById('r-stars').value = n;
   document.querySelectorAll('#star-input .star').forEach((s,i) => s.classList.toggle('on', i < n));
 }
-function submitReview(e) {
+async function submitReview(e) {
   e.preventDefault();
   const name  = document.getElementById('r-name').value.trim();
   const text  = document.getElementById('r-text').value.trim();
   const stars = parseInt(document.getElementById('r-stars').value);
   if (!stars) { showToast('Please select a rating'); return; }
   const p = products.find(x => x.id === currentReviewProductId);
-  const review = {id: 'rev_'+Date.now(), name, text, stars, product: p?p.title:'General', productId: currentReviewProductId, date: new Date().toLocaleDateString('en-PK')};
-  dbPushReview(review);
+  const review = {id:Date.now(), name, text, stars, product:p?p.title:'General', productId:currentReviewProductId, date:new Date().toLocaleDateString('en-PK')};
+  reviews.unshift(review);
+  await saveReviewToCloud(review);
 
-  // Update product rating
   if (currentReviewProductId) {
     const pi = products.findIndex(x => x.id === currentReviewProductId);
     if (pi !== -1) {
-      const prRevs = [...reviews.filter(r => r.productId === currentReviewProductId), review];
+      const prRevs = reviews.filter(r => r.productId === currentReviewProductId);
       products[pi].rating      = parseFloat((prRevs.reduce((a,b) => a+b.stars, 0) / prRevs.length).toFixed(1));
       products[pi].ratingCount = prRevs.length;
-      dbSetProduct(products[pi].id, products[pi]);
+      await saveProductToCloud(products[pi]);
     }
   }
 
   renderCustomerReviews();
-  showToast('Thank you for your review! ⭐'); closeModal('reviewModal');
+  renderHomeProducts();
+  showToast('Thank you for your review! ⭐');
+  closeModal('reviewModal');
 }
 function renderCustomerReviews() {
   const grid = document.getElementById('customer-reviews-grid');
@@ -1773,9 +1842,9 @@ function renderCustomerReviews() {
   </div>`).join('');
 }
 
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 //  LIVE SEARCH
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 function liveSearch(q) {
   const track = document.getElementById('homeProductsTrack');
   if (!q.trim()) { renderHomeProducts(); return; }
@@ -1790,18 +1859,18 @@ function liveSearch(q) {
   document.getElementById('products-home').scrollIntoView({behavior:'smooth'});
 }
 
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 //  MODALS
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 function openModal(id)  { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 document.querySelectorAll('.modal-overlay').forEach(o => {
   o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
 });
 
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 //  TOAST
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 function showToast(msg) {
   const t = document.createElement('div');
   t.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--forest);color:var(--gold);padding:11px 24px;border-radius:50px;font-size:13px;font-weight:500;z-index:99999;box-shadow:0 8px 24px rgba(0,0,0,.3);border:1px solid rgba(198,167,94,.2);white-space:nowrap;max-width:90vw;text-overflow:ellipsis;overflow:hidden;transition:opacity .3s;';
@@ -1809,9 +1878,9 @@ function showToast(msg) {
   setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 2600);
 }
 
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 //  ADMIN — AUTH
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 function openAdminLogin() {
   openModal('adminLoginModal');
   document.getElementById('admin-u').value = '';
@@ -1837,9 +1906,9 @@ function adminLogout() {
   document.body.style.overflow = '';
 }
 
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 //  ADMIN — TAB SWITCHING
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 function showAdminTab(tab, mobileEl) {
   document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.admin-nav').forEach(n => n.classList.remove('active'));
@@ -1871,9 +1940,9 @@ function showAdminTab(tab, mobileEl) {
   if (tab === 'settings')      loadSettings();
 }
 
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 //  ADMIN — DASHBOARD
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 function renderDashboard() {
   document.getElementById('s-orders').textContent   = orders.length;
   document.getElementById('s-products').textContent = products.length;
@@ -1891,9 +1960,9 @@ function renderDashboard() {
   </tr>`).join('') || '<tr><td colspan="7" style="text-align:center;padding:28px;color:#9ca3af;">No orders yet</td></tr>';
 }
 
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 //  ADMIN — ORDERS
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 function renderAllOrders(list) {
   list = list || orders;
   const tb = document.getElementById('all-orders-tb');
@@ -1966,32 +2035,18 @@ function viewOrder(id) {
   openModal('orderDetailModal');
 }
 
-function changeOrderStatus(id) {
+async function changeOrderStatus(id) {
   const statuses = ['new','processing','done'];
   const o = orders.find(x => x.id === id); if (!o) return;
   o.status = statuses[(statuses.indexOf(o.status||'new')+1) % statuses.length];
-  // Find Firebase key and update
-  ordersRef.once('value', snap => {
-    const val = snap.val();
-    if (val) {
-      Object.entries(val).forEach(([key, order]) => {
-        if (order.id === id) dbUpdateOrder(key, {status: o.status});
-      });
-    }
-  });
+  await saveOrderToCloud(o);
   renderAllOrders(); renderDashboard(); showToast(`Order #${id} → ${o.status.toUpperCase()}`);
 }
-function deleteOrder(id) {
+async function deleteOrder(id) {
   if (!confirm('Delete this order?')) return;
-  ordersRef.once('value', snap => {
-    const val = snap.val();
-    if (val) {
-      Object.entries(val).forEach(([key, order]) => {
-        if (order.id === id) dbRemoveOrder(key);
-      });
-    }
-  });
-  showToast('Order deleted');
+  orders = orders.filter(x => x.id !== id);
+  await apiDelete('orders/o' + id);
+  renderAllOrders(); renderDashboard(); showToast('Order deleted');
 }
 function searchOrders(q) {
   q = q.toLowerCase();
@@ -2004,9 +2059,9 @@ function searchOrders(q) {
   renderAllOrders(f);
 }
 
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 //  ADMIN — PRODUCTS TABLE
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 function renderAdminProducts() {
   const tb = document.getElementById('products-tb');
   if (!products.length) {
@@ -2032,15 +2087,17 @@ function renderAdminProducts() {
       : '<span style="background:#f3f4f6;color:#9ca3af;padding:3px 10px;border-radius:20px;font-size:11px;">No</span>'
     }</td>
     <td>
-      <button class="action-btn btn-edit" onclick="editProduct('${p.id}')" title="Edit"><i class="fas fa-pencil-alt"></i> Edit</button>
-      <button class="action-btn btn-del"  onclick="deleteProduct('${p.id}')" title="Delete"><i class="fas fa-trash"></i></button>
+      <button class="action-btn btn-edit" onclick="editProduct(${p.id})" title="Edit"><i class="fas fa-pencil-alt"></i> Edit</button>
+      <button class="action-btn btn-del"  onclick="deleteProduct(${p.id})" title="Delete"><i class="fas fa-trash"></i></button>
     </td>
   </tr>`).join('');
 }
 
-function deleteProduct(id) {
+async function deleteProduct(id) {
   if (!confirm('Delete this product?')) return;
-  dbRemoveProduct(id);
+  products = products.filter(x => x.id !== id);
+  await deleteProductFromCloud(id);
+  renderAdminProducts(); renderHomeProducts(); renderMenGrid(); renderWomenGrid();
   showToast('Product deleted');
 }
 
@@ -2061,9 +2118,9 @@ function editProduct(id) {
   showAdminTab('add-product');
 }
 
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 //  ADMIN — ADD / SAVE PRODUCT
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 function handleProductImages(event) {
   const files = Array.from(event.target.files);
   const rem   = 10 - pendingImages.length;
@@ -2081,7 +2138,7 @@ function renderImgPreviews() {
   ).join('');
 }
 
-function saveProduct() {
+async function saveProduct() {
   const titleVal   = document.getElementById('p-title').value;
   const gender     = document.getElementById('p-gender').value;
   const category   = document.getElementById('p-category').value;
@@ -2107,7 +2164,7 @@ function saveProduct() {
   if (editProductId) {
     const idx = products.findIndex(x => x.id === editProductId);
     if (idx !== -1) {
-      const updated = {
+      products[idx] = {
         ...products[idx],
         title, gender, category,
         fabric: fabric.trim(),
@@ -2116,28 +2173,32 @@ function saveProduct() {
         images: [...pendingImages],
         bestSeller: bestSeller
       };
-      dbSetProduct(editProductId, updated);
+      await saveProductToCloud(products[idx]);
     }
     editProductId = null;
     showToast('Product updated ✅');
   } else {
-    const newId = 'prod_' + Date.now();
     const newProduct = {
-      id: newId,
+      id:          Date.now(),
       title, gender, category,
-      fabric: fabric.trim(),
+      fabric:      fabric.trim(),
       price, qty,
       description: descT,
-      images: [...pendingImages],
-      emoji: emojis[category] || '📦',
-      rating: 5,
+      images:      [...pendingImages],
+      emoji:       emojis[category] || '📦',
+      rating:      5,
       ratingCount: 0,
-      bestSeller: bestSeller
+      bestSeller:  bestSeller
     };
-    dbSetProduct(newId, newProduct);
+    products.push(newProduct);
+    await saveProductToCloud(newProduct);
     showToast('Product added ✅');
   }
 
+  renderHomeProducts();
+  renderAdminProducts();
+  renderMenGrid();
+  renderWomenGrid();
   resetProductForm();
   showAdminTab('products');
 }
@@ -2156,9 +2217,9 @@ function resetProductForm() {
 }
 function cancelAddProduct() { resetProductForm(); showAdminTab('products'); }
 
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 //  ADMIN — REVIEWS
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 function renderAdminReviews() {
   const tb = document.getElementById('reviews-admin-tb');
   if (!reviews.length) {
@@ -2172,20 +2233,14 @@ function renderAdminReviews() {
     <td style="max-width:180px;font-size:12px;color:#6b7280;">${r.text.substring(0,80)}${r.text.length>80?'...':''}</td>
     <td style="font-size:12px;">${r.product||'—'}</td>
     <td style="font-size:12px;color:#9ca3af;">${r.date}</td>
-    <td><button class="action-btn btn-del" onclick="deleteReview('${r.id}')" title="Delete"><i class="fas fa-trash"></i></button></td>
+    <td><button class="action-btn btn-del" onclick="deleteReview(${r.id})" title="Delete"><i class="fas fa-trash"></i></button></td>
   </tr>`).join('');
 }
-function deleteReview(id) {
+async function deleteReview(id) {
   if (!confirm('Delete this review?')) return;
-  reviewsRef.once('value', snap => {
-    const val = snap.val();
-    if (val) {
-      Object.entries(val).forEach(([key, rev]) => {
-        if (rev.id === id) dbRemoveReview(key);
-      });
-    }
-  });
-  showToast('Review deleted');
+  reviews = reviews.filter(x => x.id !== id);
+  await deleteReviewFromCloud(id);
+  renderAdminReviews(); renderCustomerReviews(); showToast('Review deleted');
 }
 function openAddAdminReview() {
   starCount = 0; setStar(0);
@@ -2193,21 +2248,22 @@ function openAddAdminReview() {
   currentReviewProductId = null; openModal('reviewModal');
 }
 
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 //  ADMIN — SETTINGS
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 function loadSettings() {
   document.getElementById('set-insta').value    = adminSettings.insta    || '';
   document.getElementById('set-tiktok').value   = adminSettings.tiktok   || '';
   document.getElementById('set-whatsapp').value = adminSettings.whatsapp || '';
   document.getElementById('set-facebook').value = adminSettings.facebook || '';
+  document.getElementById('current-firebase-url').textContent = FIREBASE_URL || 'Not configured — using local storage only';
 }
-function saveSettings() {
+async function saveSettings() {
   adminSettings.insta     = document.getElementById('set-insta').value.trim();
   adminSettings.tiktok    = document.getElementById('set-tiktok').value.trim();
   adminSettings.whatsapp  = document.getElementById('set-whatsapp').value.trim();
   adminSettings.facebook  = document.getElementById('set-facebook').value.trim();
-  dbSetSettings(adminSettings);
+  await saveSettingsToCloud();
   applySettings(); showToast('Settings saved ✅');
 }
 function changeAdminPass() {
@@ -2229,18 +2285,13 @@ function applySettings() {
   }
 }
 
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 //  REVEAL ANIMATION
-// ══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 const revObs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
 }, {threshold:.1});
 document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => revObs.observe(el));
-
-// ══════════════════════════════════════════════════
-//  INIT
-// ══════════════════════════════════════════════════
-initFirebaseData();
 </script>
 </body>
 </html>
