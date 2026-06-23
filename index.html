@@ -2795,15 +2795,116 @@ const defaultReviews = [
     { id: 'r3', name: 'Muhammad Raza', rating: 4, text: 'Great customer service and fast delivery. The watch looks even better in person. Very satisfied with my purchase.', date: '2025-03-10' }
 ];
 
-// ===== LOCAL STORAGE =====
-function saveToStorage() {
-    localStorage.setItem('nobelwear_products', JSON.stringify(store.products));
-    localStorage.setItem('nobelwear_cart', JSON.stringify(store.cart));
-    localStorage.setItem('nobelwear_wishlist', JSON.stringify(store.wishlist));
-    localStorage.setItem('nobelwear_orders', JSON.stringify(store.orders));
-    localStorage.setItem('nobelwear_reviews', JSON.stringify(store.reviews));
-    localStorage.setItem('nobelwear_settings', JSON.stringify(store.settings));
-    localStorage.setItem('nobelwear_adminSession', JSON.stringify(store.adminLoggedIn));
+cat > /home/claude/firebase_functions.js << 'FBEOF'
+// ===== FIREBASE HELPER FUNCTIONS =====
+// These replace localStorage with Firestore
+
+async function saveProductToFirebase(product) {
+    try {
+        if (!window.db) return false;
+        const { doc, setDoc } = await import("https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js");
+        await setDoc(doc(window.db, "products", product.id), product);
+        return true;
+    } catch (e) {
+        console.error("Firebase save error:", e);
+        return false;
+    }
+}
+
+async function deleteProductFromFirebase(productId) {
+    try {
+        if (!window.db) return false;
+        const { doc, deleteDoc } = await import("https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js");
+        await deleteDoc(doc(window.db, "products", productId));
+        return true;
+    } catch (e) {
+        console.error("Firebase delete error:", e);
+        return false;
+    }
+}
+
+async function saveOrderToFirebase(order) {
+    try {
+        if (!window.db) return false;
+        const { doc, setDoc } = await import("https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js");
+        await setDoc(doc(window.db, "orders", order.id), order);
+        return true;
+    } catch (e) {
+        console.error("Firebase order save error:", e);
+        return false;
+    }
+}
+
+async function uploadImageToFirebase(file, productId) {
+    try {
+        if (!window.storage) return null;
+        const { ref, uploadBytes, getDownloadURL } = await import("https://www.gstatic.com/firebasejs/12.15.0/firebase-storage.js");
+        const imageRef = ref(window.storage, "products/" + productId + "/" + file.name);
+        await uploadBytes(imageRef, file);
+        const url = await getDownloadURL(imageRef);
+        return url;
+    } catch (e) {
+        console.error("Firebase upload error:", e);
+        return null;
+    }
+}
+
+async function loadAllFromFirebase() {
+    try {
+        if (!window.db) return false;
+        const { collection, getDocs, orderBy, query } = await import("https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js");
+        
+        // Load products
+        const productsSnap = await getDocs(collection(window.db, "products"));
+        if (!productsSnap.empty) {
+            store.products = [];
+            productsSnap.forEach(d => store.products.push(d.data()));
+        }
+        
+        // Load orders
+        const ordersSnap = await getDocs(collection(window.db, "orders"));
+        if (!ordersSnap.empty) {
+            store.orders = [];
+            ordersSnap.forEach(d => store.orders.push(d.data()));
+            store.orders.sort((a, b) => new Date(b.date) - new Date(a.date));
+        }
+        
+        // Load reviews
+        const reviewsSnap = await getDocs(collection(window.db, "reviews"));
+        if (!reviewsSnap.empty) {
+            store.reviews = [];
+            reviewsSnap.forEach(d => store.reviews.push(d.data()));
+        }
+        
+        return true;
+    } catch (e) {
+        console.error("Firebase load error:", e);
+        return false;
+    }
+}
+
+async function saveReviewToFirebase(review) {
+    try {
+        if (!window.db) return false;
+        const { doc, setDoc } = await import("https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js");
+        await setDoc(doc(window.db, "reviews", review.id), review);
+        return true;
+    } catch (e) {
+        console.error("Firebase review save error:", e);
+        return false;
+    }
+}
+
+async function deleteReviewFromFirebase(reviewId) {
+    try {
+        if (!window.db) return false;
+        const { doc, deleteDoc } = await import("https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js");
+        await deleteDoc(doc(window.db, "reviews", reviewId));
+        return true;
+    } catch (e) {
+        console.error("Firebase review delete error:", e);
+        return false;
+    }
 }
 
 function loadFromStorage() {
