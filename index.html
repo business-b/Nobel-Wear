@@ -2719,8 +2719,11 @@
     </div>
 
     <script>
+// ===== FIREBASE & STATE MANAGEMENT =====
+let db = null;
+let storage = null;
+let firestoreReady = false;
 
-// ===== STATE MANAGEMENT =====
 const store = {
     products: [],
     cart: [],
@@ -2737,56 +2740,15 @@ const store = {
     currentAdminView: 'dashboard'
 };
 
-// Default products
 const defaultProducts = [
-    {
-        id: 'p1', title: 'Premium Lawn Suit', gender: 'women', category: 'clothing', fabric: 'Lawn',
-        price: 3500, stock: 15, image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&q=80',
-        rating: 4.8, reviews: 12, bestSeller: true,
-        description: 'Exquisite 3-piece unstitched lawn suit featuring premium quality fabric with elegant embroidery. Perfect for summer occasions.'
-    },
-    {
-        id: 'p2', title: 'Boski Shalwar Qameez', gender: 'men', category: 'clothing', fabric: 'Boski',
-        price: 4200, stock: 8, image: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=500&q=80',
-        rating: 4.9, reviews: 8, bestSeller: true,
-        description: 'Luxurious Boski silk shalwar qameez with a rich royal blue hue. Ideal for formal gatherings and weddings.'
-    },
-    {
-        id: 'p3', title: 'Khaddar Winter Suit', gender: 'women', category: 'clothing', fabric: 'Khaddar',
-        price: 2800, stock: 20, image: 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=500&q=80',
-        rating: 4.5, reviews: 6, bestSeller: false,
-        description: 'Warm and comfortable Khaddar winter suit in earthy brown tones. Perfect for chilly days with style.'
-    },
-    {
-        id: 'p4', title: 'Cotton Casual Kurta', gender: 'men', category: 'clothing', fabric: 'Cotton',
-        price: 1800, stock: 25, image: 'https://images.unsplash.com/photo-1617137968427-85924c800a22?w=500&q=80',
-        rating: 4.7, reviews: 15, bestSeller: true,
-        description: 'Crisp white cotton kurta with minimal embroidery at the collar. Comfortable for daily wear.'
-    },
-    {
-        id: 'p5', title: 'Chiffon Party Dress', gender: 'women', category: 'clothing', fabric: 'Chiffon',
-        price: 5500, stock: 5, image: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=500&q=80',
-        rating: 4.9, reviews: 10, bestSeller: true,
-        description: 'Elegant flowing chiffon party dress in deep maroon. Drapes beautifully for special occasions.'
-    },
-    {
-        id: 'p6', title: 'Classic Leather Shoes', gender: 'men', category: 'shoes', fabric: '',
-        price: 3200, stock: 10, image: 'https://images.unsplash.com/photo-1614252369475-531eba835eb1?w=500&q=80',
-        rating: 4.6, reviews: 7, bestSeller: true,
-        description: 'Classic Oxford-style black leather formal shoes with polished glossy finish. Essential for formal wear.'
-    },
-    {
-        id: 'p7', title: 'Ladies Heels', gender: 'women', category: 'shoes', fabric: '',
-        price: 2400, stock: 12, image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=500&q=80',
-        rating: 4.4, reviews: 5, bestSeller: false,
-        description: 'Elegant rose gold metallic high heel sandals with stiletto heel. Perfect for parties and events.'
-    },
-    {
-        id: 'p8', title: 'Classic Dress Watch', gender: 'men', category: 'watches', fabric: '',
-        price: 6500, stock: 7, image: 'https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=500&q=80',
-        rating: 4.8, reviews: 9, bestSeller: true,
-        description: 'Classic dress watch with silver stainless steel bracelet and round white dial with gold Roman numerals.'
-    }
+    { id: 'p1', title: 'Premium Lawn Suit', gender: 'women', category: 'clothing', fabric: 'Lawn', price: 3500, stock: 15, image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&q=80', rating: 4.8, reviews: 12, bestSeller: true, description: 'Exquisite 3-piece unstitched lawn suit featuring premium quality fabric with elegant embroidery. Perfect for summer occasions.' },
+    { id: 'p2', title: 'Boski Shalwar Qameez', gender: 'men', category: 'clothing', fabric: 'Boski', price: 4200, stock: 8, image: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=500&q=80', rating: 4.9, reviews: 8, bestSeller: true, description: 'Luxurious Boski silk shalwar qameez with a rich royal blue hue. Ideal for formal gatherings and weddings.' },
+    { id: 'p3', title: 'Khaddar Winter Suit', gender: 'women', category: 'clothing', fabric: 'Khaddar', price: 2800, stock: 20, image: 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=500&q=80', rating: 4.5, reviews: 6, bestSeller: false, description: 'Warm and comfortable Khaddar winter suit in earthy brown tones. Perfect for chilly days with style.' },
+    { id: 'p4', title: 'Cotton Casual Kurta', gender: 'men', category: 'clothing', fabric: 'Cotton', price: 1800, stock: 25, image: 'https://images.unsplash.com/photo-1617137968427-85924c800a22?w=500&q=80', rating: 4.7, reviews: 15, bestSeller: true, description: 'Crisp white cotton kurta with minimal embroidery at the collar. Comfortable for daily wear.' },
+    { id: 'p5', title: 'Chiffon Party Dress', gender: 'women', category: 'clothing', fabric: 'Chiffon', price: 5500, stock: 5, image: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=500&q=80', rating: 4.9, reviews: 10, bestSeller: true, description: 'Elegant flowing chiffon party dress in deep maroon. Drapes beautifully for special occasions.' },
+    { id: 'p6', title: 'Classic Leather Shoes', gender: 'men', category: 'shoes', fabric: '', price: 3200, stock: 10, image: 'https://images.unsplash.com/photo-1614252369475-531eba835eb1?w=500&q=80', rating: 4.6, reviews: 7, bestSeller: true, description: 'Classic Oxford-style black leather formal shoes with polished glossy finish. Essential for formal wear.' },
+    { id: 'p7', title: 'Ladies Heels', gender: 'women', category: 'shoes', fabric: '', price: 2400, stock: 12, image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=500&q=80', rating: 4.4, reviews: 5, bestSeller: false, description: 'Elegant rose gold metallic high heel sandals with stiletto heel. Perfect for parties and events.' },
+    { id: 'p8', title: 'Classic Dress Watch', gender: 'men', category: 'watches', fabric: '', price: 6500, stock: 7, image: 'https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=500&q=80', rating: 4.8, reviews: 9, bestSeller: true, description: 'Classic dress watch with silver stainless steel bracelet and round white dial with gold Roman numerals.' }
 ];
 
 const defaultReviews = [
@@ -2795,133 +2757,170 @@ const defaultReviews = [
     { id: 'r3', name: 'Muhammad Raza', rating: 4, text: 'Great customer service and fast delivery. The watch looks even better in person. Very satisfied with my purchase.', date: '2025-03-10' }
 ];
 
-cat > /home/claude/firebase_functions.js << 'FBEOF'
-// ===== FIREBASE HELPER FUNCTIONS =====
-// These replace localStorage with Firestore
-
-async function saveProductToFirebase(product) {
+// ===== FIREBASE INITIALIZATION =====
+async function initializeFirebase() {
     try {
-        if (!window.db) return false;
-        const { doc, setDoc } = await import("https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js");
-        await setDoc(doc(window.db, "products", product.id), product);
-        return true;
-    } catch (e) {
-        console.error("Firebase save error:", e);
-        return false;
+        db = window.db;
+        storage = window.storage;
+        if (db && storage) {
+            firestoreReady = true;
+            console.log('✅ Firebase initialized successfully');
+            await loadDataFromFirestore();
+        } else {
+            console.warn('⚠️ Firebase not fully initialized, using localStorage');
+            loadFromStorage();
+        }
+    } catch (error) {
+        console.error('Firebase error:', error);
+        loadFromStorage();
     }
 }
 
-async function deleteProductFromFirebase(productId) {
+// ===== FIRESTORE OPERATIONS =====
+async function loadDataFromFirestore() {
     try {
-        if (!window.db) return false;
-        const { doc, deleteDoc } = await import("https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js");
-        await deleteDoc(doc(window.db, "products", productId));
-        return true;
-    } catch (e) {
-        console.error("Firebase delete error:", e);
-        return false;
-    }
-}
-
-async function saveOrderToFirebase(order) {
-    try {
-        if (!window.db) return false;
-        const { doc, setDoc } = await import("https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js");
-        await setDoc(doc(window.db, "orders", order.id), order);
-        return true;
-    } catch (e) {
-        console.error("Firebase order save error:", e);
-        return false;
-    }
-}
-
-async function uploadImageToFirebase(file, productId) {
-    try {
-        if (!window.storage) return null;
-        const { ref, uploadBytes, getDownloadURL } = await import("https://www.gstatic.com/firebasejs/12.15.0/firebase-storage.js");
-        const imageRef = ref(window.storage, "products/" + productId + "/" + file.name);
-        await uploadBytes(imageRef, file);
-        const url = await getDownloadURL(imageRef);
-        return url;
-    } catch (e) {
-        console.error("Firebase upload error:", e);
-        return null;
-    }
-}
-
-async function loadAllFromFirebase() {
-    try {
-        if (!window.db) return false;
-        const { collection, getDocs, orderBy, query } = await import("https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js");
+        const { collection, getDocs, query, orderBy } = window.firebase.firestore;
         
         // Load products
-        const productsSnap = await getDocs(collection(window.db, "products"));
-        if (!productsSnap.empty) {
-            store.products = [];
-            productsSnap.forEach(d => store.products.push(d.data()));
+        try {
+            const productsRef = collection(db, 'products');
+            const productsSnap = await getDocs(productsRef);
+            if (!productsSnap.empty) {
+                store.products = [];
+                productsSnap.forEach(doc => {
+                    store.products.push({ id: doc.id, ...doc.data() });
+                });
+                console.log(`📦 Loaded ${store.products.length} products from Firestore`);
+            } else {
+                store.products = [...defaultProducts];
+            }
+        } catch (e) {
+            console.log('Products collection not found, using defaults');
+            store.products = [...defaultProducts];
         }
-        
-        // Load orders
-        const ordersSnap = await getDocs(collection(window.db, "orders"));
-        if (!ordersSnap.empty) {
-            store.orders = [];
-            ordersSnap.forEach(d => store.orders.push(d.data()));
-            store.orders.sort((a, b) => new Date(b.date) - new Date(a.date));
-        }
-        
+
         // Load reviews
-        const reviewsSnap = await getDocs(collection(window.db, "reviews"));
-        if (!reviewsSnap.empty) {
-            store.reviews = [];
-            reviewsSnap.forEach(d => store.reviews.push(d.data()));
+        try {
+            const reviewsRef = collection(db, 'reviews');
+            const reviewsQuery = query(reviewsRef, orderBy('createdAt', 'desc'));
+            const reviewsSnap = await getDocs(reviewsQuery);
+            if (!reviewsSnap.empty) {
+                store.reviews = [];
+                reviewsSnap.forEach(doc => {
+                    store.reviews.push({ id: doc.id, ...doc.data() });
+                });
+                console.log(`⭐ Loaded ${store.reviews.length} reviews from Firestore`);
+            } else {
+                store.reviews = [...defaultReviews];
+            }
+        } catch (e) {
+            console.log('Reviews collection not found, using defaults');
+            store.reviews = [...defaultReviews];
         }
-        
+
+        // Load orders
+        try {
+            const ordersRef = collection(db, 'orders');
+            const ordersQuery = query(ordersRef, orderBy('createdAt', 'desc'));
+            const ordersSnap = await getDocs(ordersQuery);
+            if (!ordersSnap.empty) {
+                store.orders = [];
+                ordersSnap.forEach(doc => {
+                    store.orders.push({ id: doc.id, ...doc.data() });
+                });
+                console.log(`📋 Loaded ${store.orders.length} orders from Firestore`);
+            }
+        } catch (e) {
+            console.log('Orders collection not found');
+        }
+
+        loadFromStorage();
+        saveToStorage();
+    } catch (error) {
+        console.error('Error loading from Firestore:', error);
+        loadFromStorage();
+    }
+}
+
+async function saveOrderToFirestore(order) {
+    if (!firestoreReady) return false;
+    try {
+        const { collection, addDoc, serverTimestamp } = window.firebase.firestore;
+        const ordersRef = collection(db, 'orders');
+        await addDoc(ordersRef, {
+            ...order,
+            createdAt: serverTimestamp(),
+            updatedAt: serverTimestamp()
+        });
+        console.log('✅ Order saved to Firestore');
         return true;
-    } catch (e) {
-        console.error("Firebase load error:", e);
+    } catch (error) {
+        console.error('Error saving order:', error);
         return false;
     }
 }
 
-async function saveReviewToFirebase(review) {
+async function saveReviewToFirestore(review) {
+    if (!firestoreReady) return false;
     try {
-        if (!window.db) return false;
-        const { doc, setDoc } = await import("https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js");
-        await setDoc(doc(window.db, "reviews", review.id), review);
+        const { collection, addDoc, serverTimestamp } = window.firebase.firestore;
+        const reviewsRef = collection(db, 'reviews');
+        await addDoc(reviewsRef, {
+            ...review,
+            createdAt: serverTimestamp()
+        });
+        console.log('✅ Review saved to Firestore');
         return true;
-    } catch (e) {
-        console.error("Firebase review save error:", e);
+    } catch (error) {
+        console.error('Error saving review:', error);
         return false;
     }
 }
 
-async function deleteReviewFromFirebase(reviewId) {
+async function saveProductToFirestore(product) {
+    if (!firestoreReady) return false;
     try {
-        if (!window.db) return false;
-        const { doc, deleteDoc } = await import("https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js");
-        await deleteDoc(doc(window.db, "reviews", reviewId));
+        const { doc, setDoc } = window.firebase.firestore;
+        const productRef = doc(db, 'products', product.id);
+        await setDoc(productRef, product, { merge: true });
+        console.log('✅ Product saved to Firestore');
         return true;
-    } catch (e) {
-        console.error("Firebase review delete error:", e);
+    } catch (error) {
+        console.error('Error saving product:', error);
         return false;
     }
+}
+
+// ===== LOCAL STORAGE =====
+function saveToStorage() {
+    localStorage.setItem('nobelwear_products', JSON.stringify(store.products));
+    localStorage.setItem('nobelwear_cart', JSON.stringify(store.cart));
+    localStorage.setItem('nobelwear_wishlist', JSON.stringify(store.wishlist));
+    localStorage.setItem('nobelwear_orders', JSON.stringify(store.orders));
+    localStorage.setItem('nobelwear_reviews', JSON.stringify(store.reviews));
+    localStorage.setItem('nobelwear_settings', JSON.stringify(store.settings));
+    localStorage.setItem('nobelwear_adminSession', JSON.stringify(store.adminLoggedIn));
 }
 
 function loadFromStorage() {
     const savedProducts = localStorage.getItem('nobelwear_products');
-    store.products = savedProducts ? JSON.parse(savedProducts) : [...defaultProducts];
+    if (savedProducts && store.products.length === 0) {
+        store.products = JSON.parse(savedProducts);
+    }
     store.cart = JSON.parse(localStorage.getItem('nobelwear_cart') || '[]');
     store.wishlist = JSON.parse(localStorage.getItem('nobelwear_wishlist') || '[]');
     store.orders = JSON.parse(localStorage.getItem('nobelwear_orders') || '[]');
-    store.reviews = JSON.parse(localStorage.getItem('nobelwear_reviews') || '[]');
-    if (store.reviews.length === 0) store.reviews = [...defaultReviews];
+    const savedReviews = localStorage.getItem('nobelwear_reviews');
+    if (savedReviews) {
+        store.reviews = JSON.parse(savedReviews);
+    }
     store.settings = JSON.parse(localStorage.getItem('nobelwear_settings') || JSON.stringify(store.settings));
     store.adminLoggedIn = JSON.parse(localStorage.getItem('nobelwear_adminSession') || 'false');
 }
 
 // ===== INITIALIZATION =====
-document.addEventListener('DOMContentLoaded', () => {
-    loadFromStorage();
+document.addEventListener('DOMContentLoaded', async () => {
+    await initializeFirebase();
     initLoader();
     initParticles();
     initMarquee();
@@ -2998,7 +2997,6 @@ function initParticles() {
             ctx.fill();
         });
 
-        // Vignette
         ctx.globalCompositeOperation = 'source-over';
         const vignette = ctx.createRadialGradient(
             canvas.width / 2, canvas.height / 2, canvas.width * 0.2,
@@ -3013,7 +3011,6 @@ function initParticles() {
         particleAnimId = requestAnimationFrame(animate);
     }
 
-    // Pause when hero not visible
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting && !particleAnimId) {
@@ -3030,17 +3027,10 @@ function initParticles() {
 
 // ===== MARQUEE =====
 function initMarquee() {
-    const items = [
-        'Premium Lawn Collection',
-        'Stitched & Unstitched',
-        'Cash on Delivery Available',
-        'Free Shipping Nationwide',
-        'WhatsApp Order Available',
-        'Expert Stitching Services'
-    ];
+    const items = ['Premium Lawn Collection', 'Stitched & Unstitched', 'Cash on Delivery Available', 'Free Shipping Nationwide', 'WhatsApp Order Available', 'Expert Stitching Services'];
     const track = document.getElementById('marqueeTrack');
     const html = items.map(item => `<span class="marquee-item">${item}</span>`).join('');
-    track.innerHTML = html + html; // Duplicate for seamless loop
+    track.innerHTML = html + html;
 }
 
 // ===== NAVBAR SCROLL =====
@@ -3068,7 +3058,6 @@ function initScrollReveal() {
 function initScrollAnimations() {
     gsap.registerPlugin(ScrollTrigger);
 
-    // Collection card morphing
     document.querySelectorAll('.collection-card').forEach((card, i) => {
         const overlay = card.querySelector('.deco-overlay');
         const bg = card.querySelector('.collection-card-bg');
@@ -3098,7 +3087,6 @@ function initScrollAnimations() {
             { opacity: 1, y: 0, stagger: 0.08, duration: 0.6, ease: 'power3.out' }
         );
 
-        // 3D tilt
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
             const tiltX = -((e.clientX - rect.left) / rect.width - 0.5) * 10;
@@ -3110,7 +3098,6 @@ function initScrollAnimations() {
         });
     });
 
-    // Shape divider morphs
     const shapePath1 = document.getElementById('shapePath1');
     if (shapePath1) {
         gsap.to(shapePath1, {
@@ -3233,12 +3220,7 @@ function renderCart() {
     const footer = document.getElementById('cartFooter');
 
     if (store.cart.length === 0) {
-        body.innerHTML = `
-            <div class="cart-empty">
-                <i class="fas fa-shopping-bag"></i>
-                <p>Your cart is empty</p>
-            </div>
-        `;
+        body.innerHTML = `<div class="cart-empty"><i class="fas fa-shopping-bag"></i><p>Your cart is empty</p></div>`;
         footer.style.display = 'none';
         return;
     }
@@ -3261,9 +3243,7 @@ function renderCart() {
                         <button class="qty-btn" onclick="updateCartQty('${item.id}', 1)">+</button>
                     </div>
                 </div>
-                <button class="cart-item-remove" onclick="removeFromCart('${item.id}')">
-                    <i class="fas fa-trash"></i>
-                </button>
+                <button class="cart-item-remove" onclick="removeFromCart('${item.id}')"><i class="fas fa-trash"></i></button>
             </div>
         `;
     }).join('');
@@ -3328,12 +3308,7 @@ function closeWishlist() {
 function renderWishlist() {
     const body = document.getElementById('wishlistBody');
     if (store.wishlist.length === 0) {
-        body.innerHTML = `
-            <div class="cart-empty">
-                <i class="fas fa-heart"></i>
-                <p>Your wishlist is empty</p>
-            </div>
-        `;
+        body.innerHTML = `<div class="cart-empty"><i class="fas fa-heart"></i><p>Your wishlist is empty</p></div>`;
         return;
     }
     const itemsHtml = store.wishlist.map(id => {
@@ -3346,13 +3321,9 @@ function renderWishlist() {
                     <div class="cart-item-name">${product.title}</div>
                     <div class="cart-item-cat">${product.category}</div>
                     <div class="cart-item-price">PKR ${product.price.toLocaleString()}</div>
-                    <div style="margin-top:8px;">
-                        <button class="btn btn-dark" style="padding:6px 16px;font-size:11px;" onclick="addToCart('${product.id}'); closeWishlist();">Move to Cart</button>
-                    </div>
+                    <div style="margin-top:8px;"><button class="btn btn-dark" style="padding:6px 16px;font-size:11px;" onclick="addToCart('${product.id}'); closeWishlist();">Move to Cart</button></div>
                 </div>
-                <button class="cart-item-remove" onclick="toggleWishlist('${product.id}'); renderWishlist();">
-                    <i class="fas fa-trash"></i>
-                </button>
+                <button class="cart-item-remove" onclick="toggleWishlist('${product.id}'); renderWishlist();"><i class="fas fa-trash"></i></button>
             </div>
         `;
     }).join('');
@@ -3371,7 +3342,6 @@ function toggleWishlist(productId, event) {
     }
     saveToStorage();
     updateBadges();
-    // Update button state
     const btn = document.querySelector(`.product-wishlist[onclick*="${productId}"]`);
     if (btn) {
         btn.classList.toggle('active');
@@ -3408,7 +3378,6 @@ function handleSearch(query) {
     clearBtn.classList.toggle('visible', query.length > 0);
 
     if (!query.trim()) {
-        // Show all products everywhere
         renderBestSellers();
         return;
     }
@@ -3422,7 +3391,6 @@ function handleSearch(query) {
         p.gender.toLowerCase().includes(q)
     );
 
-    // Update best sellers carousel with search results
     const carousel = document.getElementById('bestSellersCarousel');
     if (filtered.length > 0) {
         carousel.innerHTML = filtered.map(p => createProductCard(p)).join('');
@@ -3584,7 +3552,7 @@ function previewMeasurementPhoto(input) {
     }
 }
 
-function submitOrder() {
+async function submitOrder() {
     if (!currentOrderProduct) return;
     const name = document.getElementById('orderName')?.value.trim();
     const phone = document.getElementById('orderPhone')?.value.trim();
@@ -3603,7 +3571,6 @@ function submitOrder() {
     const total = (currentOrderProduct.price + stitchingFee) * qty;
 
     const order = {
-        id: 'ORD' + Date.now(),
         productId: currentOrderProduct.id,
         productName: currentOrderProduct.title,
         customer: name,
@@ -3625,17 +3592,16 @@ function submitOrder() {
         notes: document.getElementById('orderNotes')?.value || ''
     };
 
-    store.orders.unshift(order);
+    store.orders.unshift({...order, id: 'ORD' + Date.now()});
 
-    // Reduce stock
     const productIdx = store.products.findIndex(p => p.id === currentOrderProduct.id);
     if (productIdx > -1) {
         store.products[productIdx].stock = Math.max(0, store.products[productIdx].stock - qty);
     }
 
     saveToStorage();
+    await saveOrderToFirestore(order);
 
-    // Show success
     document.getElementById('orderModalBody').innerHTML = `
         <div style="text-align:center;padding:24px 0;">
             <svg class="success-check" viewBox="0 0 52 52">
@@ -3690,7 +3656,7 @@ function selectStar(rating) {
     });
 }
 
-function submitReview() {
+async function submitReview() {
     const rating = parseInt(document.getElementById('reviewRating')?.value || '0');
     const name = document.getElementById('reviewerName')?.value.trim();
     const text = document.getElementById('reviewText')?.value.trim();
@@ -3701,7 +3667,6 @@ function submitReview() {
     }
 
     const review = {
-        id: 'REV' + Date.now(),
         productId: currentReviewProductId,
         name,
         rating,
@@ -3709,9 +3674,8 @@ function submitReview() {
         date: new Date().toISOString().split('T')[0]
     };
 
-    store.reviews.unshift(review);
+    store.reviews.unshift({...review, id: 'REV' + Date.now()});
 
-    // Update product rating
     if (currentReviewProductId) {
         const product = store.products.find(p => p.id === currentReviewProductId);
         if (product) {
@@ -3720,6 +3684,7 @@ function submitReview() {
     }
 
     saveToStorage();
+    await saveReviewToFirestore(review);
     renderReviews();
     closeReviewModal();
     showToast('Review submitted successfully!');
@@ -3863,7 +3828,7 @@ function renderCollectionPage() {
     const allProducts = store.products.length > 0 ? store.products : defaultProducts;
     const fabrics = currentCollectionGender === 'men'
         ? ['All', 'Cotton', 'Linen', 'Boski', 'Khaddar']
-        : ['All', 'Lawn', 'Cotton', 'Chiffon', 'Khaddar'];
+         : ['All', 'Lawn', 'Cotton', 'Chiffon', 'Khaddar'];
     const categories = ['All', 'Clothing', 'Shoes', 'Watches', 'Accessories'];
 
     let filtered = allProducts.filter(p => p.gender === currentCollectionGender);
